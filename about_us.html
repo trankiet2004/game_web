@@ -46,6 +46,7 @@
             justify-content: space-between;
             text-align: center;
             margin: auto;
+            position: relative; 
         }
 
         .menu-option {
@@ -89,21 +90,36 @@
             color: white;
         }
 
-        .products-option-hover {
+        .dropdown-menu {
             background-color: black;
             border-top: 1px solid white;
-            display: flex;
-            flex-flow: row wrap;
-            justify-content: space-between;
-            text-align: center;
-            height: auto;
+            position: absolute !important;
+            top: 100% !important;
+            left: auto !important; 
+            right: auto !important;
+            width: auto !important;
+            min-width: 250px;
+            margin-top: 0;
+            transform: none !important;
             padding: 20px;
-            position: relative;
+            z-index: 1000;
         }
 
-        .products-option-hover > ul > li {
+        .dropdown {
+            position: static !important; 
+        }
+
+        .dropdown-menu > ul {
+            padding: 0;
+        }
+
+        .dropdown-menu > ul > li {
             list-style: none;
             text-align: left;
+        }
+
+        .dropdown-menu > ul > li > a{
+            text-decoration: none;
             color: white;
         }
     </style>
@@ -113,16 +129,34 @@
             $(".home-option-hover").hide();
             
             $("#home").hover(function() {
+                $(".dropdown-menu").slideUp("slow");
                 $(".home-option-hover").slideDown("slow");
-            });            
+            });
 
             $("#home").mouseleave(function() {
+                $(".dropdown-menu").slideUp("slow");
                 $(".home-option-hover").hover(function() {
                     $(".home-option-hover").show();
                 });
 
                 $(".home-option-hover").mouseleave(function() {
                     $(".home-option-hover").slideUp("slow");
+                });
+            });
+
+            $("#products").hover(function() {
+                $(".dropdown-menu").slideDown("slow");
+                $(".home-option-hover").slideUp("slow");
+            });
+
+            $("#products").mouseleave(function() {
+                $(".home-option-hover").slideUp("slow");
+                $(".dropdown-menu").hover(function() {
+                    $(".dropdown-menu").show();
+                });
+
+                $(".dropdown-menu").mouseleave(function() {
+                    $(".dropdown-menu").slideUp("slow");
                 });
             });
         })
@@ -203,6 +237,28 @@
                 <button id="products" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Products
                 </button>
+
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
+                        <a href="">Apple iPhone 15 Pro Max</a>
+                    </li>
+        
+                    <li class="dropdown-item">
+                        <a href="">OnePlus 11</a>
+                    </li>
+        
+                    <li class="dropdown-item">
+                        <a href="">Oppo F25 Pro</a>
+                    </li>
+        
+                    <li class="dropdown-item">
+                        <a href="">Samsung Galaxy Z Flip 5</a>
+                    </li>
+        
+                    <li class="dropdown-item">
+                        <a href="">Samsung Galaxy S25 Ultra</a>
+                    </li>
+                </ul>
             </div>
 
             <div class="dropdown">
@@ -320,30 +376,6 @@
         <div class="home-option-hover-child">
             <img style="object-fit: cover; width: 100%;" src="https://techno-workdo.myshopify.com/cdn/shop/files/megamenu-2.png?v=1715229196" alt="">
         </div>
-    </div>
-    
-    <div class="products-option-hover z-1 position-absolute">
-        <ul>
-            <li>
-                <a href="">Apple iPhone 15 Pro Max</a>
-            </li>
-
-            <li>
-                <a href="">OnePlus 11</a>
-            </li>
-
-            <li>
-                <a href="">Oppo F25 Pro</a>
-            </li>
-
-            <li>
-                <a href="">Samsung Galaxy Z Flip 5</a>
-            </li>
-
-            <li>
-                <a href="">Samsung Galaxy S25 Ultra</a>
-            </li>
-        </ul>
-    </div>
+    </div>    
 </body>
 </html>
