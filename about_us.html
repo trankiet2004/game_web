@@ -95,6 +95,23 @@
             color: white;
         }
 
+        .home-shop-option-hover > ul > li > a {
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            padding-bottom:2px;
+            background-image: linear-gradient(to right, rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255));
+            background-position: 0 100%;
+            background-size: 0% 2px;
+            background-repeat: no-repeat;
+            transition: background-size 0.3s, background-position 0s 0.3s;
+        }
+
+        .home-shop-option-hover > ul > li > a:hover {
+            background-position: 100% 100%;
+            background-size: 100% 2px;
+        }
+        
         .custom-dropdown {
             background-color: black;
             border-top: 1px solid white;
@@ -288,7 +305,7 @@
                 $("#home-option-hover").slideUp("slow");
                 $("#products-dropdown").slideUp("slow");
                 $("#shop-option-hover").slideUp("slow");
-                $("#blogs-dropdown").slideUp("slow");
+                $("#pages-dropdown").slideUp("slow");
                 
                 $("#blogs-dropdown").hover(function() {
                     $("#blogs-dropdown").show();
@@ -503,27 +520,27 @@
             </li>
 
             <li>
-                Airpods
+                <a href="">Airpods</a>
             </li>
 
             <li>
-                Headphones
+                <a href="">Headphones</a>
             </li>
 
             <li>
-                Laptops
+                <a href="">Laptops</a>
             </li>
 
             <li>
-                Mobiles
+                <a href="">Mobiles</a>
             </li>
 
             <li>
-                Smart-Watches
+                <a href="">Smart-Watches</a>
             </li>
 
             <li>
-                Speaker
+                <a href="">Speaker</a>
             </li>
         </ul>
 
@@ -533,19 +550,19 @@
             </li>
 
             <li>
-                Product Video
+                <a href="">Product Video</a>
             </li>
 
             <li>
-                Simple Product
+                <a href="">Simple Product</a>
             </li>
 
             <li>
-                Product Countdown Timer
+                <a href="">Product Countdown Timer</a>
             </li>
 
             <li>
-                Product Color Swatch
+                <a href="">Product Color Swatch</a>
             </li>
         </ul>
 
