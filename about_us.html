@@ -288,7 +288,7 @@
         </div>
     </div>
 
-    <div id="carouselExampleIndicators" class="carousel slide position-relative">
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade position-relative" data-bs-ride="carousel"  data-bs-touch="true">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -296,7 +296,7 @@
         </div>
         
         <div class="carousel-inner" style="overflow: visible;">
-            <div class="carousel-item active">
+            <div data-bs-interval="2000" class="carousel-item active">
                 <img src="https://techno-workdo.myshopify.com/cdn/shop/files/main-banner-1.png?v=1714560913" class="d-block w-100" alt="...">
                 <div class="carousel-title-cotainer">
                     <div class="carousel-title-item">
@@ -304,7 +304,7 @@
                             Flat 30% off.on all Digital
                         </h3>
         
-                        <div style="position: relative;">
+                        <div class="special-font" style="position: relative;">
                             <h2 class="section-title-back">
                                 HEADPHONE
                             </h2>
@@ -314,23 +314,129 @@
                             </h2>
                         </div>
 
-                        <button>
+                        <button class="btn bg-primary text-white" style="border-radius: 0; margin-top: 5vh; padding: 10px 40px;">
                             Shop Now
                         </button>
                     </div>
                 </div>
             </div>
             
-            <div class="carousel-item">
+            <div data-bs-interval="2000" class="carousel-item">
                 <img src="https://techno-workdo.myshopify.com/cdn/shop/files/main-banner-2.png?v=1714560913" class="d-block w-100" alt="...">
+                <div class="carousel-title-cotainer">
+                    <div class="carousel-title-item">
+                        <h3 class="subtitle">
+                            Flat 30% off.on all Digital
+                        </h3>
+        
+                        <div class="special-font" style="position: relative;">
+                            <h2 class="section-title-back">
+                                IPHONE 16
+                            </h2>
+    
+                            <h2 class="section-title">
+                                IPHONE 16
+                            </h2>
+                        </div>
+
+                        <button class="btn bg-primary text-white" style="border-radius: 0; margin-top: 5vh; padding: 10px 40px;">
+                            Shop Now
+                        </button>
+                    </div>
+                </div>
             </div>
             
-            <div class="carousel-item">
+            <div data-bs-interval="2000" class="carousel-item">
                 <img src="https://techno-workdo.myshopify.com/cdn/shop/files/main-banner-3.png?v=1714560913" class="d-block w-100" alt="...">
+                <div class="carousel-title-cotainer">
+                    <div class="carousel-title-item">
+                        <h3 class="subtitle">
+                            Flat 30% off.on all Digital
+                        </h3>
+        
+                        <div class="special-font" style="position: relative;">
+                            <h2 class="section-title-back">
+                                SPEAKER
+                            </h2>
+    
+                            <h2 class="section-title">
+                                SPEAKER
+                            </h2>
+                        </div>
+
+                        <button class="btn bg-primary text-white" style="border-radius: 0; margin-top: 5vh; padding: 10px 40px;">
+                            Shop Now
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <img class="z-1 position-absolute" id="airpods-image" src="https://techno-workdo.myshopify.com/cdn/shop/files/banner-img-1.png?v=1714561466" alt="">
             <img class="z-1 position-absolute" id="headphones-image" style="right: 0; bottom: -10vh;" src="https://techno-workdo.myshopify.com/cdn/shop/files/banner-img-2.png?v=1714561470" alt="">
+        </div>
+    </div>
+
+    <div class="trending-categories">
+        <div class="special-font" style="position: relative; margin-left: 20px;">
+            <h2 style="font-size: 50px; text-align: left;" class="section-title-back">
+                TRENDING CATEGORIES
+            </h2>
+
+            <h2 style="font-size: 36px; text-align: left;" class="section-title">
+                TRENDING CATEGORIES
+            </h2>
+        </div>
+
+        <div class="infinite-scroll-container">
+            <ul class="categories-list">
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-5_x100.png?v=1714565025" alt="Airpods" />
+                    </div>
+                    
+                    <span>airpods</span>
+                </li>
+            
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-6_x100.png?v=1714566664" alt="Smart Watch" />
+                    </div>
+                    
+                    <span>smart watch</span>
+                </li>
+            
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-1_x100.png?v=1714565025" alt="iPhone" />
+                    </div>
+                    
+                    <span>iPhone</span>
+                </li>
+            
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-2_x100.png?v=1714565025" alt="speaker" />
+                    </div>
+                    
+                    <span>speaker</span>
+                </li>
+            
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-3_x100.png?v=1714565025" alt="headphones" />
+                    </div>
+                    
+                    <span>headphones</span>
+                </li>
+    
+                <li class="category-item">
+                    <div class="category-circle">
+                        <img src="https://techno-workdo.myshopify.com/cdn/shop/files/category-4_x100.png?v=1714565025" alt="headphones" />
+                    </div>
+                    
+                    <span>laptops</span>
+                </li>
+            </ul>
         </div>
     </div>
 

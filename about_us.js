@@ -167,7 +167,7 @@ $(document).ready(function() {
         }, 1000).animate({
             top: "-=50px"
         }, 1000, autoMoveAirpods);
-    }
+    } autoMoveAirpods();
 
     function autoMoveHeadphones() {
         $("#headphones-image").animate({
@@ -175,8 +175,5 @@ $(document).ready(function() {
         }, 1200).animate({
             top: "-=50px"
         }, 1200, autoMoveHeadphones);
-    }
-
-    autoMoveAirpods();
-    autoMoveHeadphones();
+    } autoMoveHeadphones();
 })

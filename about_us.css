@@ -189,7 +189,7 @@ svg {
     text-align: center;
 }
 
-.carousel-title-cotainer > .carousel-title-item > div > .section-title-back {
+.special-font > .section-title-back {
     bottom: 14px;
     z-index: 1;
     font-size: 120px;
@@ -200,7 +200,7 @@ svg {
     color: white;
 }
 
-.carousel-title-cotainer > .carousel-title-item > div > .section-title {
+.special-font > .section-title {
     height: auto;
     width: 100%; 
     color: white; 
@@ -210,4 +210,82 @@ svg {
     position: absolute;
     z-index: 2;
     top: 25%;
+}
+
+.carousel-indicators > button {
+    width: 30 !important;
+    height: 12px !important;
+    border-radius: 12px !important; 
+    background-color: white;
+    opacity: 0.5;
+    transition: all 0.5s ease-in-out;
+}
+
+.carousel-indicators > .active {
+    width: 48px !important;
+    height: 12px !important;
+    background-color: #007bff; 
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+.trending-categories {
+    background-color: #000; 
+    color: #fff;           
+    padding: 40px 20px;
+    text-align: left;      
+}
+  
+.trending-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;   
+}
+
+.infinite-scroll-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    position: relative;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+.categories-list {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-item {
+    flex: 0 0 auto;
+    text-align: center;
+    margin: 40px;
+}
+
+.category-circle {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;      
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: auto;
+}
+  
+.category-circle img {
+    object-fit: cover;      
+}
+
+.category-item span {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-transform: lowercase; 
+    opacity: 0.9;
 }
