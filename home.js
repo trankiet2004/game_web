@@ -189,4 +189,20 @@ $(document).ready(function() {
             }
         );
     });
+
+    function autoMoveAirpods() {
+        $("#airpods-image").animate({
+            top: "+=50px"
+        }, 1000).animate({
+            top: "-=50px"
+        }, 1000, autoMoveAirpods);
+    } autoMoveAirpods();
+
+    function autoMoveHeadphones() {
+        $("#headphones-image").animate({
+            top: "+=50px"
+        }, 1200).animate({
+            top: "-=50px"
+        }, 1200, autoMoveHeadphones);
+    } autoMoveHeadphones();
 })
