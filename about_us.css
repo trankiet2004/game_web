@@ -72,3 +72,90 @@
 .counter-sec .row .col p {
     color: white;
 }
+
+#join-us-sec {
+    margin: 0;
+    background-color: black;
+}
+
+#join-us-sec .col-7 {
+    background-color: rgb(49, 49, 49);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin: 0;
+}
+
+#join-us-sec .col-7 h3 {
+    color: white;
+    font-size: 175%;
+}
+
+#join-us-sec .col-7 p {
+    color: white;
+}
+
+#join-us-sec .col-7 #button-group {
+    color: white;    
+}
+
+#join-us-sec .col-5 {
+    padding: 0;
+}
+
+#join-us-sec .col-7 #button-group .btn-custome {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#join-us-sec .col-7 #button-group .btn-change2{
+    border-radius: 0; 
+    padding: 10px 40px;
+    background: #31708f ;
+    margin: 20px;
+    float: left;
+    border:0px;
+    color:#fff;
+    box-shadow: 0 0 1px #ccc;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transform-origin: 0 0;
+    box-shadow:0px 0px 0 100px blue inset;
+}
+
+#join-us-sec .col-7 #button-group .btn-change2:hover{
+    -webkit-box-shadow:0px 0px 0 0px blue inset;
+    -webkit-transform: scale(1);
+}
+
+#join-us-sec .col-7 #button-group #contact-us-button {
+    border-radius: 0; 
+    padding: 10px 40px;
+    background: #31708f ;
+    margin: 20px;
+    float: left;
+    border:0px;
+    color:#fff;
+    box-shadow: 0 0 1px #ccc;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-out;
+    -webkit-transform-origin: 0 0;
+    box-shadow:0px 0px 0 100px blue inset;
+}
+
+#join-us-sec .col-7 #button-group #contact-us-button:hover{
+    -webkit-box-shadow:0px 0px 0 0px blue inset;
+    -webkit-transform: scale(1);
+}
+  
+#join-us-sec .col-7 #button-group .btn-border-reveal:hover::after {
+    width: 100%;
+}
+  
+#join-us-sec .col-7 #button-group .btn-border-reveal:hover {
+    color: white;
+}
