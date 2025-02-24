@@ -1,0 +1,240 @@
+:root {
+    --primary: #00ff9d;
+    --primary-foreground: #ffffff;
+    --secondary: #ff00ff;
+    --secondary-foreground: #ffffff;
+    --accent: #00ffff;
+    --accent-foreground: #ffffff;
+    --background: #0a0a20;
+    --foreground: #ffffff;
+    --card: #1a1a3a;
+    --card-foreground: #ffffff;
+    --border: #30306a;
+    --input: #1a1a3a;
+    --ring: #00ff9d;
+    --neon-glow: 0 0 10px var(--primary),
+                 0 0 20px var(--primary),
+                 0 0 30px var(--primary);
+  }
+  
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Rajdhani', sans-serif;
+  }
+  
+  .navbar {
+    background: rgba(10, 10, 32, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--primary);
+  }
+  
+  .text-neon {
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+  }
+  
+  .btn-neon {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    box-shadow: var(--neon-glow);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-neon:hover {
+    transform: scale(1.05);
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+  }
+  
+  .hero-section {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .cyber-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  .cyber-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
+  }
+  
+  .game-thumb {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .game-thumb img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .cyber-card:hover .game-thumb img {
+    transform: scale(1.05);
+  }
+  
+  .discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px var(--secondary);
+  }
+  
+  .social-icon {
+    color: var(--foreground);
+    font-size: 24px;
+    transition: all 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: var(--primary);
+    transform: translateY(-3px);
+  }
+  
+  .cyber-footer {
+    background: var(--card);
+    border-top: 2px solid var(--primary);
+  }
+  
+  .payment-methods i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--primary);
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px var(--primary); }
+    50% { text-shadow: 0 0 20px var(--primary); }
+  }
+  
+  .pulse-effect {
+    animation: pulse 2s infinite;
+  }
+  
+  .animate-twinkle {
+    animation: twinkle 2s infinite;
+  }
+  
+  .text-glow {
+    animation: glow 3s infinite;
+  }
+  
+  .video-carousel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .hero-video.active {
+    opacity: 0.6;
+  }
+  
+  .bg-gradient-cyber {
+    background: linear-gradient(135deg, var(--background), var(--card));
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: rgba(26, 26, 58, 0.5);
+  }
+  
+  .game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .hover-effect:hover .game-overlay {
+    opacity: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+    
+    .navbar {
+      padding: 1rem 0;
+    }
+    
+    .cyber-card {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .cyber-dropdown {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+  }
+  
+  .cyber-dropdown .dropdown-item:hover {
+    background: var(--primary);
+    color: var(--background);
+  }
