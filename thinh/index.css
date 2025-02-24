@@ -231,10 +231,14 @@
   .cyber-dropdown {
     background: var(--card);
     border: 1px solid var(--border);
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);    
+  }
+
+  .cyber-dropdown .dropdown-item {
+    color: var(--primary);
   }
   
   .cyber-dropdown .dropdown-item:hover {
-    background: var(--primary);
-    color: var(--background);
+    color: var(--primary);
+    background: var(--background);
   }
