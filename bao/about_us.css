@@ -120,7 +120,7 @@ footer {
 }
 
 .hero-section {
-    background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
     background-repeat: none;
     background-size: 100% auto;
     width: 100%;
@@ -128,4 +128,35 @@ footer {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
+}
+
+.our-journey-section {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    background: linear-gradient(135deg, var(--background), var(--card));
+}
+
+.our-journey-section-child {
+    width: 14%;    
+    padding: 1%;
+    border-radius: 10px;
+    background: var(--background);
+    margin-bottom: 4%;
+}
+
+.our-journey-section h3 {
+    font-size: 200%; 
+    text-align: center; 
+    font-weight: bold;
+}
+
+.our-journey-section-child h4 {
+    color: aqua;
+}
+
+.our-journey-section-child p {
+    margin-bottom: 0;
+    text-align: justify;
 }
