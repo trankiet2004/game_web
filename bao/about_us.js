@@ -8,8 +8,8 @@ function loadComponent(id, file) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    loadComponent("header", "../header.html");
-    loadComponent("footer", "../footer.html");
+    loadComponent("header", "../component/header.html");
+    loadComponent("footer", "../component/footer.html");
 
     let hue = 120;
     const root = document.documentElement;
