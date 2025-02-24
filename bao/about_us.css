@@ -139,7 +139,7 @@ footer {
 }
 
 .our-journey-section-child {
-    width: 14%;    
+    width: 14%;
     padding: 1%;
     border-radius: 10px;
     background: var(--background);
@@ -159,4 +159,8 @@ footer {
 .our-journey-section-child p {
     margin-bottom: 0;
     text-align: justify;
+}
+
+.meet-our-team-section {
+    
 }
