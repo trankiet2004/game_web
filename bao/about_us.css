@@ -48,92 +48,6 @@ body {
     box-shadow: 0 0 20px var(--primary);
 }
 
-.hero-section {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-}
-
-.cyber-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    position: relative;
-}
-
-.cyber-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
-}
-
-.game-thumb {
-    position: relative;
-    overflow: hidden;
-}
-
-.game-thumb img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.cyber-card:hover .game-thumb img {
-    transform: scale(1.05);
-}
-
-.discount-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--secondary);
-    color: var(--secondary-foreground);
-    padding: 5px 10px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px var(--secondary);
-}
-
-.social-icon {
-    color: var(--foreground);
-    font-size: 24px;
-    transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-    color: var(--primary);
-    transform: translateY(-3px);
-}
-
-.cyber-footer {
-    background: var(--card);
-    border-top: 2px solid var(--primary);
-}
-
 .payment-methods i {
     font-size: 24px;
     margin-right: 15px;
@@ -156,76 +70,14 @@ body {
     50% { text-shadow: 0 0 20px var(--primary); }
 }
 
-.pulse-effect {
-    animation: pulse 2s infinite;
-}
-
-.animate-twinkle {
-    animation: twinkle 2s infinite;
-}
-
-.text-glow {
-    animation: glow 3s infinite;
-}
-
-.video-carousel {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.hero-video.active {
-    opacity: 0.6;
-}
-
-.bg-gradient-cyber {
-    background: linear-gradient(135deg, var(--background), var(--card));
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 1.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: rgba(26, 26, 58, 0.5);
-}
-
-.game-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.hover-effect:hover .game-overlay {
-    opacity: 1;
-}
-
 @media (max-width: 768px) {
-.hero-content h1 {
-    font-size: 2rem;
-}
+    .navbar {
+        padding: 1rem 0;
+    }
 
-.navbar {
-    padding: 1rem 0;
-}
-
-.cyber-card {
-    margin-bottom: 1rem;
-}
+    .cyber-card {
+        margin-bottom: 1rem;
+    }
 }
 
 .cyber-dropdown {
@@ -251,84 +103,6 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-body {
-    background-color: #0a0a0a;
-    color: #00ffcc;
-    text-align: center;
-}
-
-/* NAVIGATION BAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #000;
-    padding: 15px 50px;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.nav-links li {
-    margin: 0 15px;
-}
-
-.nav-links a, .auth a {
-    text-decoration: none;
-    color: #00ffcc;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.auth .register {
-    background-color: #00ffcc;
-    color: #000;
-    padding: 5px 15px;
-    border-radius: 5px;
-}
-
-.auth a:hover {
-    color: #fff;
-}
-
-/* ABOUT SECTION */
-.about, .mission, .vision, .team {
-    padding: 60px 10%;
-}
-
-h1, h2 {
-    color: #00ffcc;
-    text-shadow: 0px 0px 10px #00ffcc;
-}
-
-p {
-    font-size: 18px;
-    margin-top: 10px;
-    line-height: 1.6;
-}
-
-/* TEAM SECTION */
-.team-members {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.member {
-    background-color: #111;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-}
-
-.member img {
-    width: 100%;
-    border-radius: 10px;
-}
-
 /* FOOTER */
 footer {
     background-color: #000;
@@ -343,4 +117,15 @@ footer {
 
 .footer-content h3 {
     color: #00ffcc;
+}
+
+.hero-section {
+    background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e') center/cover;
+    background-repeat: none;
+    background-size: 100% auto;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
 }
