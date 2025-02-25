@@ -175,8 +175,14 @@ footer {
 }
 
 .card {
-    width: 18rem; 
+    max-width: 23%;
     background: var(--background);
+    border-radius: 5%;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
 }
 
 .card-text {
@@ -184,7 +190,23 @@ footer {
     text-align: center;
 }
 
-.team-list .card h4 {
+.team-card-container .card h4 {
     color: aqua;
     text-align: center;
+}
+
+.vision-mission-container {
+    padding: 2% 0; 
+    margin: 0;
+    background: linear-gradient(135deg, var(--background), var(--card));
+}
+
+.vision-mission-container .col h6 {
+    font-size: 200%; 
+    font-weight: bold; 
+    margin-bottom: 4%;
+}
+
+.vision-mission-container .col .progress-bar {
+    margin-bottom: 4%;
 }
