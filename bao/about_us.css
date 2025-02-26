@@ -198,6 +198,7 @@ footer {
     font-size: 200%; 
     text-align: center; 
     font-weight: bold;
+    color: var(--primary);
 }
 
 .time-line-container h4 {
@@ -213,6 +214,7 @@ footer {
     font-size: 200%; 
     text-align: center; 
     font-weight: bold;
+    color: var(--primary);
 }
 
 .team-card-container {
@@ -265,6 +267,7 @@ footer {
     font-size: 200%; 
     text-align: center; 
     font-weight: bold;
+    color: var(--primary);
 }
 
 .game-card-container {
@@ -280,6 +283,13 @@ footer {
 .game-card-container .card {
     overflow: hidden;
     border-radius: 5%;
+    height: auto;
+    background-color: transparent;
+    border: none;
+}
+
+.game-card-container .card img {
+    border-radius: 10%;
 }
 
 .game-card-container .card:hover img {
@@ -299,4 +309,64 @@ footer {
 
 .game-card-container .card:hover .card-body {
     transform: translateY(0);
+}
+
+.contact-us-section {
+    width: 100%;
+    padding: 2% 0; 
+    margin: 0;
+    background: linear-gradient(135deg, var(--background), var(--card));
+}
+
+.contact-us-section h3 {
+    font-size: 200%; 
+    text-align: center; 
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.contact-us-section .row {
+    margin: 0;
+}
+
+.contact-us-section .row .col.col-6 {
+    padding: 0 2%;
+}
+
+.contact-us-section .form-floating input,
+.contact-us-section .form-floating textarea {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+}
+
+.contact-us-section .company-info {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    height: auto;
+}
+
+.contact-us-section .company-info h4 {
+    font-size: 150%; 
+    font-weight: bold; 
+    margin-bottom: 4%;
+    color: aqua;
+    text-align: center;
+}
+
+.contact-us-section .company-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact-us-section .company-info li {
+    display: flex;
+    align-items: center;
+}
+
+.contact-us-section .company-info li::before {
+    font-weight: 900;
+    margin-left: 50px;
 }
