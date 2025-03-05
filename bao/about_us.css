@@ -343,9 +343,10 @@ footer {
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
-    height: auto;
+    height: 100%;
+    padding: 20px 10px;
 }
 
 .contact-us-section .company-info h4 {
@@ -354,11 +355,15 @@ footer {
     margin-bottom: 4%;
     color: aqua;
     text-align: center;
+    width: 100%;
 }
 
 .contact-us-section .company-info ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
 }
 
 .contact-us-section .company-info li {
