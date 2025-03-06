@@ -11,6 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
     loadComponent("header", "../component/header.html");
     loadComponent("footer", "../component/footer.html");
 
+    const children = document.body.querySelectorAll(":scope > *");
+    children.forEach(child => {
+        child.setAttribute("data-scroll", "");
+    });
+
     let hue = 120;
     const root = document.documentElement;
 
@@ -44,4 +49,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     requestAnimationFrame(updateColor);
+});
+
+document.addEventListener("DOMContentLoaded", function () {    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1 
+    });
+
+    document.querySelectorAll('[data-scroll]').forEach((element) => {
+        observer.observe(element);
+    });
 });
