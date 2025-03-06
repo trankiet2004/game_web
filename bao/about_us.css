@@ -185,7 +185,8 @@ footer {
     justify-content: space-between;
     margin: 0;
     padding: 2%;
-    background: linear-gradient(45deg, #2563eb, var(--primary));
+    background: linear-gradient(90deg, #2563eb, var(--primary));
+    border-radius: 75px 75px 0 0;
 }
 
 .status-section-item {
@@ -199,6 +200,15 @@ footer {
     padding: 2%;
     width: 20%;
     aspect-ratio: 1 / 1;
+}
+
+.status-section .status-section-item h3 {
+    font-size: 300%;
+    transition: all 0.3s ease;
+    font-variant-numeric: tabular-nums;
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+    text-shadow: white;
 }
 
 .status-section-item:hover {

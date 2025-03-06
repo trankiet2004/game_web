@@ -66,3 +66,34 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(element);
     });
 });
+
+function animateNumber(element, target, duration, suffix = '') {
+    let start = 0;
+    const increment = target / (duration / 16); 
+    const updateNumber = () => {
+        start += increment;
+        if (start >= target) {
+            element.textContent = Math.floor(target) + suffix;
+            return;
+        }
+        element.textContent = Math.floor(start) + suffix;
+        requestAnimationFrame(updateNumber);
+    };
+    requestAnimationFrame(updateNumber);
+}
+
+const numberObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const numberElement = entry.target.querySelector('h3');
+            const target = parseInt(numberElement.dataset.target);
+            const suffix = numberElement.dataset.suffix || '';
+            animateNumber(numberElement, target, 1000, suffix);
+            numberObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+$('.status-section-item').each(function() {
+    numberObserver.observe(this);
+});
