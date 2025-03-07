@@ -645,10 +645,35 @@ footer {
     margin: 0;
     justify-content: space-evenly;
     padding-top: 0;    
-    overflow-x: hidden !important;
+    overflow-x: auto;
     white-space: nowrap;
     position: relative;
     padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+}
+
+.game-card-container:active {
+    cursor: grabbing;
+}
+
+.game-card-wrapper {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    scroll-snap-align: start;
+    animation: scroll-horizontal 10s linear infinite;
+    padding-right: 20px;
+}
+
+@keyframes scroll-horizontal {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .game-card-container .card {
@@ -657,6 +682,14 @@ footer {
     height: auto;
     background-color: transparent;
     border: none;
+    min-width: 300px;
+    margin-right: 20px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.game-card-container .card:hover {
+    transform: scale(1.05);
 }
 
 .game-card-container .card img {

@@ -97,3 +97,51 @@ const numberObserver = new IntersectionObserver((entries) => {
 $('.status-section-item').each(function() {
     numberObserver.observe(this);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const container = document.querySelector('.game-card-container');
+    const wrapper = document.querySelector('.game-card-wrapper');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+        container.style.cursor = 'grabbing';
+    });
+
+    container.addEventListener('mouseleave', () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mouseup', () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) * 2;
+        container.scrollLeft = scrollLeft - walk;
+    });
+
+    let touchStartX = 0;
+    let touchScrollLeft = 0;
+
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].pageX;
+        touchScrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener('touchmove', (e) => {
+        if (!e.touches.length) return;
+        const x = e.touches[0].pageX;
+        const walk = (x - touchStartX) * 2;
+        container.scrollLeft = touchScrollLeft - walk;
+    });
+});
