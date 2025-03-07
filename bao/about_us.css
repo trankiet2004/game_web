@@ -186,7 +186,30 @@ footer {
     margin: 0;
     padding: 2%;
     background: linear-gradient(90deg, #2563eb, var(--primary));
-    border-radius: 75px 75px 0 0;
+    /* border-radius: 75px 75px 0 0; */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.status-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(to top, transparent, var(--background));
+    pointer-events: none;
+}
+
+.status-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(to bottom, transparent, var(--background));
+    pointer-events: none;
 }
 
 .status-section-item {
@@ -252,6 +275,57 @@ footer {
     padding: 2%;
 }
 
+.time-line-container .row {
+    position: relative;
+    overflow: hidden;
+}
+
+.time-line-container .col-6[style*="border-right"] {
+    border-right: none !important;
+}
+
+.time-line-container .col-6[style*="border-left"] {
+    border-left: none !important;
+}
+
+.time-line-container .row::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 255, 255, 0.8),
+        rgba(0, 255, 255, 0.2) 30%,
+        rgba(0, 255, 255, 0.2) 70%,
+        rgba(0, 255, 255, 0.8)
+    );
+    z-index: 1;
+    animation: light-stream 3s ease-in-out infinite;
+}
+
+.time-line-container .col-6 > div {
+    position: relative;
+    z-index: 2;
+    padding: 15px;
+    background: rgba(26, 26, 58, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+@keyframes light-stream {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
 .time-line-container h3 {
     font-size: 200%; 
     text-align: center; 
@@ -266,6 +340,7 @@ footer {
 
 .meet-our-team-section {
     width: 100%;
+    position: relative;
 }
 
 .meet-our-team-section h3 {
@@ -306,8 +381,14 @@ footer {
 
 .vision-mission-container {
     padding: 2% 0; 
-    margin: 0;
+    margin: 0;    
     background: linear-gradient(135deg, var(--background), var(--card));
+}
+
+.vision-mission-container .row {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
 }
 
 .vision-mission-container .col h6 {
@@ -315,6 +396,234 @@ footer {
     font-weight: bold; 
     margin-bottom: 4%;
     color: aqua;
+}
+
+.vision-mission-container .col.col-6 .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.vision-mission-container .col.col-6 .mission-grid h4 {
+    color: aqua;
+}
+
+.vision-mission-container .col.col-6 .mission-card {
+    position: relative;
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.vision-mission-container .col.col-6 .mission-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.4);
+}
+
+.vision-mission-container .col.col-6 .cyber-border {
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background: linear-gradient(45deg, var(--primary), transparent) border-box;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) padding-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+}
+
+.vision-mission-container .col.col-6 .neon-pulse {
+    font-size: 3rem;
+    color: var(--primary);
+    animation: glow 1.5s ease-in-out infinite alternate;
+    margin-bottom: 1.5rem;
+}
+
+.vision-mission-container .col.col-6 .neon-underline {
+    width: 40%;
+    height: 2px;
+    background: var(--primary);
+    margin: 1rem auto;
+    box-shadow: 0 0 15px var(--primary);
+}
+
+.vision-mission-container .col.col-6 .mission-card p {
+    color: var(--primary-foreground);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.vision-mission-container .col.col-6[style*="border-right"] {
+    border-right: none !important;
+}
+
+.vision-mission-container .col.col-6[style*="border-left"] {
+    border-left: none !important;
+}
+
+.vision-mission-container .row::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 255, 255, 0.8),
+        rgba(0, 255, 255, 0.2) 30%,
+        rgba(0, 255, 255, 0.2) 70%,
+        rgba(0, 255, 255, 0.8)
+    );
+    z-index: 1;
+    animation: light-stream 3s ease-in-out infinite;
+}
+
+.vision-mission-container .col.col-6 .vision-hud {
+    position: relative;
+    border: 3px solid var(--primary);
+    border-image: linear-gradient(45deg, var(--primary), transparent) 1;
+    background: linear-gradient(
+        to right,
+        rgba(10, 10, 32, 0.95),
+        rgba(26, 26, 58, 0.8)
+    );
+    backdrop-filter: blur(5px);
+    margin: 2rem 0;
+    overflow: hidden;
+}
+
+.vision-mission-container .col.col-6 .hud-container {
+    position: relative;
+    padding: 2rem;
+}
+
+.vision-mission-container .col.col-6 .scanline {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--primary) 50%,
+        transparent
+    );
+    animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+    0% { top: -100%; }
+    100% { top: 100%; }
+}
+
+.vision-mission-container .col.col-6 .hud-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.vision-mission-container .col.col-6 .hud-item {
+    text-align: center;
+    position: relative;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.vision-mission-container .col.col-6 .hud-item:hover {
+    background: rgba(0, 255, 157, 0.05);
+}
+
+.vision-mission-container .col.col-6 .hexagon-wrapper {
+    --size: 80px;
+    width: var(--size);
+    height: var(--size);
+    margin: 0 auto 1.5rem;
+    filter: drop-shadow(0 0 10px var(--primary));
+}
+
+.vision-mission-container .col.col-6 .hexagon {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--background);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.vision-mission-container .col.col-6 .hexagon i {
+    font-size: 2rem;
+    color: var(--primary);
+    animation: pulse 1.5s infinite;
+}
+
+.vision-mission-container .col.col-6 .hud-title {
+    display: block;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 1.8rem;
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary);
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+.vision-mission-container .col.col-6 .terminal-text {
+    font-family: 'Courier New', monospace;
+    color: var(--primary-foreground);
+    position: relative;
+    padding-left: 1.5rem;
+    text-align: left;
+}
+
+.vision-mission-container .col.col-6 .terminal-text::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+}
+
+.vision-mission-container .col.col-6 .hud-footer {
+    border-top: 1px solid var(--primary);
+    padding-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Courier New', monospace;
+    color: var(--primary-foreground);
+}
+
+.vision-mission-container .col.col-6 .neon-green { 
+    color: #00ff9d; 
+    text-shadow: 0 0 10px #00ff9d; 
+}
+
+.vision-mission-container .col.col-6 .neon-cyan { 
+    color: #00ffff; 
+    text-shadow: 0 0 10px #00ffff; 
+}
+
+.vision-mission-container .col.col-6 .blink { 
+    animation: blink 1s step-end infinite; 
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+.vision-mission-container .col.col-6 .glitch-text {
+    animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch {
+    2% { text-shadow: 2px 0 var(--secondary); }
+    4% { text-shadow: -2px 0 var(--accent); }
+    96% { text-shadow: none; }
 }
 
 .our-latest-game-section {
@@ -336,6 +645,10 @@ footer {
     margin: 0;
     justify-content: space-evenly;
     padding-top: 0;    
+    overflow-x: hidden !important;
+    white-space: nowrap;
+    position: relative;
+    padding-bottom: 20px;
 }
 
 .game-card-container .card {
