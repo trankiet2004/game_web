@@ -227,7 +227,7 @@
 
     <div class="vision-mission-container">
         <div class="row">
-            <div class="col col-6" style="padding: 0 4%; border-right: 4px solid aqua;">
+            <div class="col col-6" style="padding: 0 4%; border-right: 4px solid aqua;" data-scroll>
                 <h6>Sứ Mệnh Của Chúng Tôi</h6>
                 
                 <div class="mission-grid">
@@ -257,7 +257,7 @@
                 </div>
             </div>
     
-            <div class="col col-6" style="padding: 0 4%; border-left: 4px solid aqua;">
+            <div class="col col-6" style="padding: 0 4%; border-left: 4px solid aqua;" data-scroll>
                 <h6>Tầm Nhìn Của Chúng Tôi</h6>
     
                 <div class="vision-hud" data-scroll>
@@ -306,7 +306,6 @@
         <div style="width: 100%; margin: 2% 0;">
             <h3>Games Mới Nhất Của Chúng Tôi</h3>
         </div>
-
         <div class="game-card-container">
             <div class="game-card-wrapper">
                 <div class="card">
@@ -316,7 +315,7 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-        
+                
                 <div class="card">
                     <img src="https://cdn.tgdd.vn/2020/06/campaign/hinh-nen-lien-minh-huyen-thoai-dep-mat-cho-pc-va-dien-thoai-thumb-640x360.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -324,7 +323,7 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-        
+                
                 <div class="card">
                     <img src="https://images7.alphacoders.com/132/1321613.jpeg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -332,8 +331,7 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-
-                <!-- ----------------------------------- -->
+                <!-- ---------------------------------------- -->
                 <div class="card">
                     <img src="https://images6.alphacoders.com/107/1071145.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -341,7 +339,6 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-        
                 <div class="card">
                     <img src="https://cdn.tgdd.vn/2020/06/campaign/hinh-nen-lien-minh-huyen-thoai-dep-mat-cho-pc-va-dien-thoai-thumb-640x360.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -349,7 +346,6 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-        
                 <div class="card">
                     <img src="https://images7.alphacoders.com/132/1321613.jpeg" class="card-img-top" alt="...">
                     <div class="card-body">
@@ -357,12 +353,12 @@
                         <a href="#" class="btn btn-primary">Xem thêm</a>
                     </div>
                 </div>
-                <!-- ------------------------------------------>
+                <!-- ---------------------------------------- -->
             </div>
         </div>
     </div>
 
-    <div class="contact-us-section">
+    <!-- <div class="contact-us-section">
         <div style="width: 100%; margin: 2% 0;">
             <h3>Liên Hệ</h3>
         </div>
@@ -417,11 +413,26 @@
                 </div>
             </div>
         </div>
+    </div> -->
+
+    <div class="contact-us-section">
+        <div style="width: 100%; margin: 2% 0;">
+            <h3>Vị Trí Của Chúng Tôi</h3>
+        </div>
+    
+        <div class="row">
+            <div class="col col-12">
+                <div id="map" style="height: 500px; border-radius: 15px; overflow: hidden; border: 3px solid var(--primary); box-shadow: var(--neon-glow);">
+                    
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer id="footer" class="cyber-footer py-5" style="margin-top: 0;"></footer>
 
     <script src="about_us.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>

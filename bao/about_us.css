@@ -272,12 +272,13 @@ footer {
 .time-line-container {
     background: linear-gradient(135deg, var(--background), var(--card));
     width: 100%;
-    padding: 2%;
+    padding: 2%;    
 }
 
 .time-line-container .row {
     position: relative;
     overflow: hidden;
+    border-radius: 50px ;
 }
 
 .time-line-container .col-6[style*="border-right"] {
@@ -645,34 +646,28 @@ footer {
     margin: 0;
     justify-content: space-evenly;
     padding-top: 0;    
-    overflow-x: auto;
+    overflow-x: hidden;
     white-space: nowrap;
     position: relative;
     padding-bottom: 20px;
-    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    cursor: grab;
-}
-
-.game-card-container:active {
-    cursor: grabbing;
 }
 
 .game-card-wrapper {
     display: flex;
     gap: 20px;
     padding-bottom: 20px;
-    scroll-snap-align: start;
-    animation: scroll-horizontal 10s linear infinite;
+    animation: scroll-horizontal 5s infinite ease-in-out;
     padding-right: 20px;
 }
 
 @keyframes scroll-horizontal {
-    0% {
-        transform: translateX(0);
+    from {
+        transform: translateX(0%);
     }
-    100% {
-        transform: translateX(-50%);
+
+    to {
+        transform: translateX(-80%);
     }
 }
 
