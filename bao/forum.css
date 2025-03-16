@@ -64,6 +64,10 @@ body {
     text-shadow: var(--neon-glow);
 }
 
+.text-neon-without-shadow {
+    color: var(--primary);
+}
+
 .navbar .text-neon {
     color: white;
     text-shadow: none;
@@ -150,4 +154,60 @@ footer {
 
 .footer-content h3 {
     color: #00ffcc;
+}
+
+.cyber-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    box-shadow: var(--neon-glow);
+    transition: transform 0.3s ease;
+}
+
+.cyber-card:hover {
+    transform: translateY(-5px);
+}
+
+.question-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.question-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.answer-item {
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    position: relative;
+}
+
+.answer-item::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+}
+
+.page-link {
+    border: 1px solid var(--primary) !important;
+    margin: 0 5px;
+}
+
+.page-link:hover {
+    background: var(--primary) !important;
+    color: var(--background) !important;
+}
+
+#answer-comment::placeholder {
+    color: grey;
+}
+
+small {
+    color: grey;
 }
