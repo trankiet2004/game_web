@@ -1,8 +1,32 @@
 @import url('https://fonts.cdnfonts.com/css/ica-rubrik-black');
 
+:root {
+    --primary: #00ff9d;
+    --primary-foreground: #ffffff;
+    --secondary: #ff00ff;
+    --secondary-foreground: #ffffff;
+    --accent: #00ffff;
+    --accent-foreground: #ffffff;
+    --background: #0a0a20;
+    --foreground: #ffffff;
+    --card: #1a1a3a;
+    --card-foreground: #ffffff;
+    --border: #30306a;
+    --input: #1a1a3a;
+    --ring: #00ff9d;
+    --neon-glow: 0 0 10px var(--primary),
+                 0 0 20px var(--primary),
+                 0 0 30px var(--primary);
+    --font-family: 'Segoe UI', system-ui, sans-serif;
+    --radius: 8px;
+}
+
 body {
     overflow-x: hidden;
     height: 3000px;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Rajdhani', sans-serif;
 }
 
 .bg-img {
@@ -14,6 +38,16 @@ body {
     left: 0;
     z-index: -1;
 }
+
+.section_title {
+    text-align: center;
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--primary);
+    text-transform: uppercase;
+    text-shadow: var(--neon-glow);
+}
+
 
 .navbar {
     transition: all 0.5s;
@@ -43,7 +77,61 @@ body {
     left: 100%;
     animation: autoRun 10s linear infinite;
     animation-delay: calc( (4s / var(--quantity)) * (var(--position) - 1));
+    background-color: #1a1a2e; 
+    color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
+
+.slider .list .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px #00ffcc;
+}
+
+.slider .list .card img {
+    border-radius: 8px;
+}
+
+.slider .list .card .card-body {
+    flex-grow: 1;
+}
+
+.slider .list .card .card-body h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    color: #00ffcc;
+}
+.slider .list .card .card-body p {
+    font-size: 1.5rem;
+    text-align: justify;
+    padding: 10px;
+    color: #ccc;
+}
+
+.slider .list .card .btn {
+    display: block;
+    width: fit-content;
+    padding: 8px 15px;
+    background: #00ffcc !important;
+    color: #000 !important;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.slider .list .card .btn:hover {
+    background: #009977 !important;
+    color: #fff !important;
+}
+
 
 @keyframes autoRun {
     from {
@@ -53,13 +141,22 @@ body {
     }
 }
 
-.banner {
+.latest_game {
     width: 100%;
     height: 100vh;
     text-align: center;
-    overflow: hidden;
     position: relative;
     top: 180vh;
+    left: 0;
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    top: 0;
     left: 0;
     animation: changeBackground 30s infinite;
     background-repeat: no-repeat;
@@ -67,12 +164,12 @@ body {
 }
 
 @keyframes changeBackground {
-    0% { background-image: url(../img/marvel_rivals_bg_1.jpg); }
-    20% { background-image: url(../img/marvel_rivals_bg_2.jpg); }
-    40% { background-image: url(../img/marvel_rivals_bg_3.jpg); }
-    60% { background-image: url(../img/marvel_rivals_bg_4.jpg); }
-    80% { background-image: url(../img/marvel_rivals_bg_5.jpg); }
-    100% { background-image: url(../img/marvel_rivals_bg_1.jpg); }
+    0% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_1.jpg); }
+    20% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_2.jpg); }
+    40% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_3.jpg); }
+    60% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_4.jpg); }
+    80% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_5.jpg); }
+    100% { background-image: url(../img/index/latest_bg/marvel_rivals_bg_1.jpg); }
 }
 
 .banner .slider_3d {
@@ -142,7 +239,7 @@ body {
 }
 
 .banner .content .model{
-    background-image: url(../img/marvel_rivals_captain_america.webp);
+    background-image: url(../img/index/latest_img/marvel_rivals_captain_america.webp);
     width: 100%;
     height: 82.5vh;
     position: absolute;
