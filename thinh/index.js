@@ -14,6 +14,7 @@ document.querySelectorAll('.slider_3d .item img').forEach(img => {
     });
 });
 
+
 const navEl = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
@@ -23,3 +24,4 @@ window.addEventListener('scroll', () => {
         navEl.classList.remove('navbar-scrolled')
     }
 });
+
