@@ -25,18 +25,21 @@ window.addEventListener('scroll', () => {
     }
 });
 
-const model = document.getElementById('model');
-const tooltip = document.getElementById('tooltip');
+document.addEventListener("DOMContentLoaded", function () {
+    const iframe = document.querySelector("iframe");
 
-model.addEventListener('mouseenter', () => {
-  tooltip.style.display = 'block';
-});
+    if ("IntersectionObserver" in window) {
+        let observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    iframe.src = iframe.getAttribute("data-src");
+                    observer.unobserve(iframe);
+                }
+            });
+        });
 
-model.addEventListener('mousemove', (e) => {
-  tooltip.style.left = (e.pageX + 10) + 'px';
-  tooltip.style.top = (e.pageY + 10) + 'px';
-});
-
-model.addEventListener('mouseleave', () => {
-  tooltip.style.display = 'none';
+        observer.observe(iframe);
+    } else {
+        iframe.src = iframe.getAttribute("data-src");
+    }
 });
