@@ -188,7 +188,9 @@ h1, h2, h3, h4, h5, p {
 .blog-item {
     flex: 1 1 300px;  /* Cho phép các phần tử có chiều rộng tối thiểu 300px */
     color: #fff;
-    height: 300px;  /* Đảm bảo chiều cao đồng đều cho tất cả bài viết */
+    border-radius: 10px;
+    padding: 20px;
+    height: 400px;  /* Đảm bảo chiều cao đồng đều cho tất cả bài viết */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
