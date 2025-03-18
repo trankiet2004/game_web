@@ -1,0 +1,228 @@
+:root {
+    --primary: #00ff9d;
+    --primary-foreground: #ffffff;
+    --secondary: #ff00ff;
+    --secondary-foreground: #ffffff;
+    --accent: #00ffff;
+    --accent-foreground: #ffffff;
+    --background: #0a0a20;
+    --foreground: #ffffff;
+    --card: #1a1a3a;
+    --card-foreground: #ffffff;
+    --border: #30306a;
+    --input: #1a1a3a;
+    --ring: #00ff9d;
+    --neon-glow: 0 0 10px var(--primary),
+                 0 0 20px var(--primary),
+                 0 0 30px var(--primary);
+}
+
+[data-scroll] {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-scroll].visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.navbar {
+    /* background: rgba(10, 10, 32, 0.95) !important; */
+    background: transparent;
+    /* backdrop-filter: blur(10px); */
+    border-bottom: 2px solid var(--primary);
+    border-bottom: none;
+}
+
+.navbar.navbar-expand-lg .container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li {
+    padding: 10px;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li a, 
+.navbar.navbar-expand-lg .container .navbar-brand.text-neon,
+.navbar.navbar-expand-lg .container .d-flex.align-items-center button {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.text-neon {
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+}
+
+.text-neon-without-shadow {
+    color: var(--primary);
+}
+
+.navbar .text-neon {
+    color: white;
+    text-shadow: none;
+}
+
+.btn-neon {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    box-shadow: var(--neon-glow);
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    transform: scale(1.05);
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+}
+
+.payment-methods i {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--primary);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px var(--primary); }
+    50% { text-shadow: 0 0 20px var(--primary); }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .cyber-card {
+        margin-bottom: 1rem;
+    }
+}
+
+.cyber-dropdown {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);    
+}
+
+.cyber-dropdown .dropdown-item {
+    color: var(--primary);
+}
+
+.cyber-dropdown .dropdown-item:hover {
+    color: var(--primary);
+    background: var(--background);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+footer {
+    background-color: #000;
+    padding: 30px 10%;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-content h3 {
+    color: #00ffcc;
+}
+
+.cyber-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    box-shadow: var(--neon-glow);
+    transition: transform 0.3s ease;
+}
+
+.cyber-card:hover {
+    transform: translateY(-5px);
+}
+#footer {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+/* Giảm kích thước văn bản cho các phần tử tiêu đề và nội dung */
+h1, h2, h3, h4, h5, p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Container chứa các bài viết */
+.blog-container {
+    display: flex;
+    flex-wrap: wrap;  /* Cho phép các phần tử xuống dòng nếu không đủ không gian */
+    gap: 20px;  /* Khoảng cách giữa các phần tử */
+}
+
+/* Mỗi bài viết sẽ có kích thước cố định */
+.blog-item {
+    flex: 1 1 300px;  /* Cho phép các phần tử có chiều rộng tối thiểu 300px */
+    color: #fff;
+    height: 300px;  /* Đảm bảo chiều cao đồng đều cho tất cả bài viết */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Tiêu đề bài viết */
+.blog-item h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Nội dung bài viết */
+.blog-item p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+/* Đảm bảo nút "Đọc thêm" có kích thước và vị trí đồng đều */
+.blog-item button {
+    background-color: var(--primary);
+    border: none;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.pagination .page-link {
+    border: 1px solid var(--primary) !important;
+    margin: 0 5px;
+}
+
+.pagination .page-link:hover {
+    background: var(--primary) !important;
+    color: var(--background) !important;
+}
