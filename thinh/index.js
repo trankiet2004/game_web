@@ -25,3 +25,18 @@ window.addEventListener('scroll', () => {
     }
 });
 
+const model = document.getElementById('model');
+const tooltip = document.getElementById('tooltip');
+
+model.addEventListener('mouseenter', () => {
+  tooltip.style.display = 'block';
+});
+
+model.addEventListener('mousemove', (e) => {
+  tooltip.style.left = (e.pageX + 10) + 'px';
+  tooltip.style.top = (e.pageY + 10) + 'px';
+});
+
+model.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});

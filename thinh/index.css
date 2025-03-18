@@ -411,4 +411,326 @@ body {
     position: relative;
     top: 200vh;
     left: 0;
+    margin-bottom: 100px;
+}
+
+.event .event_title {
+    width: 100%;
+    height: 10vh;
+    position: absolute;
+    top: 5vh;
+    left: 0;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.event .event_title .explore_game_world {
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+.event .event_title .explore_game_world h2 {
+    font-size: 3.5rem;
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+}
+
+.event .event_title .explore_game_world a {
+    display: inline-block;
+}
+
+.event .event_title .explore_game_world .button-standard--black {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    border: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: visible;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 160px;
+    -webkit-font-smoothing: auto;
+    font-family: 'Inter V Latin', Arial, sans-serif;
+    letter-spacing: -.03em;
+    transition-property: color, background-color, background-position, transform;
+    transition-duration: .3s;
+    transition-timing-function: ease-out;
+}
+
+.event .event_title .explore_game_world .button-standard--small {
+    font-size: .813rem;
+    border-radius: 6.5px;
+    padding: .5rem .75rem;
+    min-width: auto;
+    text-transform: uppercase;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.event .event_title .explore_game_world .button-standard--black {
+    background-color: rgba(128, 128, 128, .2);
+    color: #f9f9f9;
+}
+
+.event .event_title .explore_game_world .button-standard--right {
+    position: relative;
+}
+
+.event .event_wrapper {
+    display: flex;
+    position: absolute;
+    top: 15vh;
+    height: 85vh;
+    padding-right: 80px;
+    padding-left: 80px;
+    width: 100%;
+    box-sizing: border;
+    padding-top: 25px;
+}
+
+.event .event_wrapper .event_hero_wrapper {
+    display: block;
+    position: relative;
+    transition: .15s ease-out;
+    width: 55%;
+}
+
+.event .event_wrapper a {
+    text-decoration: none;
+}
+
+.event .event_wrapper .event_hero_wrapper .event_hero {
+    display: block;
+    position: relative;
+    border-radius: 8px;
+    transition: .3s ease-out;
+    overflow: hidden;
+    top: 0;
+    height: 60%;
+}
+
+.event .event_wrapper .event_hero_wrapper .event_hero .responsive_media {
+    box-shadow: 0 4px 4px rgba(10, 10, 10, .15);
+    border-radius: 8px;
+    position: relative;
+    transition: .3s ease-out;
+    height: 0;
+    overflow: hidden;
+    text-align: left;
+    width: 100%;
+}
+
+.event .event_wrapper .event_hero_wrapper .event_hero .responsive_media iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.event .event_wrapper .event_hero_wrapper .event_hero_content {
+    position: relative;
+    z-index: 2;
+}
+
+.event .event_wrapper .event_hero_wrapper .event_hero_content h3 {
+    font-family: 'Inter V Latin', Arial, sans-serif;
+    letter-spacing: .015em;
+    margin-top: 1.3rem;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.event .event_wrapper ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 45%;
+}
+
+.event .event_wrapper ul li {
+    width: 100%;
+}
+
+.event .event_wrapper .articles {
+    list-style: none;
+    margin: 0;
+    box-shadow: 0 4px 4px rgba(10, 10, 10, .15);
+    border-radius: 8px;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: relative;
+    transition: .3s ease-out;
+    top: 0;
+    min-height: 20%;
+}
+
+.event .event_wrapper .articles .article_card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 8px;
+    min-height: 85px;
+    height: 100%;
+    background-color: rgba(128, 128, 128, .2);
+}
+
+.event .event_wrapper .articles .article_card .article_title_wrapper {
+    padding: .5rem 1rem;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 50%;
+}
+
+.event .event_wrapper .articles .article_card .article_title_wrapper .article_title {
+    font-family: 'Inter V Latin', Arial, sans-serif;
+    letter-spacing: .015em;
+    color: var(--primary);
+}
+
+.event .event_wrapper .articles .article_card .article_title_wrapper h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+    overflow: hidden;
+}
+
+.event .event_wrapper .articles .article_card .article_image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    aspect-ratio: 243 / 138;
+    width: 50%;
+}
+
+.careers {
+    position: relative;
+    left: 0;
+    top: 200vh;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    background-color: #ebebeb;
+}
+
+.careers .careers_content {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex: 1 1 50%;
+    align-items: center;
+}
+
+.careers .careers_content .careers_content_inner {
+    flex-grow: 1;
+    text-align: center;
+    padding: 80px 30px;
+    margin: 0 0 0 auto;
+}
+
+.careers .careers_content .careers_content_inner h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #0a0a0a;
+    margin-bottom: 1.5rem;
+    font-family: 'Riot Sans Latin', Arial, sans-serif;
+}
+
+.careers .careers_content .careers_content_inner p {
+    font-size: 1.25rem;
+    color: #656462;
+    line-height: 1.5;
+    letter-spacing: -.03em;
+    margin: 0 auto 2.5rem;
+    font-weight: 600;
+    max-width: 450px;
+    font-family: 'Inter V Latin', Arial, sans-serif;
+}
+
+.careers .careers_content .careers_content_inner .careers_jobs {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.careers .careers_content .careers_content_inner .careers_jobs .careers_jobs_count {
+    display: block;
+    position: relative;
+    -ms-flex: 1 1 260px;
+    flex: 1 1 260px;
+    padding: 16px;
+    text-align: center;
+    background-color: rgba(173, 172, 170, .2);
+    border-radius: 8px;
+    font-size: 1.125rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #656462;
+}
+
+.careers .careers_content .careers_content_inner .careers_jobs .careers_jobs_count:first-child {
+    margin-right: 24px;
+}
+
+.careers .careers_content .careers_content_inner .careers_jobs .careers_jobs_count span {
+    display: block;
+    color: #0a0a0a;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.careers .careers_content .careers_content_inner a {
+    text-decoration: none;
+}
+
+.careers .careers_content .careers_content_inner .button {
+    background-color: #E62E2D;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.careers .careers_content .careers_content_inner .button:hover {
+    background-color: #C62828;
+}
+
+.careers .careers_image {
+    width: 50%;
+    height: 100%;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.careers .careers_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
