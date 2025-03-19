@@ -1,1 +1,1 @@
-# game_web
+# BTL môn Lập Trình Web (CO3049) - HCMUT - Học Kỳ 242
