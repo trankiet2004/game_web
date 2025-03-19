@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #00ff9d;
+  --primary-foreground: #ffffff;
+  --background: #0a0a20;
+  --card: #1a1a3a;
+  --neon-glow: 0 0 10px var(--primary),
+                0 0 20px var(--primary),
+                0 0 30px var(--primary);
+  --font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--primary-foreground);
+  font-family: var(--font-family);
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.map-area {
+  width: 600px;
+  height: 450px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.map-area iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+h6 {
+  text-transform: uppercase;
+  color: var();
+}
+
+.form-control {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  border-radius: 0px;
+  margin-top: 1.3em;
+}
+
+.form-control:focus,
+.form-control:hover {
+  box-shadow: none;
+  border-bottom-color: black;
+}
+
+.form-control::placeholder {
+  padding-left: 0px !important;
+  color: black;
+}
