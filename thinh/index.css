@@ -360,6 +360,40 @@ body {
     scale: 1.05;
 }
 
+.latest_game .banner .hero-description-container {
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    z-index: 3;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}
+
+.latest_game .banner .hero-description {
+    background-color: rgba(10, 10, 32, 0.85);
+    color: var(--primary);
+    padding: 20px 25px;
+    border-radius: 10px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-width: 100%;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.latest_game .banner .hero-description.active {
+    opacity: 1;
+    transform: translateY(0);
+    animation: glow-description 2s infinite alternate;
+}
+
 .latest_game .banner .content {
     position: absolute;
     bottom: 0;
@@ -403,6 +437,43 @@ body {
     background-repeat: no-repeat;
     background-position: top center;
     z-index: 1;
+    cursor: pointer;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.latest_game .banner .content .model::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 255, 157, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.latest_game .banner .content .model:hover {
+    filter: brightness(1.2);
+    transform: scale(1.02);
+}
+
+.latest_game .banner .content .model:hover::before {
+    opacity: 1;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@keyframes glow-description {
+    0% { box-shadow: 0 0 10px var(--primary); }
+    100% { box-shadow: 0 0 25px var(--primary), 0 0 40px var(--accent); }
 }
 
 .event {
@@ -962,67 +1033,4 @@ body {
     60% {
         transform: translateY(-10px);
     }
-}
-
-/* Navigation Bar Styles */
-.game-navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
-}
-
-.nav-logo a {
-    color: var(--primary);
-    font-size: 2rem;
-    font-weight: 800;
-    text-decoration: none;
-    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
-    transition: all 0.3s ease;
-}
-
-.nav-logo a:hover {
-    color: white;
-    text-shadow: 0 0 15px var(--primary);
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: 500;
-    position: relative;
-    padding: 5px 0;
-    transition: all 0.3s ease;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--primary);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
 }
