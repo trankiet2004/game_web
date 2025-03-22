@@ -1,0 +1,112 @@
+:root {
+    --primary: #00ff9d;
+    --primary-foreground: #ffffff;
+    --secondary: #ff00ff;
+    --secondary-foreground: #ffffff;
+    --accent: #00ffff;
+    --accent-foreground: #ffffff;
+    --background: #0a0a20;
+    --foreground: #ffffff;
+    --card: #1a1a3a;
+    --card-foreground: #ffffff;
+    --border: #30306a;
+    --input: #1a1a3a;
+    --ring: #00ff9d;
+    --neon-glow: 0 0 10px var(--primary),
+                 0 0 20px var(--primary),
+                 0 0 30px var(--primary);
+}
+
+/* Navbar Styles */
+.navbar {
+    background: transparent;
+    border-bottom: none;
+}
+
+.navbar.navbar-expand-lg .container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li {
+    padding: 10px;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li a, 
+.navbar.navbar-expand-lg .container .navbar-brand.text-neon,
+.navbar.navbar-expand-lg .container .d-flex.align-items-center button {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.text-neon {
+    color: var(--primary);
+    text-shadow: var(--neon-glow);
+}
+
+.navbar .text-neon {
+    color: white;
+    text-shadow: none;
+}
+
+/* Navbar Dropdown Styles */
+.cyber-dropdown {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);    
+}
+
+.cyber-dropdown .dropdown-item {
+    color: var(--primary);
+}
+
+.cyber-dropdown .dropdown-item:hover {
+    color: var(--primary);
+    background: var(--background);
+}
+
+/* Neon Button Style */
+.btn-neon {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    box-shadow: var(--neon-glow);
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    transform: scale(1.05);
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+}
+
+/* Glow Effect for Logo */
+.glow-effect {
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+}
+
+/* Animations */
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 10px var(--primary); }
+    50% { text-shadow: 0 0 20px var(--primary); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Neon Border for Navbar */
+.neon-border {
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+}
