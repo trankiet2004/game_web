@@ -10,7 +10,27 @@
     <link rel="stylesheet" href="./assets/compiled/css/app.css">
     <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="./assets/compiled/css/auth.css">
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+    <meta name="google-signin-client_id" content="40134558242-78kp1m9v717m4mfn11nktahcs98cucll.apps.googleusercontent.com">
+    <script>
+        function init() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init({
+                    client_id: '40134558242-78kp1m9v717m4mfn11nktahcs98cucll.apps.googleusercontent.com'
+                });
+            });
+        }
 
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId());
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+            var id_token = googleUser.getAuthResponse().id_token;
+            window.location.href = "../thinh/index.html";
+        }
+    </script>
     <style>
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
@@ -26,20 +46,20 @@
             <div class="col-lg-5 col-12" style="background-color: #051209 !important;">
                 <div id="auth-left">
                     <div class="auth-logo" style="display: flex; flex-flow: row wrap; justify-content: center;">
-                        <a href="index.html"><img src="../img/logo.png" style="transform: scale(4.5); border-radius: 999px;" alt="Logo"></a>
+                        <a href="../thinh/index.html"><img src="../img/logo.png" style="transform: scale(4.5); border-radius: 999px;" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Đăng Nhập</h1>
                     <p class="auth-subtitle mb-5">Đăng nhập bằng dữ liệu bạn đã nhập khi đăng ký.</p>
 
-                    <form action="index.html">
+                    <form id="loginForm" action="../thinh/index.html">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Username">
+                            <input id="username" type="text" class="form-control form-control-xl" placeholder="Username">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Password">
+                            <input id="password" type="password" class="form-control form-control-xl" placeholder="Password">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -49,12 +69,16 @@
                             <label class="form-check-label text-gray-600" for="flexCheckDefault">
                                 Giữ tôi đăng nhập
                             </label>
-                        </div>
+                        </div>                        
                         <button class="btn btn-success btn-block btn-lg shadow-lg mt-5 font-bold">Đăng Nhập</button>
+                        <p style="text-align: center;">Hoặc</p>
+                        <div style="width: 100%; display: flex; flex-flow: row wrap; justify-content: center;">
+                            <div class="g-signin2" style="transform: scale(1.5);" data-onsuccess="onSignIn"></div>
+                        </div>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class="text-gray-600">Bạn chưa có tài khoản? <a href="auth-register.html" class="font-bold text-success">Đăng Ký</a>.</p>
-                        <p><a class="font-bold text-success" href="auth-forgot-password.html">Quên Mật Khẩu?</a>.</p>
+                        <p class="text-gray-600">Bạn chưa có tài khoản? <a href="signup.html" class="font-bold text-success">Đăng Ký</a>.</p>
+                        <p><a class="font-bold text-success" href="forgot-password.html">Quên Mật Khẩu?</a>.</p>
                     </div>
                 </div>
             </div>
