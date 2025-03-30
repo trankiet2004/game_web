@@ -205,6 +205,7 @@
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/compiled/js/app.js"></script>
     
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
     <script src="assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
     <script src="assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
     <script src="assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
@@ -215,5 +216,11 @@
     <script src="assets/extensions/filepond/filepond.js"></script>
     <script src="assets/extensions/toastify-js/src/toastify.js"></script>
     <script src="assets/static/js/pages/filepond.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".filepond--drop-label label").html(`Kéo thả files của bạn hoặc <span class="filepond--label-action" tabindex="0">Duyệt</span>`);
+        });
+    </script>
 </body>
 </html>
