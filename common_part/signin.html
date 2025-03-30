@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./assets/compiled/css/auth.css">
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     <meta name="google-signin-client_id" content="40134558242-78kp1m9v717m4mfn11nktahcs98cucll.apps.googleusercontent.com">
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'self' https://accounts.google.com; script-src 'self' https://www.gstatic.com https://apis.google.com 'unsafe-inline'; connect-src 'self' https://www.googleapis.com; img-src 'self' https://lh3.googleusercontent.com;">
     <script>
         function init() {
             gapi.load('auth2', function() {
@@ -71,11 +72,11 @@
                             </label>
                         </div>                        
                         <button class="btn btn-success btn-block btn-lg shadow-lg mt-5 font-bold">Đăng Nhập</button>
-                        <p style="text-align: center;">Hoặc</p>
-                        <div style="width: 100%; display: flex; flex-flow: row wrap; justify-content: center;">
-                            <div class="g-signin2" style="transform: scale(1.5);" data-onsuccess="onSignIn"></div>
-                        </div>
                     </form>
+                    <p style="text-align: center;">Hoặc</p>
+                    <div style="width: 100%; display: flex; flex-flow: row wrap; justify-content: center;">
+                        <div class="g-signin2" style="transform: scale(1.5);" data-onsuccess="onSignIn"></div>
+                    </div>
                     <div class="text-center mt-5 text-lg fs-4">
                         <p class="text-gray-600">Bạn chưa có tài khoản? <a href="signup.html" class="font-bold text-success">Đăng Ký</a>.</p>
                         <p><a class="font-bold text-success" href="forgot-password.html">Quên Mật Khẩu?</a>.</p>
