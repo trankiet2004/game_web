@@ -4,34 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh Sửa Trang</title>
+    <link rel="icon" type="image/icon" href="../img/logo.png">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
     <style>
         * {
             margin: 0;
             padding: 0;
         }
-
         .editable:hover {
             outline: 2px dashed red;
             cursor: text;
         }
-        
         #contentFrame {
             width: 100%;
-            height: 99.4vh;
+            height: calc(100vh - 70px);
             border: none;
+        }
+        
+        #stickyBar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: space-evenly;
+            z-index: 100000;
         }
     </style>
 </head>
-
 <body>
-    <iframe id="contentFrame"></iframe>
+    <div id="stickyBar">
+        <img src="../img/logo.png" style="height: 90%; border-radius: 9999px;" alt="">
 
+        <h4>Admin Editing</h4>
+
+        <button id="saveBtn" class="btn btn-primary">
+            Save Changes
+        </button>
+    </div>
+    
+    <iframe id="contentFrame"></iframe>
+    
     <script>
         function getParameterByName(name) {
             var url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");
             var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
+                results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
@@ -54,12 +77,12 @@
                 iframe.onload = function() {
                     var doc = iframe.contentDocument || iframe.contentWindow.document;
                     doc.body.contentEditable = true;
-                
+                    
                     doc.querySelectorAll("body *").forEach(function(el) {
                         if(el.children.length === 0 && el.textContent.trim() !== "") {
                             el.classList.add("editable");
                         }
-                    
+                        
                         if(el.tagName.toLowerCase() === "img") {
                             el.style.cursor = "pointer";
                             el.addEventListener("click", function() {
@@ -85,6 +108,14 @@
             } else {
                 console.error("Không tìm thấy mapping cho id: " + id);
             }
+            
+            document.getElementById("saveBtn").addEventListener("click", function() {
+                var iframe = document.getElementById('contentFrame');
+                var doc = iframe.contentDocument || iframe.contentWindow.document;
+                var editedContent = doc.documentElement.outerHTML;
+                console.log("Nội dung đã chỉnh sửa:", editedContent);
+                alert("Changes saved (chưa hiện thực)!");
+            });
         });
     </script>
 </body>
