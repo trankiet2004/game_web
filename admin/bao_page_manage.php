@@ -1,6 +1,5 @@
 <?php
 $allHtmlFiles = [];
-
 $folders = ['../thinh/', '../kiet/', '../tu/', '../bao/'];
 
 foreach ($folders as $directory) {
