@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh Sửa Trang</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Chỉnh Sửa Trang</h1>
+    <input type="hidden" id="pageId" value="">
+    <textarea id="editor"></textarea>
+    <input type="file" id="imageUpload" accept="image/*">
+    <button id="saveButton">Lưu Thay Đổi</button>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageId = urlParams.get('id');
+        document.getElementById('pageId').value = pageId;
+        
+        function loadPageContent(pageId) {
+            const pages = {
+                'about_us': 'Nội dung trang giới thiệu...',
+                'forum': 'Nội dung trang hỏi đáp...',
+                'contact': 'Nội dung trang liên hệ...'
+            };
+            return pages[pageId] || '';
+        }
+        
+        let editorInstance;
+        ClassicEditor.create(document.querySelector('#editor'))
+        .then( editor => {
+            editorInstance = editor;
+            const content = loadPageContent(pageId);
+            editor.setData(content);
+        }).catch( error => {
+            console.error( error );
+        });
+        
+        document.getElementById('saveButton').addEventListener('click', () => {
+            const updatedContent = editorInstance.getData();
+            fetch('save_page.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pageId: pageId,
+                    content: updatedContent
+                })
+            }).then(response => response.json()).then(data => {
+                alert('Lưu thành công!');
+            }).catch(error => {
+                console.error('Lỗi:', error);
+            });
+        });
+    </script>
+</body>
+</html>
