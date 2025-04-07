@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Chỉnh Sửa Trang</title>
-  <style>
-    /* Thêm CSS tuỳ chỉnh nếu cần */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Trang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .editable:hover {
+            outline: 2px dashed red;
+            cursor: text;
+        }
+        
+        #contentFrame {
+            width: 100%;
+            height: 99.4vh;
+            border: none;
+        }
+    </style>
 </head>
+
 <body>
-  <!-- Container để load nội dung trang đích -->
-  <div id="content"></div>
+    <iframe id="contentFrame"></iframe>
 
-  <script>
-    // Hàm lấy tham số từ URL
-    function getParameterByName(name) {
-      var url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
+    <script>
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
 
-    document.addEventListener("DOMContentLoaded", function(){
-      // Lấy giá trị id từ URL
-      var id = getParameterByName('id');
-      // Bản đồ mapping từ id sang đường dẫn cần load
-      var mapping = {
-        'blog': '../kiet/blogs.html',
-        'trang_chu': '../thinh/index.html',
-        'gioi_thieu': '../bao/about_us.html',
-        'hoi_dap': '../bao/forum.html',
-        'lien_he': '../thinh/contact_us.html'
-      };
+        document.addEventListener("DOMContentLoaded", function(){
+            var id = getParameterByName('id');
+            var mapping = {
+                'blog': '../kiet/blogs.html',
+                'trang_chu': '../thinh/index.html',
+                'gioi_thieu': '../bao/about_us.html',
+                'hoi_dap': '../bao/forum.html',
+                'lien_he': '../thinh/contact_us.html'
+            };
 
-      var urlToLoad = mapping[id];
-      if(urlToLoad) {
-        // Load nội dung trang đích
-        fetch(urlToLoad)
-          .then(response => response.text())
-          .then(html => {
-            var container = document.getElementById('content');
-            container.innerHTML = html;
-
-            // Chuyển đổi các phần tử chứa text thành input text
-            // Lưu ý: Có thể cần tinh chỉnh logic này để chỉ thay thế các phần tử mong muốn.
-            container.querySelectorAll("*").forEach(el => {
-              // Kiểm tra các node con
-              el.childNodes.forEach(child => {
-                if(child.nodeType === Node.TEXT_NODE && child.nodeValue.trim() !== '') {
-                  // Tạo input text với giá trị của text node
-                  var input = document.createElement('input');
-                  input.type = 'text';
-                  input.value = child.nodeValue.trim();
-                  el.replaceChild(input, child);
-                }
-              });
-
-              // Với thẻ img, thêm một file input cho phép upload ảnh
-              if(el.tagName.toLowerCase() === 'img') {
-                var fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                // Bạn có thể thêm các thuộc tính như name, accept, … nếu cần
-                el.parentNode.insertBefore(fileInput, el.nextSibling);
-              }
-            });
-          })
-          .catch(err => console.error('Lỗi khi tải trang: ', err));
-      } else {
-        console.error('Không tìm thấy mapping cho id: ' + id);
-      }
-    });
-  </script>
+            var urlToLoad = mapping[id];
+            if(urlToLoad) {
+                var iframe = document.getElementById('contentFrame');
+                iframe.src = urlToLoad;
+                iframe.onload = function() {
+                    var doc = iframe.contentDocument || iframe.contentWindow.document;
+                    doc.body.contentEditable = true;
+                
+                    doc.querySelectorAll("body *").forEach(function(el) {
+                        if(el.children.length === 0 && el.textContent.trim() !== "") {
+                            el.classList.add("editable");
+                        }
+                    
+                        if(el.tagName.toLowerCase() === "img") {
+                            el.style.cursor = "pointer";
+                            el.addEventListener("click", function() {
+                                var fileInput = doc.createElement("input");
+                                fileInput.type = "file";
+                                fileInput.style.display = "none";
+                                fileInput.accept = "image/*";
+                                fileInput.addEventListener("change", function() {
+                                    var file = fileInput.files[0];
+                                    if(!file) return;
+                                    var reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        el.src = e.target.result;
+                                    };
+                                    reader.readAsDataURL(file);
+                                });
+                                doc.body.appendChild(fileInput);
+                                fileInput.click();
+                            });
+                        }
+                    });
+                };
+            } else {
+                console.error("Không tìm thấy mapping cho id: " + id);
+            }
+        });
+    </script>
 </body>
 </html>
