@@ -35,6 +35,16 @@
             background-color: #152D24 !important;
             border-radius: 10px;
         }
+
+        td a {
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+            background-color: green;
+            color: white;
+        }
     </style>
     
     <script>
@@ -64,6 +74,11 @@
                 console.error(`Lỗi khi tải ${file}:`, error);
             });
         });
+
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('.selectRow');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
     </script>
 </head>
 
@@ -80,7 +95,97 @@
             </header>
             
             <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Quản Lý Các Trang</h3>
+                            <p class="text-subtitle text-muted">Quản lý người dùng dành cho quản trị viên.</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Quản Lý Các Trang</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
                 
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header" style="display: flex; flex-flow: row wrap; justify-content: space-between;">
+                            <h5 class="card-title">
+                                Quản Lý Các Trang
+                            </h5>
+
+                            <button id="deleteSelected" class="btn btn-danger disabled">
+                                Xóa Toàn Bộ Các Trang Được Chọn
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+                                            <th style="width: 40rem;">Trang Web</th>
+                                            <th>Thao Tác</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox" class="selectRow"></td>
+                                            <td><a href="../thinh/index.html">Trang Chủ</a></td>
+                                            <td>
+                                                <button class="btn btn-primary">Chỉnh Sửa</button>
+                                                <button class="btn btn-danger">Xóa Trang</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><input type="checkbox" class="selectRow"></td>
+                                            <td><a href="../bao/about_us.html">Giới Thiệu</a></td>
+                                            <td>
+                                                <button class="btn btn-primary">Chỉnh Sửa</button>
+                                                <button class="btn btn-danger">Xóa Trang</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><input type="checkbox" class="selectRow"></td>
+                                            <td><a href="../bao/forum.html">Hỏi - Đáp</a></td>
+                                            <td>
+                                                <button class="btn btn-primary">Chỉnh Sửa</button>
+                                                <button class="btn btn-danger">Xóa Trang</button>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td><input type="checkbox" class="selectRow"></td>
+                                            <td><a href="../kiet/blogs.html">Blog</a></td>
+                                            <td>
+                                                <button class="btn btn-primary">Chỉnh Sửa</button>
+                                                <button class="btn btn-danger">Xóa Trang</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><input type="checkbox" class="selectRow"></td>
+                                            <td><a href="../thinh/contact_us.html">Liên Hệ</a></td>
+                                            <td>
+                                                <button class="btn btn-primary">Chỉnh Sửa</button>
+                                                <button class="btn btn-danger">Xóa Trang</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
             </div>
 
             <footer>
@@ -95,11 +200,19 @@
                 </div>
             </footer>
         </div>
-    </div>
+    </div>    
     
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
     <script src="../assets/extensions/jquery/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.selectRow, #selectAll').on('change', function() {
+                ($('.selectRow:checked').length > 0) ? $('#deleteSelected').removeClass('disabled') : $('#deleteSelected').addClass('disabled');
+            });
+        });
+    </script>
 </body>
 </html>
