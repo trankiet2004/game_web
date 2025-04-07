@@ -1,3 +1,20 @@
+<?php
+$allHtmlFiles = [];
+
+$folders = ['../thinh/', '../kiet/', '../tu/', '../bao/'];
+
+foreach ($folders as $directory) {
+    $files = scandir($directory);
+    $htmlFiles = array_filter($files, function($file) use ($directory) {
+        return is_file($directory . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'html';
+    });
+
+    foreach ($htmlFiles as $file) {
+        $allHtmlFiles[] = $directory . $file;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -134,7 +151,7 @@
                                     </thead>
                                     
                                     <tbody>
-                                        <tr data-path="../thinh/index.html">
+                                        <!-- <tr data-path="../thinh/index.html">
                                             <td><input type="checkbox" class="selectRow"></td>
                                             <td><a href="../thinh/index.html">Trang Chủ</a></td>
                                             <td>
@@ -177,7 +194,18 @@
                                                 <a href="bao_edit_page.html?id=lien_he" class="btn btn-primary">Chỉnh Sửa</a>
                                                 <a class="btn btn-danger">Xóa Trang</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
+
+                                        <?php foreach($allHtmlFiles as $file): ?>
+                                            <tr data-path="<?php echo $file; ?>">
+                                                <td><input type="checkbox" class="selectRow"></td>
+                                                <td><a href="<?php echo $file; ?>"><?php echo basename($file); ?></a></td>
+                                                <td>
+                                                    <a href="bao_edit_page.html?id=<?php echo pathinfo($file, PATHINFO_FILENAME); ?>" class="btn btn-primary">Chỉnh Sửa</a>
+                                                    <a class="btn btn-danger">Xóa Trang</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -199,10 +227,10 @@
                 </div>
             </footer>
         </div>
-    </div>    
+    </div>
     
     <script src="../assets/static/js/components/dark.js"></script>
-    <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <!-- <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
     <script src="../assets/compiled/js/app.js"></script>
     <script src="../assets/extensions/jquery/jquery.min.js"></script>
 
