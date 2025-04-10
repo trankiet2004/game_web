@@ -59,7 +59,7 @@
                 'forum': '../bao/forum.html',
                 'contact_us': '../thinh/contact_us.html'
             };
-        
+            
             var urlToLoad = mapping[id];
             if(!urlToLoad) {
                 console.error("Không tìm thấy mapping cho id: " + id);
@@ -99,7 +99,10 @@
                 });
                 
                 var timelineContainer = doc.querySelector(".time-line-container");
-                if(!timelineContainer) return;
+                if(!timelineContainer) {
+                    console.warn("Không tìm thấy phần tử .time-line-container trong trang.");
+                    return;
+                }
                 
                 var addYearButton = doc.createElement("button");
                 addYearButton.innerText = "Thêm Hành Trình Mới";
@@ -107,26 +110,31 @@
                 timelineContainer.insertAdjacentElement("afterbegin", addYearButton);
                 
                 addYearButton.addEventListener("click", function(){
-                    var yearStr = prompt("Nhập năm (ví dụ: 2026):");
-                    if(!yearStr) return;
+                    var h4Elements = timelineContainer.querySelectorAll("h4");
+                    var maxYear = 0;
+                    h4Elements.forEach(function(h4) {
+                        var text = h4.innerText;
+                        var parts = text.split(" - ");
+                        var year = parseInt(parts[0]);
+                        if(!isNaN(year) && year > maxYear) {
+                            maxYear = year;
+                        }
+                    });
+                    var newYear = (maxYear === 0) ? new Date().getFullYear() : maxYear + 1;
+                    alert("Hành trình mới sẽ được tạo cho năm: " + newYear);
                     
-                    var year = parseInt(yearStr);
-                    if(isNaN(year)) {
-                        alert("Năm không hợp lệ!");
-                        return;
-                    }
-
-                    var title = prompt("Nhập tiêu đề cho năm " + year + " (phần sau dấu '-'): ");
+                    var title = prompt("Nhập tiêu đề cho năm " + newYear + " (phần sau dấu '-'): ");
                     if(!title) return;
-                    var description = prompt("Nhập mô tả ngắn cho năm " + year + ": ");
+                    var description = prompt("Nhập mô tả ngắn cho năm " + newYear + ": ");
                     if(!description) return;
                     
                     var newDiv = doc.createElement("div");
                     newDiv.style.marginTop = "10%";
                     newDiv.setAttribute("data-scroll", "");
+                    newDiv.classList.add("visible");
                     
                     var newH4 = doc.createElement("h4");
-                    newH4.innerText = year + " - " + title;
+                    newH4.innerText = newYear + " - " + title;
                     
                     var newP = doc.createElement("p");
                     newP.style.fontSize = "100%";
@@ -135,20 +143,27 @@
                     newDiv.appendChild(newH4);
                     newDiv.appendChild(newP);
                     
-                    var timelineRows = timelineContainer.querySelectorAll(".row");
-                    if(timelineRows.length > 1) {
-                        var columns = timelineRows[1].querySelectorAll(".col");
-                        if(columns.length >= 2) {
-                            if(year % 2 === 0) {
-                                columns[0].appendChild(newDiv);
-                            } else {
-                                columns[1].appendChild(newDiv);
-                            }
-                        } else {
-                            alert("Không tìm thấy cấu trúc cột timeline hợp lệ.");
-                        }
+                    console.log("timelineContainer:", timelineContainer);
+                    
+                    var secondRow = timelineContainer.querySelector("div.row:nth-of-type(2)");
+                    if(!secondRow) {
+                        alert("Không tìm thấy row thứ hai của timeline.");
+                        console.error("Row thứ hai không tìm thấy trong:", timelineContainer);
+                        return;
+                    }
+                    var columns = secondRow.querySelectorAll("div.col");
+                    if(columns.length < 2) {
+                        alert("Không tìm thấy cấu trúc cột timeline hợp lệ.");
+                        console.error("Columns hiện có:", columns);
+                        return;
+                    }
+                    
+                    if(newYear % 2 === 0) {
+                        columns[0].appendChild(newDiv);
+                        console.log("Đã thêm hành trình mới vào cột bên trái (năm chẵn).");
                     } else {
-                        alert("Không tìm thấy vùng timeline cần chỉnh sửa.");
+                        columns[1].appendChild(newDiv);
+                        console.log("Đã thêm hành trình mới vào cột bên phải (năm lẻ).");
                     }
                 });
             };
@@ -171,6 +186,6 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
-    </script>
+    </script>        
 </body>
 </html>
