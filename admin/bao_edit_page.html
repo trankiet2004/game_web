@@ -50,16 +50,6 @@
     <iframe id="contentFrame"></iframe>
     
     <script>
-        function getParameterByName(name) {
-            var url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
         document.addEventListener("DOMContentLoaded", function(){
             var id = getParameterByName('id');
             var mapping = {
@@ -69,45 +59,99 @@
                 'forum': '../bao/forum.html',
                 'contact_us': '../thinh/contact_us.html'
             };
-
+        
             var urlToLoad = mapping[id];
-            if(urlToLoad) {
-                var iframe = document.getElementById('contentFrame');
-                iframe.src = urlToLoad;
-                iframe.onload = function() {
-                    var doc = iframe.contentDocument || iframe.contentWindow.document;
-                    doc.body.contentEditable = true;
-                    
-                    doc.querySelectorAll("body *").forEach(function(el) {
-                        if(el.children.length === 0 && el.textContent.trim() !== "") {
-                            el.classList.add("editable");
-                        }
-                        
-                        if(el.tagName.toLowerCase() === "img") {
-                            el.style.cursor = "pointer";
-                            el.addEventListener("click", function() {
-                                var fileInput = doc.createElement("input");
-                                fileInput.type = "file";
-                                fileInput.style.display = "none";
-                                fileInput.accept = "image/*";
-                                fileInput.addEventListener("change", function() {
-                                    var file = fileInput.files[0];
-                                    if(!file) return;
-                                    var reader = new FileReader();
-                                    reader.onload = function(e) {
-                                        el.src = e.target.result;
-                                    };
-                                    reader.readAsDataURL(file);
-                                });
-                                doc.body.appendChild(fileInput);
-                                fileInput.click();
-                            });
-                        }
-                    });
-                };
-            } else {
+            if(!urlToLoad) {
                 console.error("Không tìm thấy mapping cho id: " + id);
+                return;
             }
+            
+            var iframe = document.getElementById('contentFrame');
+            iframe.src = urlToLoad;
+            iframe.onload = function() {
+                var doc = iframe.contentDocument || iframe.contentWindow.document;
+                var editableEls = doc.querySelectorAll('[data-editable="true"]');
+                editableEls.forEach(function(el) {
+                    el.contentEditable = true;
+                });
+                
+                editableEls.forEach(function(el) {
+                    el.querySelectorAll("img").forEach(function(img) {
+                        img.style.cursor = "pointer";
+                        img.addEventListener("click", function() {
+                            var fileInput = doc.createElement("input");
+                            fileInput.type = "file";
+                            fileInput.style.display = "none";
+                            fileInput.accept = "image/*";
+                            fileInput.addEventListener("change", function() {
+                                var file = fileInput.files[0];
+                                if(!file) return;
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    img.src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            });
+                            doc.body.appendChild(fileInput);
+                            fileInput.click();
+                        });
+                    });
+                });
+                
+                var timelineContainer = doc.querySelector(".time-line-container");
+                if(!timelineContainer) return;
+                
+                var addYearButton = doc.createElement("button");
+                addYearButton.innerText = "Thêm Hành Trình Mới";
+                addYearButton.className = "btn btn-info float-end fw-bold";
+                timelineContainer.insertAdjacentElement("afterbegin", addYearButton);
+                
+                addYearButton.addEventListener("click", function(){
+                    var yearStr = prompt("Nhập năm (ví dụ: 2026):");
+                    if(!yearStr) return;
+                    
+                    var year = parseInt(yearStr);
+                    if(isNaN(year)) {
+                        alert("Năm không hợp lệ!");
+                        return;
+                    }
+
+                    var title = prompt("Nhập tiêu đề cho năm " + year + " (phần sau dấu '-'): ");
+                    if(!title) return;
+                    var description = prompt("Nhập mô tả ngắn cho năm " + year + ": ");
+                    if(!description) return;
+                    
+                    var newDiv = doc.createElement("div");
+                    newDiv.style.marginTop = "10%";
+                    newDiv.setAttribute("data-scroll", "");
+                    
+                    var newH4 = doc.createElement("h4");
+                    newH4.innerText = year + " - " + title;
+                    
+                    var newP = doc.createElement("p");
+                    newP.style.fontSize = "100%";
+                    newP.innerText = description;
+                    
+                    newDiv.appendChild(newH4);
+                    newDiv.appendChild(newP);
+                    
+                    var timelineRows = timelineContainer.querySelectorAll(".row");
+                    if(timelineRows.length > 1) {
+                        var columns = timelineRows[1].querySelectorAll(".col");
+                        if(columns.length >= 2) {
+                            if(year % 2 === 0) {
+                                columns[0].appendChild(newDiv);
+                            } else {
+                                columns[1].appendChild(newDiv);
+                            }
+                        } else {
+                            alert("Không tìm thấy cấu trúc cột timeline hợp lệ.");
+                        }
+                    } else {
+                        alert("Không tìm thấy vùng timeline cần chỉnh sửa.");
+                    }
+                });
+            };
             
             document.getElementById("saveBtn").addEventListener("click", function() {
                 var iframe = document.getElementById('contentFrame');
@@ -117,6 +161,16 @@
                 alert("Changes saved (chưa hiện thực)!");
             });
         });
+        
+        function getParameterByName(name) {
+            var url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
     </script>
 </body>
 </html>
