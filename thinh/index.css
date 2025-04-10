@@ -1090,3 +1090,18 @@ body, .page-container, .content-wrapper {
         transform: translateY(-10px);
     }
 }
+
+footer {
+    background-color: #000;
+    padding: 30px 10%;
+    margin-top: 40px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-content h3 {
+    color: #00ffcc;
+}
