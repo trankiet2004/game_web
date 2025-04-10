@@ -38,7 +38,7 @@ body {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e') top/cover;
     background-repeat: none;
     background-size: 100% auto;
-    padding-top: 40px;
+    /* padding-top: 40px; */
 }
 
 .navbar {
@@ -62,7 +62,7 @@ body {
 .navbar.navbar-expand-lg .container .navbar-nav li a, 
 .navbar.navbar-expand-lg .container .navbar-brand.text-neon,
 .navbar.navbar-expand-lg .container .d-flex.align-items-center button {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 }
 

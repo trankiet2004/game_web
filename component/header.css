@@ -36,7 +36,7 @@
 .navbar.navbar-expand-lg .container .navbar-nav li a, 
 .navbar.navbar-expand-lg .container .navbar-brand.text-neon,
 .navbar.navbar-expand-lg .container .d-flex.align-items-center button {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -64,13 +64,6 @@
 .cyber-dropdown .dropdown-item:hover {
     color: var(--primary);
     background: var(--background);
-}
-
-.navbar.navbar-expand-lg .container .navbar-nav li a, 
-.navbar.navbar-expand-lg .container .navbar-brand.text-neon,
-.navbar.navbar-expand-lg .container .d-flex.align-items-center button {
-    font-size: 25px;
-    font-weight: bold;
 }
 
 /* Neon Button Style */

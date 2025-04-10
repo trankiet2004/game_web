@@ -13,38 +13,54 @@
 
 <body class="bg-dark text-light">
     <div class="header-banner">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark neon-border">
             <div class="container">
-                <a class="navbar-brand text-neon" href="#">
-                    <img src="../img/logo.png" width="80" height="80" class="rounded-circle me-2" alt="CyberGameHub Logo">
-                    BKGame
+                <a class="navbar-brand text-neon" href="../thinh/index.html">
+                    <img src="../img/logo.png" width="40" height="40" class="rounded-circle me-2 glow-effect" alt="CyberGameHub Logo">BKGame
                 </a>
+        
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link text-neon" href="#">Trang Chủ</a></li>
-                    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link text-neon" href="../thinh/index.html">Trang Chủ</a></li>
                         
-                        <ul class="dropdown-menu cyber-dropdown">
-                            <li><a class="dropdown-item" href="#">PC Games</a></li>
-                            <li><a class="dropdown-item" href="#">Console Games</a></li>
-                            <li><a class="dropdown-item" href="#">Mobile Games</a></li>
-                            <li><a class="dropdown-item" href="#">VR Games</a></li>
-                        </ul>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
+                            
+                            <ul class="dropdown-menu cyber-dropdown">
+                                <li><a class="dropdown-item" href="#">PC Games</a></li>
+                                <li><a class="dropdown-item" href="#">Console Games</a></li>
+                                <li><a class="dropdown-item" href="#">Mobile Games</a></li>
+                                <li><a class="dropdown-item" href="#">VR Games</a></li>
+                            </ul>
+                        </li>
+        
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.html">Giới Thiệu</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link text-neon" href="../kiet/blogs.html">Tin Tức</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.html">Cộng Đồng</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link text-neon" href="../thinh/contact_us.html">Liên Hệ</a></li>
                     
-                    <li class="nav-item"><a class="nav-link text-neon" href="#">Tin Tức</a></li>
+                    </ul>
                     
-                    <li class="nav-item"><a class="nav-link text-neon" href="#">Cộng Đồng</a></li>
-                    
-                    <li class="nav-item"><a class="nav-link text-neon" href="#">Liên Hệ</a></li>
-                
-                </ul>
-                
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-neon me-2" style="color: var(--primary);">Đăng Nhập</button>
-                    <button class="btn btn-neon">Đăng Ký</button>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-neon me-2">
+                            <a href="../common_part/signin.html" style="text-decoration: none; color: var(--primary);">
+                                Đăng Nhập
+                            </a>
+                        </button>
+                        
+                        <button class="btn btn-neon">
+                            <a href="../common_part/signup.html" style="color: black; text-decoration: none;">
+                                Đăng Ký
+                            </a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
