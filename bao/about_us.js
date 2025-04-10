@@ -8,7 +8,7 @@ function loadComponent(id, file) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    loadComponent("header", "../component/header.html");
+    // loadComponent("header", "../component/header.html");
     loadComponent("footer", "../component/footer.html");
 
     const children = document.body.querySelectorAll(":scope > *");
