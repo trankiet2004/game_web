@@ -342,11 +342,55 @@ def fetch_and_store_games(cursor, limit=100):
 
         next_url = data.get('next')
 
+folder_path = 'img/screenshots'
+
+def modifyFilename():
+    for filename in os.listdir(folder_path):
+        if filename.endswith('.jpg.jpeg'):
+            old_path = os.path.join(folder_path, filename)
+            new_filename = filename.replace('.jpg.jpeg', '.jpeg')
+            new_path = os.path.join(folder_path, new_filename)
+            os.rename(old_path, new_path)
+            print(f'Renamed: {filename} → {new_filename}')
+
+
+import mysql.connector
+
+def fix_screenshot_filenames_in_db(
+    host="localhost",
+    user="your_username",
+    password="your_password",
+    database="your_database"
+):
+    try:
+        conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        cursor = conn.cursor()
+        query = """
+            UPDATE game_screenshots
+            SET img_path = REPLACE(img_path, '.jpg.jpeg', '.jpeg')
+            WHERE img_path LIKE '%.jpg.jpeg';
+        """
+        cursor.execute(query)
+        conn.commit()
+        print(f"{cursor.rowcount} rows updated.")
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if conn.is_connected():
+            cursor.close()
+            conn.close()
 
 # === MAIN EXECUTION ===
 if __name__ == "__main__":
-    conn, cursor = setup_database()
-    fetch_and_store_games(cursor, limit=100)
-    conn.commit()
-    conn.close()
+    # conn, cursor = setup_database()
+    # fetch_and_store_games(cursor, limit=100)
+    # conn.commit()
+    # conn.close()
+    modifyFilename();
+    fix_screenshot_filenames_in_db(DB_HOST,DB_USER,DB_PASS,DB_NAME)
     print("Finished!")
