@@ -33,9 +33,65 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 .content-wrapper {
     flex: 1;
 }
+
+nav.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: transparent !important;
+    box-shadow: none;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li {
+    padding: 10px;
+}
+  
+nav.navbar .navbar-brand,
+nav.navbar .navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar.navbar-expand-lg .container .navbar-nav li a, 
+.navbar.navbar-expand-lg .container .navbar-brand.text-neon,
+.navbar.navbar-expand-lg .container .d-flex.align-items-center button {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.btn-outline-neon:hover {
+    transform: scale(1.1);
+    background-color: white;
+    box-shadow: 0 0 20px var(--primary);
+}
+
+.btn-neon {
+    background: var(--primary);
+    color: var(--background);
+    border: none;
+    box-shadow: var(--neon-glow);
+    transition: all 0.3s ease;
+}
+
+.btn-neon:hover {
+    transform: scale(1.1);
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+}
+  
+body, .page-container, .content-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.hero-section {
+    padding-top: 0; 
+}  
 
 .bg-img {
     width: 100vw;
