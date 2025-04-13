@@ -1,51 +1,58 @@
 // blogs.js
 
+// Mảng dữ liệu mẫu có thêm thuộc tính 'id' cho mỗi bài viết
 const blogPosts = [
     {
+        id: 0,
         title: "Làm sao để nâng cấp phần cứng?",
         content: "Mình muốn nâng cấp GPU để chơi game AAA, có bạn nào tư vấn giúp không?",
         author: "User123",
         time: "2 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=GPU+Upgrade"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     },
     {
+        id: 1,
         title: "Cách tăng tốc máy tính chơi game",
         content: "Máy tính mình hơi chậm khi chơi game, có cách nào cải thiện hiệu suất không?",
         author: "User456",
         time: "3 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=Speed+Up+PC"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     },
     {
+        id: 2,
         title: "Tư vấn chọn laptop chơi game",
         content: "Chọn laptop chơi game với giá dưới 20 triệu, có ai có kinh nghiệm không?",
         author: "Admin",
         time: "5 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=Laptop+Gaming"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     },
     {
+        id: 3,
         title: "Hướng dẫn xây dựng máy tính chơi game",
         content: "Chia sẻ cách lắp ráp máy tính chơi game từ các linh kiện phổ biến nhất hiện nay.",
         author: "User789",
         time: "7 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=Build+PC"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     },
     {
+        id: 4,
         title: "Phần mềm hỗ trợ chơi game tốt nhất",
         content: "Những phần mềm giúp tối ưu trải nghiệm chơi game trên máy tính cá nhân.",
         author: "User101",
         time: "8 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=Game+Software"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     },
     {
+        id: 5,
         title: "Những game mobile hot nhất 2023",
         content: "Danh sách những game mobile đang được yêu thích trong năm 2023.",
         author: "Admin",
         time: "10 giờ trước",
-        image: "https://via.placeholder.com/300x200?text=Mobile+Games"
+        image: "../img/index/infinite_scroll/lol_bg.jpg"
     }
 ];
 
-const postsPerPage =5;
+const postsPerPage = 7;
 let currentPage = 1;
 
 // Hàm loại bỏ dấu tiếng Việt (diacritics)
@@ -64,8 +71,7 @@ function displayBlogPosts(page) {
 
     const currentPosts = blogPosts.slice(startIndex, endIndex);
 
-    currentPosts.forEach((post, index) => {
-        const globalIndex = startIndex + index;
+    currentPosts.forEach(post => {
         const blogItem = document.createElement('div');
         blogItem.classList.add('blog-item', 'col-lg-4', 'col-md-6', 'mb-4');
 
@@ -77,9 +83,9 @@ function displayBlogPosts(page) {
                 <button class="btn btn-neon">Đọc thêm</button>
             </div>
         `;
-        // Thêm sự kiện chuyển hướng đến trang chi tiết bài viết
+        // Dùng post.id để chuyển hướng trực tiếp đến trang chi tiết bài viết
         blogItem.querySelector('.btn-neon').addEventListener('click', function() {
-            window.location.href = 'detail.php?id=' + globalIndex;
+            window.location.href = 'detail.html?id=' + post.id;
         });
         blogContainer.appendChild(blogItem);
     });
@@ -120,7 +126,7 @@ function updatePagination(currentPage) {
     }
 }
 
-// Hàm hiển thị kết quả tìm kiếm (không phân trang)
+// Hàm hiển thị kết quả tìm kiếm (không có phân trang)
 function displayFilteredPosts(filteredPosts) {
     const blogContainer = document.querySelector('.blog-container');
     blogContainer.innerHTML = "";
@@ -130,7 +136,7 @@ function displayFilteredPosts(filteredPosts) {
         return;
     }
 
-    filteredPosts.forEach((post, index) => {
+    filteredPosts.forEach(post => {
         const blogItem = document.createElement('div');
         blogItem.classList.add('blog-item', 'col-lg-4', 'col-md-6', 'mb-4');
 
@@ -142,14 +148,14 @@ function displayFilteredPosts(filteredPosts) {
                 <button class="btn btn-neon">Đọc thêm</button>
             </div>
         `;
+        // Sử dụng luôn post.id để chuyển hướng đến trang chi tiết trong kết quả tìm kiếm
         blogItem.querySelector('.btn-neon').addEventListener('click', function() {
-            // Chuyển hướng đến trang chi tiết (lưu ý: khi tìm kiếm, chỉ số index có thể khác với vị trí gốc)
-            window.location.href = 'detail.php?id=' + index;
+            window.location.href = 'detail.html?id=' + post.id;
         });
         blogContainer.appendChild(blogItem);
     });
 
-    // Ẩn phân trang khi đang tìm kiếm
+    // Ẩn phân trang khi hiển thị kết quả tìm kiếm
     document.querySelector('.pagination').style.display = "none";
 }
 
@@ -164,6 +170,7 @@ searchInput.addEventListener("input", function () {
         return;
     }
 
+    // Lọc danh sách bài viết dựa trên tiêu đề, nội dung và tác giả (loại bỏ dấu)
     const filteredPosts = blogPosts.filter(post => {
         const title = removeDiacritics(post.title.toLowerCase());
         const content = removeDiacritics(post.content.toLowerCase());
