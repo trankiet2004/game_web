@@ -194,7 +194,6 @@ foreach ($folders as $directory) {
                                                 <a class="btn btn-danger">Xóa Trang</a>
                                             </td>
                                         </tr> -->
-
                                         <?php foreach($allHtmlFiles as $file): ?>
                                             <tr data-path="<?php echo $file; ?>">
                                                 <td><input type="checkbox" class="selectRow"></td>
