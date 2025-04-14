@@ -31,7 +31,8 @@
     opacity: 1;
     transform: translateY(0);
 }
- body {
+
+body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: 'Rajdhani', sans-serif;
@@ -154,7 +155,7 @@ footer {
 .navbar.navbar-expand-lg .container .navbar-nav li a, 
 .navbar.navbar-expand-lg .container .navbar-brand.text-neon,
 .navbar.navbar-expand-lg .container .d-flex.align-items-center button {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
 }
 
