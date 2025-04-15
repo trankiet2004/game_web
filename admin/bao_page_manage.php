@@ -173,7 +173,7 @@ foreach ($folders as $directory) {
                     </div>
                     <div class="float-end">
                         <p>Được tạo ra bằng <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            bởi <a href="https://saugi.me">Trần Tuấn Kiệt</a></p>
+                            bởi <a href="https://www.facebook.com/profile.php?id=100016243831648">Trần Tuấn Kiệt</a></p>
                     </div>
                 </div>
             </footer>
