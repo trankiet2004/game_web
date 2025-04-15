@@ -1,16 +1,10 @@
 <?php
-$allHtmlFiles = [];
-$folders = ['../thinh/', '../kiet/', '../tu/', '../bao/'];
+$jsonData = file_get_contents("http://localhost:8080/BTL_WEB/API/articles.php");
+$articles = json_decode($jsonData, true);
 
-foreach ($folders as $directory) {
-    $files = scandir($directory);
-    $htmlFiles = array_filter($files, function($file) use ($directory) {
-        return is_file($directory . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'html';
-    });
-
-    foreach ($htmlFiles as $file) {
-        $allHtmlFiles[] = $directory . $file;
-    }
+if (!is_array($articles)) {
+    echo "Không có bài viết nào để hiển thị.";
+    exit;
 }
 ?>
 
@@ -24,7 +18,7 @@ foreach ($folders as $directory) {
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-a2nC2e3B1T8jp+Ab42nWUa5rVlvjzRjzpvFvXKqbBmWh84g5uX1dYOGHD1T8BWDNy6+PeAHK0M7rYh6j2kPzAQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <style>
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
@@ -56,7 +50,7 @@ foreach ($folders as $directory) {
             color: white;
         }
     </style>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let file = "./admin_component/sidebar.html";
@@ -91,19 +85,11 @@ foreach ($folders as $directory) {
         }
     </script>
 </head>
-
 <body>
-    <script src="../assets/static/js/initTheme.js"></script>
     <div id="app">
         <div id="sidebar"></div>
 
         <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
-            
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
@@ -121,13 +107,11 @@ foreach ($folders as $directory) {
                         </div>
                     </div>
                 </div>
-                
+
                 <section class="section">
                     <div class="card">
                         <div class="card-header" style="display: flex; flex-flow: row wrap; justify-content: space-between;">
-                            <h5 class="card-title">
-                                Quản Lý Các Bài Viết
-                            </h5>
+                            <h5 class="card-title">Quản Lý Các Bài Viết</h5>
                             <a id="deleteSelected" class="btn btn-danger disabled">
                                 Xóa Toàn Bộ Các Bài Viết Được Chọn
                             </a>
@@ -138,23 +122,26 @@ foreach ($folders as $directory) {
                                     <thead>
                                         <tr>
                                             <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
-                                            <th style="width: 40rem;">Trang Web</th>
+                                            <th style="width: 40rem;">Tiêu đề bài viết</th>
                                             <th>Thao Tác</th>
                                         </tr>
                                     </thead>
-                                    
                                     <tbody>
-                                        <?php foreach($allHtmlFiles as $file): ?>
-                                            <?php
-                                            $baseName = pathinfo($file, PATHINFO_FILENAME);
-                                            if (strpos($file, "detail.html")) continue;
-                                            ?>
-                                            <tr data-path="<?php echo $file; ?>">
+                                        <?php foreach ($articles as $article): ?>
+                                            <tr data-id="<?php echo $article['id']; ?>">
                                                 <td><input type="checkbox" class="selectRow"></td>
-                                                <td><a href="<?php echo $file; ?>"><?php echo basename($file); ?></a></td>
                                                 <td>
-                                                    <a href="bao_edit_page.html?id=<?php echo $baseName; ?>" class="btn btn-primary">Chỉnh Sửa</a>
-                                                    <a class="btn btn-danger">Xóa Bài Viết</a>
+                                                    <a href="../kiet/detail.html?id=<?php echo $article['id']; ?>">
+                                                        <?php echo htmlspecialchars($article['title']); ?>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-primary">
+                                                        Chỉnh Sửa
+                                                    </a>
+                                                    <a href="delete_article.php?id=<?php echo $article['id']; ?>" class="btn btn-danger">
+                                                        Xóa Bài Viết
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -172,24 +159,30 @@ foreach ($folders as $directory) {
                         <p>2025 &copy; BKGame</p>
                     </div>
                     <div class="float-end">
-                        <p>Được tạo ra bằng <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            bởi <a href="https://www.facebook.com/profile.php?id=100016243831648">Trần Tuấn Kiệt</a></p>
+                        <p>Được tạo ra bằng <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span> bởi 
+                            <a href="https://saugi.me">Trần Tuấn Kiệt</a>
+                        </p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
     
+    <script src="../assets/static/js/initTheme.js"></script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
     <script src="../assets/extensions/jquery/jquery.min.js"></script>
-
     <script>
-        $(document).ready(function() {
+        document.addEventListener("DOMContentLoaded", function() {
             $('.selectRow, #selectAll').on('change', function() {
                 ($('.selectRow:checked').length > 0) ? $('#deleteSelected').removeClass('disabled') : $('#deleteSelected').addClass('disabled');
             });
         });
+
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('.selectRow');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
     </script>
 </body>
 </html>
