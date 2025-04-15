@@ -23,6 +23,7 @@ foreach ($folders as $directory) {
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-a2nC2e3B1T8jp+Ab42nWUa5rVlvjzRjzpvFvXKqbBmWh84g5uX1dYOGHD1T8BWDNy6+PeAHK0M7rYh6j2kPzAQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
         body {
