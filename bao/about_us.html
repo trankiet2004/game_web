@@ -1,4 +1,4 @@
-<html lang="en" data-theme="dark" style="--primary: rgb(255, 70, 0);"><head>
+<html lang="en" data-theme="dark" style="--primary: rgb(255, 0, 66);"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
@@ -65,8 +65,7 @@
     
         <div class="hero-section overflow-hidden">
             <h1 data-editable="true" style="font-size: 600%; font-weight: bold; text-align: center;" contenteditable="true">
-                <span class="neon-outline">BK GAME</span>
-                <span class="white-text"> COMPANY</span>
+                <span class="neon-outline">BK GAME</span>&nbsp;COMA<span class="white-text">PNY</span>
             </h1>
     
             <h6 data-editable="true" style="text-align: center; font-weight: 400; font-size: 200%;" contenteditable="true">
@@ -172,7 +171,7 @@
                     <h4>2024 - Tăng Tốc Bền Vững</h4>
                     <p>Xây dựng cộng đồng eSports quốc tế, đầu tư mạnh vào AI và luôn đặt trải nghiệm người chơi làm trung tâm.</p>
                 </div>
-            </div>
+            <div data-scroll="" class="visible" style="margin-top: 10%;"><h4>2026 - Lan tỏa toàn thế giới</h4><p style="font-size: 100%;">Mở rộng quy mô công ty ra toàn thế giới</p></div></div>
 
             <div class="col col-6" style="border-left: 4px solid aqua; padding-top: 6%; padding-left: 4%;">
                 <div data-scroll="" class="visible">
@@ -435,6 +434,13 @@
         }
 
         document.addEventListener("DOMContentLoaded", async function() {
+            if (window.self === window.top) {
+                var editableEls = document.querySelectorAll('[data-editable="true"]');
+                editableEls.forEach(function(el) {
+                    el.contentEditable = false;
+                });
+            }
+
             const data = await fetchData();
             let gameCardContainer = document.getElementsByClassName("game-card-wrapper")[0];
             gameCardContainer.innerHTML = "";
