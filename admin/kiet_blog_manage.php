@@ -1,5 +1,5 @@
 <?php
-$jsonData = file_get_contents("http://localhost:8080/BTL_WEB/API/articles.php");
+$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/../API/articles.php');  
 $articles = json_decode($jsonData, true);
 
 if (!is_array($articles)) {
