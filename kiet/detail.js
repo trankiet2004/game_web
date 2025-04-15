@@ -104,7 +104,7 @@ window.onload = () => {
         <img src="${currentArticle.image}" alt="${currentArticle.title}" class="img-fluid">
       </div>
       <p>${currentArticle.content}</p>
-      <button class="btn-neon mt-3" onclick="window.history.back();">Quay lại</button>
+      <button class="btn-neon btn" onclick="window.history.back();">Quay lại</button>
     </div>
   `;
 
