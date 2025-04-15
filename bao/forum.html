@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hỏi Đáp - BKGame</title>
@@ -10,12 +8,62 @@
     <link rel="stylesheet" href="forum.css">
 </head>
 <body class="text-light" style="background-color: rgb(10, 10, 32);">
-    <div id="header"></div>
+    <div id="header"><nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand text-neon" href="../thinh/index.html">
+            <img src="../img/logo.png" width="40" height="40" class="rounded-circle me-2 glow-effect" alt="CyberGameHub Logo">BKGame
+        </a>
 
-    <div class="container mt-5" data-scroll>
-        <h1 class="text-neon-without-shadow text-center mb-5">HỎI & ĐÁP</h1>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link text-neon" href="../thinh/index.html">Trang Chủ</a></li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
+                    
+                    <ul class="dropdown-menu cyber-dropdown">
+                        <li><a class="dropdown-item" href="#">PC Games</a></li>
+                        <li><a class="dropdown-item" href="#">Console Games</a></li>
+                        <li><a class="dropdown-item" href="#">Mobile Games</a></li>
+                        <li><a class="dropdown-item" href="#">VR Games</a></li>
+                    </ul>
+                </li>
 
-        <div class="cyber-card mb-5 p-4" data-scroll>
+                <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.html">Giới Thiệu</a></li>
+                
+                <li class="nav-item"><a class="nav-link text-neon" href="../kiet/blogs.html">Tin Tức</a></li>
+                
+                <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.html">Cộng Đồng</a></li>
+                
+                <li class="nav-item"><a class="nav-link text-neon" href="../thinh/contact_us.html">Liên Hệ</a></li>
+            
+            </ul>
+            
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-neon me-2">
+                    <a href="../common_part/signin.html" style="text-decoration: none; color: var(--primary);">
+                        Đăng Nhập
+                    </a>
+                </button>
+                
+                <button class="btn btn-neon">
+                    <a href="../common_part/signup.html" style="color: black; text-decoration: none;">
+                        Đăng Ký
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav></div>
+
+    <div class="container mt-5 visible" data-scroll="">
+        <h1 class="text-neon-without-shadow text-center mb-5" data-editable="true" contenteditable="true">HỎI &amp; ĐÁP</h1>
+
+        <div class="cyber-card mb-5 p-4 visible" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-patch-question-fill"></i> Đặt câu hỏi</h4>
             <form id="questionForm">
                 <div class="form-floating mb-3">
@@ -30,7 +78,7 @@
             </form>
         </div>
 
-        <div class="cyber-card p-4" data-scroll>
+        <div class="cyber-card p-4" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-chat-square-text-fill"></i> Câu hỏi gần đây</h4>
             
             <div class="question-item mb-4 p-3">
@@ -67,9 +115,39 @@
         </div>
     </div>
 
-    <footer id="footer" class="cyber-footer py-5 mt-5" data-scroll></footer>
+    <footer id="footer" class="cyber-footer py-5 mt-5" data-scroll="">
+<footer class="py-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <h5 class="text-neon">Về BKGame</h5>
+                <p>Tạo ra những trải nghiệm chơi game của tương lai</p>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="text-neon">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" style="text-decoration: none;">Hỗ Trợ</a></li>
+                    <li><a href="#" style="text-decoration: none;">Điều khoản dịch vụ</a></li>
+                    <li><a href="#" style="text-decoration: none;">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="text-neon">Phương Thức Thanh Toán</h5>
+                
+                <div class="payment-methods">
+                    <i class="bi bi-credit-card"></i>
+                    <i class="bi bi-paypal"></i>
+                    <i class="bi bi-wallet2"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</footer>
 
     <script src="forum.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+
+</body></html>

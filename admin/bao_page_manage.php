@@ -28,33 +28,27 @@ foreach ($folders as $directory) {
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
         }
-
         [data-bs-theme=dark] body {
             background-color: #0A1F15 !important;
             border-radius: 10px;
         }
-
         [data-bs-theme=light] body {
             background-color: #e9fef0 !important;
             border-radius: 10px;
         }
-
         [data-bs-theme=light] h3,
         [data-bs-theme=light] h4 {
             color: #1d7534 !important;
         }
-
         [data-bs-theme=dark] .card,
         [data-bs-theme=dark] .card-header,
         [data-bs-theme=dark] .sidebar-wrapper {
             background-color: #152D24 !important;
             border-radius: 10px;
         }
-
         td a {
             font-weight: bold;
         }
-
         td a:hover {
             text-decoration: underline;
             background-color: green;
@@ -133,7 +127,6 @@ foreach ($folders as $directory) {
                             <h5 class="card-title">
                                 Quản Lý Các Trang
                             </h5>
-
                             <a id="deleteSelected" class="btn btn-danger disabled">
                                 Xóa Toàn Bộ Các Trang Được Chọn
                             </a>
@@ -150,56 +143,16 @@ foreach ($folders as $directory) {
                                     </thead>
                                     
                                     <tbody>
-                                        <!-- <tr data-path="../thinh/index.html">
-                                            <td><input type="checkbox" class="selectRow"></td>
-                                            <td><a href="../thinh/index.html">Trang Chủ</a></td>
-                                            <td>
-                                                <a href="bao_edit_page.html?id=trang_chu" class="btn btn-primary">Chỉnh Sửa</a>
-                                                <a class="btn btn-danger">Xóa Trang</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr data-path="../bao/about_us.html">
-                                            <td><input type="checkbox" class="selectRow"></td>
-                                            <td><a href="../bao/about_us.html">Giới Thiệu</a></td>
-                                            <td>
-                                                <a href="bao_edit_page.html?id=gioi_thieu" class="btn btn-primary">Chỉnh Sửa</a>
-                                                <a class="btn btn-danger">Xóa Trang</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr data-path="../bao/forum.html">
-                                            <td><input type="checkbox" class="selectRow"></td>
-                                            <td><a href="../bao/forum.html">Hỏi - Đáp</a></td>
-                                            <td>
-                                                <a href="bao_edit_page.html?id=hoi_dap" class="btn btn-primary">Chỉnh Sửa</a>
-                                                <a class="btn btn-danger">Xóa Trang</a>
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr data-path="../kiet/blogs.html">
-                                            <td><input type="checkbox" class="selectRow"></td>
-                                            <td><a href="../kiet/blogs.html">Blog</a></td>
-                                            <td>
-                                                <a href="bao_edit_page.html?id=blog" class="btn btn-primary">Chỉnh Sửa</a>
-                                                <a class="btn btn-danger">Xóa Trang</a>
-                                            </td>
-                                        </tr>
-
-                                        <tr data-path="../thinh/contact_us.html">
-                                            <td><input type="checkbox" class="selectRow"></td>
-                                            <td><a href="../thinh/contact_us.html">Liên Hệ</a></td>
-                                            <td>
-                                                <a href="bao_edit_page.html?id=lien_he" class="btn btn-primary">Chỉnh Sửa</a>
-                                                <a class="btn btn-danger">Xóa Trang</a>
-                                            </td>
-                                        </tr> -->
                                         <?php foreach($allHtmlFiles as $file): ?>
+                                            <?php
+                                            $baseName = pathinfo($file, PATHINFO_FILENAME);
+                                            if (strpos($file, "detail.html")) continue;
+                                            ?>
                                             <tr data-path="<?php echo $file; ?>">
                                                 <td><input type="checkbox" class="selectRow"></td>
                                                 <td><a href="<?php echo $file; ?>"><?php echo basename($file); ?></a></td>
                                                 <td>
-                                                    <a href="bao_edit_page.html?id=<?php echo pathinfo($file, PATHINFO_FILENAME); ?>" class="btn btn-primary">Chỉnh Sửa</a>
+                                                    <a href="bao_edit_page.html?id=<?php echo $baseName; ?>" class="btn btn-primary">Chỉnh Sửa</a>
                                                     <a class="btn btn-danger">Xóa Trang</a>
                                                 </td>
                                             </tr>
@@ -209,7 +162,6 @@ foreach ($folders as $directory) {
                             </div>
                         </div>
                     </div>
-
                 </section>
             </div>
 
@@ -228,7 +180,6 @@ foreach ($folders as $directory) {
     </div>
     
     <script src="../assets/static/js/components/dark.js"></script>
-    <!-- <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
     <script src="../assets/compiled/js/app.js"></script>
     <script src="../assets/extensions/jquery/jquery.min.js"></script>
 

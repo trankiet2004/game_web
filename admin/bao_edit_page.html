@@ -39,9 +39,7 @@
 <body>
     <div id="stickyBar">
         <img src="../img/logo.png" style="height: 90%; border-radius: 9999px;" alt="">
-
         <h4>Admin Editing</h4>
-
         <button id="saveBtn" class="btn btn-primary">
             Save Changes
         </button>
@@ -59,13 +57,15 @@
                 'forum': '../bao/forum.html',
                 'contact_us': '../thinh/contact_us.html'
             };
-            
+
             var urlToLoad = mapping[id];
             if(!urlToLoad) {
                 console.error("Không tìm thấy mapping cho id: " + id);
                 return;
             }
-            
+
+            urlToLoad += '?t=' + new Date().getTime();
+
             var iframe = document.getElementById('contentFrame');
             iframe.src = urlToLoad;
             iframe.onload = function() {
@@ -143,8 +143,6 @@
                     newDiv.appendChild(newH4);
                     newDiv.appendChild(newP);
                     
-                    console.log("timelineContainer:", timelineContainer);
-                    
                     var secondRow = timelineContainer.querySelector("div.row:nth-of-type(2)");
                     if(!secondRow) {
                         alert("Không tìm thấy row thứ hai của timeline.");
@@ -168,12 +166,43 @@
                 });
             };
             
-            document.getElementById("saveBtn").addEventListener("click", function() {
+            document.getElementById("saveBtn").addEventListener("click", async function() {
                 var iframe = document.getElementById('contentFrame');
                 var doc = iframe.contentDocument || iframe.contentWindow.document;
+                var timelineContainer = doc.querySelector(".time-line-container");
+                
+                if (timelineContainer) {
+                    var addYearButton = timelineContainer.querySelector("button.btn.btn-info.float-end.fw-bold");
+                    if (addYearButton) {
+                        addYearButton.remove();
+                    }
+                }
+                
                 var editedContent = doc.documentElement.outerHTML;
-                console.log("Nội dung đã chỉnh sửa:", editedContent);
-                alert("Changes saved (chưa hiện thực)!");
+                var filePath = mapping[getParameterByName('id')];
+                
+                try {
+                    const response = await fetch('save_changes.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            file: filePath,
+                            content: editedContent
+                        })
+                    });
+
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        alert("Lưu thay đổi thành công!");
+                    } else {
+                        alert("Lưu thay đổi thất bại: " + result.message);
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi lưu thay đổi:", error);
+                    alert("Có lỗi xảy ra khi gửi dữ liệu lưu thay đổi.");
+                }
             });
         });
         
