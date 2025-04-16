@@ -2551,3 +2551,97 @@ INSERT INTO articles (id, title, content, author, time, image) VALUES
 (9, 'Các trò chơi PC hấp dẫn bạn nên chơi',
  '<p>PC luôn là nền tảng tuyệt vời cho các tựa game đòi hỏi đồ họa cao và gameplay sâu sắc. Từ game chiến lược đến game nhập vai, lựa chọn trò chơi trên PC rất đa dạng.</p><p>Bài viết tổng hợp các trò chơi PC đáng chơi trong năm nay, kèm theo đánh giá chuyên sâu từ các game thủ dày dặn kinh nghiệm. Bạn sẽ được khám phá những tựa game không chỉ gây nghiện mà còn đem lại nhiều phút giây thư giãn tuyệt vời.</p>',
  'Tuan Anh', '14 giờ trước', 'https://via.placeholder.com/600x400?text=PC+Games');
+
+/* Thêm câu hỏi QA */
+CREATE TABLE IF NOT EXISTS faqs (
+    faq_id INT AUTO_INCREMENT PRIMARY KEY,
+    question VARCHAR(255) NOT NULL,
+    answer TEXT NOT NULL,
+    category VARCHAR(100) DEFAULT NULL,
+    tags VARCHAR(255) DEFAULT NULL,
+    difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'medium',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO faqs (question, answer, category, tags, difficulty) VALUES
+-- 1
+('Làm thế nào để đánh bại trùm cuối trong Legend of Valor?', 
+ 'Sử dụng đội hình cân bằng và tấn công vào điểm yếu của trùm trong thời điểm dễ bị tổn thương.', 
+ 'RPG', 'trùm cuối, chiến thuật', 'hard'),
+-- 2
+('Làm sao để kiếm tiền nhanh trong Battle Arena?', 
+ 'Tham gia các trận đấu nhanh và hoàn thành nhiệm vụ hằng ngày để nhận thưởng.', 
+ 'MOBA', 'kiếm tiền, nhiệm vụ', 'medium'),
+-- 3
+('Cách nào để nâng cấp vật phẩm trong Quest for Glory?', 
+ 'Ghé thăm cửa hàng và thu thập nguyên liệu từ các quest phụ để cải tiến vật phẩm.', 
+ 'Adventure', 'nâng cấp, vật phẩm', 'easy'),
+-- 4
+('Làm sao để mở khoá nhân vật mới trong Galaxy Wars?', 
+ 'Tham gia các sự kiện trong game và tích lũy điểm kinh nghiệm để mở khoá.', 
+ 'Shooter', 'nhân vật, mở khoá', 'medium'),
+-- 5
+('Có thể chơi Game XYZ trên máy tính cấu hình thấp được không?', 
+ 'Bạn nên điều chỉnh cấu hình đồ họa xuống mức thấp và tắt các hiệu ứng để tăng hiệu năng.', 
+ 'Simulation', 'cấu hình, tối ưu', 'easy'),
+-- 6
+('Phương pháp nào tối ưu để quản lý tài nguyên trong Kingdom Builder?', 
+ 'Sắp xếp, lên kế hoạch mở rộng và sử dụng chiến thuật kinh tế hiệu quả.', 
+ 'Strategy', 'tài nguyên, kinh tế', 'medium'),
+-- 7
+('Có cần mua bản mở rộng (DLC) của Adventure Land không?', 
+ 'Nếu bạn yêu thích những cốt truyện mở rộng và thử thách mới, DLC sẽ là lựa chọn tốt.', 
+ 'Adventure', 'DLC, mở rộng', 'easy'),
+-- 8
+('Làm thế nào để tránh lag trong game MMOG nổi tiếng?', 
+ 'Kiểm tra kết nối internet và đảm bảo máy tính đáp ứng cấu hình khuyến nghị của game.', 
+ 'MMO', 'lag, tối ưu hệ thống', 'medium'),
+-- 9
+('Có cách nào cải thiện khả năng bắn súng trong Urban Shooter không?', 
+ 'Tập luyện thường xuyên trong chế độ tập huấn và điều chỉnh cảm giác chuột phù hợp.', 
+ 'FPS', 'bắn súng, luyện tập', 'easy'),
+-- 10
+('Làm sao để giải đố phức tạp trong Mystery Quest?', 
+ 'Quan sát kỹ các manh mối và thử nghiệm các giả thuyết khác nhau để giải quyết câu đố.', 
+ 'Puzzle', 'giải đố, manh mối', 'hard'),
+-- 11
+('Các mẹo nâng cao trong Auto Racing Challenge là gì?', 
+ 'Tìm hiểu về cách phanh, tăng tốc đúng thời điểm và lựa chọn lộ trình tối ưu.', 
+ 'Racing', 'mẹo, đua xe', 'medium'),
+-- 12
+('Làm thế nào để tăng nhanh level nhân vật trong Fantasy World?', 
+ 'Tham gia các quest chính và phụ, cùng với việc khai thác tối đa các sự kiện thưởng XP.', 
+ 'RPG', 'tăng level, XP', 'easy'),
+-- 13
+('Có cách nào giảm thời gian chờ trong chế độ online của game không?', 
+ 'Kết nối với máy chủ gần bạn hơn và tối ưu cấu hình mạng của thiết bị.', 
+ 'Online', 'mạng, chờ đợi', 'medium'),
+-- 14
+('Tôi nên mua upgrade nào trước trong Strategy Empire?', 
+ 'Ưu tiên nâng cấp tài nguyên và quân đội để có lợi thế trong trận chiến ban đầu.', 
+ 'Strategy', 'upgrade, quân đội', 'hard'),
+-- 15
+('Làm sao để tìm kho báu ẩn trong Island Explorer?', 
+ 'Khám phá các hòn đảo, tìm kiếm bản đồ ẩn và giải các câu đố địa hình.', 
+ 'Adventure', 'kho báu, khám phá', 'medium'),
+-- 16
+('Có nên tham gia clan khi chơi Game Warzone không?', 
+ 'Tham gia clan giúp bạn kết nối với cộng đồng và nhận được hỗ trợ chiến thuật.', 
+ 'Shooter', 'clan, cộng đồng', 'easy'),
+-- 17
+('Làm thế nào để làm chủ lối chơi stealth trong Shadow Strike?', 
+ 'Tận dụng đèn tối, tránh ánh sáng và di chuyển nhẹ nhàng để không bị phát hiện.', 
+ 'Stealth', 'ẩn nấp, chiến thuật', 'hard'),
+-- 18
+('Các chiến thuật phòng thủ hiệu quả trong Tower Defense là gì?', 
+ 'Xây dựng hệ thống phòng thủ đa tầng và bố trí lính ở các vị trí then chốt.', 
+ 'Strategy', 'phòng thủ, tower defense', 'medium'),
+-- 19
+('Làm sao để đồng bộ hóa thiết bị với game trên console?', 
+ 'Kiểm tra các tùy chọn đồng bộ hóa trong menu cài đặt và cập nhật phần mềm mới nhất.', 
+ 'Simulation', 'console, đồng bộ', 'easy'),
+-- 20
+('Có nên tham gia các giải đấu eSports khi mới chơi Game này không?', 
+ 'Nếu bạn tự tin về kỹ năng, giải đấu eSports sẽ là cơ hội học hỏi và cải thiện.', 
+ 'eSports', 'giải đấu, kĩ năng', 'hard');
