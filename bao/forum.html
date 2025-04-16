@@ -63,13 +63,15 @@
 
         <div class="cyber-card mb-5 p-4 visible" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-patch-question-fill"></i> Đặt câu hỏi</h4>
-            <form id="questionForm">
+            <form id="questionForm" method="POST" action="../API/faqs.php">
                 <div class="mb-3">
-                <input type="text" class="form-control bg-transparent text-light" id="questionTitle" placeholder="Tiêu đề">
+                    <input type="text" class="form-control bg-transparent text-light" id="questionTitle" name="questionTitle" placeholder="Tiêu đề">
                 </div>
+                
                 <div class="mb-3">
-                <textarea class="form-control bg-transparent text-light" id="questionContent" style="height: 120px" placeholder="Nội dung"></textarea>
+                    <textarea class="form-control bg-transparent text-light" id="questionContent" name="questionContent" style="height: 120px" placeholder="Nội dung"></textarea>
                 </div>
+                
                 <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
             </form>
         </div>
@@ -172,6 +174,25 @@
 
             renderPage(1, data);
             renderPagination(data.length);
+        });
+
+        document.getElementById("questionForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                alert(result.message);
+                if(result.success) this.reset();
+            } catch (error) {
+                console.error("Lỗi khi gửi dữ liệu: ", error);
+                alert("Có lỗi xảy ra khi gửi câu hỏi.");
+            }
         });
     </script>
 </body>
