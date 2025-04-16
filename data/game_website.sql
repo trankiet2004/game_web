@@ -2564,84 +2564,127 @@ CREATE TABLE IF NOT EXISTS faqs (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO faqs (question, answer, category, tags, difficulty) VALUES
+ALTER TABLE faqs
+ADD COLUMN posted_by VARCHAR(100) DEFAULT 'Admin' AFTER difficulty;
+
+INSERT INTO faqs (question, answer, category, tags, difficulty, posted_by) VALUES
 -- 1
 ('Làm thế nào để đánh bại trùm cuối trong Legend of Valor?', 
  'Sử dụng đội hình cân bằng và tấn công vào điểm yếu của trùm trong thời điểm dễ bị tổn thương.', 
- 'RPG', 'trùm cuối, chiến thuật', 'hard'),
+ 'RPG', 'trùm cuối, chiến thuật', 'hard', 'Linh'),
 -- 2
 ('Làm sao để kiếm tiền nhanh trong Battle Arena?', 
  'Tham gia các trận đấu nhanh và hoàn thành nhiệm vụ hằng ngày để nhận thưởng.', 
- 'MOBA', 'kiếm tiền, nhiệm vụ', 'medium'),
+ 'MOBA', 'kiếm tiền, nhiệm vụ', 'medium', 'Trung'),
 -- 3
 ('Cách nào để nâng cấp vật phẩm trong Quest for Glory?', 
  'Ghé thăm cửa hàng và thu thập nguyên liệu từ các quest phụ để cải tiến vật phẩm.', 
- 'Adventure', 'nâng cấp, vật phẩm', 'easy'),
+ 'Adventure', 'nâng cấp, vật phẩm', 'easy', 'Huy'),
 -- 4
 ('Làm sao để mở khoá nhân vật mới trong Galaxy Wars?', 
  'Tham gia các sự kiện trong game và tích lũy điểm kinh nghiệm để mở khoá.', 
- 'Shooter', 'nhân vật, mở khoá', 'medium'),
+ 'Shooter', 'nhân vật, mở khoá', 'medium', 'Lan'),
 -- 5
 ('Có thể chơi Game XYZ trên máy tính cấu hình thấp được không?', 
  'Bạn nên điều chỉnh cấu hình đồ họa xuống mức thấp và tắt các hiệu ứng để tăng hiệu năng.', 
- 'Simulation', 'cấu hình, tối ưu', 'easy'),
+ 'Simulation', 'cấu hình, tối ưu', 'easy', 'Mai'),
 -- 6
 ('Phương pháp nào tối ưu để quản lý tài nguyên trong Kingdom Builder?', 
  'Sắp xếp, lên kế hoạch mở rộng và sử dụng chiến thuật kinh tế hiệu quả.', 
- 'Strategy', 'tài nguyên, kinh tế', 'medium'),
+ 'Strategy', 'tài nguyên, kinh tế', 'medium', 'Anh'),
 -- 7
 ('Có cần mua bản mở rộng (DLC) của Adventure Land không?', 
  'Nếu bạn yêu thích những cốt truyện mở rộng và thử thách mới, DLC sẽ là lựa chọn tốt.', 
- 'Adventure', 'DLC, mở rộng', 'easy'),
+ 'Adventure', 'DLC, mở rộng', 'easy', 'Bảo'),
 -- 8
 ('Làm thế nào để tránh lag trong game MMOG nổi tiếng?', 
  'Kiểm tra kết nối internet và đảm bảo máy tính đáp ứng cấu hình khuyến nghị của game.', 
- 'MMO', 'lag, tối ưu hệ thống', 'medium'),
+ 'MMO', 'lag, tối ưu hệ thống', 'medium', 'Cường'),
 -- 9
 ('Có cách nào cải thiện khả năng bắn súng trong Urban Shooter không?', 
  'Tập luyện thường xuyên trong chế độ tập huấn và điều chỉnh cảm giác chuột phù hợp.', 
- 'FPS', 'bắn súng, luyện tập', 'easy'),
+ 'FPS', 'bắn súng, luyện tập', 'easy', 'Duyên'),
 -- 10
 ('Làm sao để giải đố phức tạp trong Mystery Quest?', 
  'Quan sát kỹ các manh mối và thử nghiệm các giả thuyết khác nhau để giải quyết câu đố.', 
- 'Puzzle', 'giải đố, manh mối', 'hard'),
+ 'Puzzle', 'giải đố, manh mối', 'hard', 'Hùng'),
 -- 11
 ('Các mẹo nâng cao trong Auto Racing Challenge là gì?', 
  'Tìm hiểu về cách phanh, tăng tốc đúng thời điểm và lựa chọn lộ trình tối ưu.', 
- 'Racing', 'mẹo, đua xe', 'medium'),
+ 'Racing', 'mẹo, đua xe', 'medium', 'Trang'),
 -- 12
 ('Làm thế nào để tăng nhanh level nhân vật trong Fantasy World?', 
  'Tham gia các quest chính và phụ, cùng với việc khai thác tối đa các sự kiện thưởng XP.', 
- 'RPG', 'tăng level, XP', 'easy'),
+ 'RPG', 'tăng level, XP', 'easy', 'Thảo'),
 -- 13
 ('Có cách nào giảm thời gian chờ trong chế độ online của game không?', 
  'Kết nối với máy chủ gần bạn hơn và tối ưu cấu hình mạng của thiết bị.', 
- 'Online', 'mạng, chờ đợi', 'medium'),
+ 'Online', 'mạng, chờ đợi', 'medium', 'Phương'),
 -- 14
 ('Tôi nên mua upgrade nào trước trong Strategy Empire?', 
  'Ưu tiên nâng cấp tài nguyên và quân đội để có lợi thế trong trận chiến ban đầu.', 
- 'Strategy', 'upgrade, quân đội', 'hard'),
+ 'Strategy', 'upgrade, quân đội', 'hard', 'Nghĩa'),
 -- 15
 ('Làm sao để tìm kho báu ẩn trong Island Explorer?', 
  'Khám phá các hòn đảo, tìm kiếm bản đồ ẩn và giải các câu đố địa hình.', 
- 'Adventure', 'kho báu, khám phá', 'medium'),
+ 'Adventure', 'kho báu, khám phá', 'medium', 'Minh'),
 -- 16
 ('Có nên tham gia clan khi chơi Game Warzone không?', 
  'Tham gia clan giúp bạn kết nối với cộng đồng và nhận được hỗ trợ chiến thuật.', 
- 'Shooter', 'clan, cộng đồng', 'easy'),
+ 'Shooter', 'clan, cộng đồng', 'easy', 'Tuấn'),
 -- 17
 ('Làm thế nào để làm chủ lối chơi stealth trong Shadow Strike?', 
  'Tận dụng đèn tối, tránh ánh sáng và di chuyển nhẹ nhàng để không bị phát hiện.', 
- 'Stealth', 'ẩn nấp, chiến thuật', 'hard'),
+ 'Stealth', 'ẩn nấp, chiến thuật', 'hard', 'Vỹ'),
 -- 18
 ('Các chiến thuật phòng thủ hiệu quả trong Tower Defense là gì?', 
  'Xây dựng hệ thống phòng thủ đa tầng và bố trí lính ở các vị trí then chốt.', 
- 'Strategy', 'phòng thủ, tower defense', 'medium'),
+ 'Strategy', 'phòng thủ, tower defense', 'medium', 'Quốc'),
 -- 19
 ('Làm sao để đồng bộ hóa thiết bị với game trên console?', 
  'Kiểm tra các tùy chọn đồng bộ hóa trong menu cài đặt và cập nhật phần mềm mới nhất.', 
- 'Simulation', 'console, đồng bộ', 'easy'),
+ 'Simulation', 'console, đồng bộ', 'easy', 'Hoa'),
 -- 20
 ('Có nên tham gia các giải đấu eSports khi mới chơi Game này không?', 
  'Nếu bạn tự tin về kỹ năng, giải đấu eSports sẽ là cơ hội học hỏi và cải thiện.', 
- 'eSports', 'giải đấu, kĩ năng', 'hard');
+ 'eSports', 'giải đấu, kĩ năng', 'hard', 'Tâm');
+-- 21: Nâng cấp CPU
+('Làm thế nào để nâng cấp bộ xử lý (CPU) cho máy chơi game hiệu quả?',
+ 'Để nâng cấp CPU, bạn cần xác định mẫu máy hiện có, chọn CPU tương thích với bo mạch chủ và đảm bảo hệ thống tản nhiệt hoạt động tốt để xử lý nhiệt lượng tăng lên.', 
+ 'PC', 'nâng cấp, CPU, máy chơi game', 'medium', 'Thảo'),
+-- 22: Card đồ họa
+('Làm sao để chọn card đồ họa phù hợp khi nâng cấp máy chơi game?',
+ 'Cân nhắc giữa các thương hiệu NVIDIA và AMD, cũng như xem xét mức độ chơi game của bạn và tương thích với PSU cũng như bo mạch chủ.', 
+ 'PC', 'card đồ họa, GPU, nâng cấp', 'medium', 'Minh'),
+-- 23: Nâng cấp RAM
+('Có nên nâng cấp RAM cho máy chơi game hay chỉ cần tăng bộ nhớ video?',
+ 'Nâng cấp RAM thường giúp cải thiện hiệu suất hệ thống khi chơi game, đặc biệt nếu bạn đang chạy nhiều ứng dụng cùng lúc. Tuy nhiên, nếu máy chủ yếu dùng cho game đòi hỏi đồ họa cao, nên chú trọng tới RAM cho card đồ họa nếu hệ thống hỗ trợ.', 
+ 'PC', 'nâng cấp, RAM, hiệu suất', 'easy', 'Lan'),
+-- 24: Ổ cứng SSD và HDD
+('Việc chuyển từ HDD sang SSD có tác động như thế nào đến trải nghiệm chơi game?',
+ 'SSD giúp tăng tốc độ tải game và cải thiện hiệu năng hệ thống tổng thể so với HDD. Bạn nên sử dụng SSD cho hệ điều hành và các trò chơi yêu cầu tốc độ cao.', 
+ 'PC', 'SSD, HDD, nâng cấp, tốc độ', 'easy', 'Huy'),
+-- 25: Nâng cấp PSU (Nguồn máy tính)
+('Làm sao để lựa chọn nguồn PSU phù hợp khi nâng cấp các thành phần trong máy chơi game?',
+ 'Chọn PSU dựa trên tổng công suất tiêu thụ của các linh kiện, ưu tiên các thương hiệu uy tín và có hiệu suất 80 Plus trở lên để đảm bảo cung cấp điện ổn định.', 
+ 'PC', 'PSU, nguồn, nâng cấp', 'medium', 'Trung'),
+-- 26: Tản nhiệt và làm mát
+('Những yếu tố nào cần xem xét khi nâng cấp hệ thống làm mát cho PC chơi game?',
+ 'Ngoài quạt tản nhiệt, bạn có thể xem xét làm mát bằng nước (liquid cooling). Điều quan trọng là cân bằng giữa khả năng làm mát và tiếng ồn cũng như chi phí bảo trì.', 
+ 'PC', 'tản nhiệt, làm mát, nâng cấp', 'medium', 'Linh'),
+-- 27: Bo mạch chủ
+('Khi nâng cấp máy chơi game, làm sao để lựa chọn bo mạch chủ phù hợp?',
+ 'Bạn cần chọn bo mạch chủ hỗ trợ các linh kiện hiện đại, có đủ khe cắm mở rộng và tương thích với CPU cùng RAM bạn định nâng cấp.', 
+ 'PC', 'bo mạch chủ, nâng cấp, tương thích', 'hard', 'Cường'),
+-- 28: Tối ưu cấu hình hệ thống
+('Những bước tối ưu cấu hình hệ thống sau khi nâng cấp máy chơi game là gì?',
+ 'Sau khi nâng cấp, hãy cập nhật driver, kiểm tra nhiệt độ hoạt động, và điều chỉnh BIOS hoặc các phần mềm overclock một cách an toàn để đạt hiệu suất tối ưu.', 
+ 'PC', 'tối ưu, cấu hình, nâng cấp', 'medium', 'Duyên'),
+-- 29: Nâng cấp màn hình (Monitor)
+('Việc nâng cấp màn hình có ảnh hưởng đến trải nghiệm chơi game không?',
+ 'Một màn hình với tần số quét cao và độ phân giải tốt có thể cải thiện trải nghiệm chơi game, giảm hiện tượng mờ hình và cho màu sắc sống động hơn.', 
+ 'PC', 'màn hình, nâng cấp, chơi game', 'easy', 'Mike'),
+-- 30: Tổng hợp nâng cấp toàn hệ thống
+('Nếu bạn muốn nâng cấp toàn bộ hệ thống để chơi game mượt mà hơn, bạn cần lưu ý những gì?',
+ 'Bạn nên đánh giá lại toàn bộ các thành phần từ CPU, GPU, RAM, ổ cứng, PSU đến hệ thống tản nhiệt. Mục tiêu là đảm bảo tính tương thích, cân bằng giữa hiệu năng và chi phí đầu tư.', 
+ 'PC', 'nâng cấp, tổng hợp, máy chơi game', 'hard', 'Nga');
