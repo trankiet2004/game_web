@@ -10,7 +10,7 @@ class FetchController {
         header("Content-type: application/json");
 
         try {
-            $SQL = !$id ? "SELECT * FROM $table" : "SELECT * FROM $table WHERE $idColumn = $id";
+            $SQL = $id === null ? "SELECT * FROM $table" : "SELECT * FROM $table WHERE $idColumn = $id";
             $query = $this->connect->query($SQL);
 
             if(!$query) {
