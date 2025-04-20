@@ -2,7 +2,7 @@
 require_once('../Model/User.php');
 class SignupController {
     public function showSignupPage() {
-        include('views/signup.html');  // Display signup page
+        include('../View/common_part/signup.html');  // Display signup page
     }
 
     public function handleSignup() {

@@ -4,7 +4,7 @@ class UserManagementController {
     public function showUserList() {
         // Fetch users from database
         $users = User::getAllUsers();
-        include('views/user-management.html');
+        include('../View/common_part/user-management.html');
     }
 
     public function changeUserRole($userId, $newRole) {
