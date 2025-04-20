@@ -2688,3 +2688,18 @@ INSERT INTO faqs (question, answer, category, tags, difficulty, posted_by) VALUE
 ('Nếu bạn muốn nâng cấp toàn bộ hệ thống để chơi game mượt mà hơn, bạn cần lưu ý những gì?',
  'Bạn nên đánh giá lại toàn bộ các thành phần từ CPU, GPU, RAM, ổ cứng, PSU đến hệ thống tản nhiệt. Mục tiêu là đảm bảo tính tương thích, cân bằng giữa hiệu năng và chi phí đầu tư.', 
  'PC', 'nâng cấp, tổng hợp, máy chơi game', 'hard', 'Nga');
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'user') DEFAULT 'user',
+    phone VARCHAR(15),
+    city VARCHAR(100),
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT INTO users (username, email, password, role) 
+VALUES ('admin', 'admin@example.com', 'admin', 'admin');
