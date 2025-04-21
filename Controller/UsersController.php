@@ -1,10 +1,11 @@
 <?php
 require_once('../Model/User.php');
-class UserManagementController {
+class UsersController {
     public function showUserList() {
         // Fetch users from database
-        $users = User::getAllUsers();
-        include('../View/common_part/user-management.html');
+        $URIPart = explode("/", $_SERVER["REQUEST_URI"]);
+        $id = substr($URIPart[count($URIPart) - 1], strlen($URIPart[count($URIPart) - 1]) - 3) === "php" ? null : $URIPart[count($URIPart) - 1];
+        UsersModel::GET("users", $id, "id");
     }
 
     public function changeUserRole($userId, $newRole) {
@@ -18,5 +19,10 @@ class UserManagementController {
             echo "Không tìm thấy người dùng.";
         }
     }
+}
+
+if($_SERVER["REQUEST_METHOD"] === "GET") {
+    $userController = new UsersController();
+    $userController->showUserList();
 }
 ?>

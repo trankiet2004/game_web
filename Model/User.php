@@ -1,6 +1,6 @@
 <?php
 require_once('DBConnect.php');
-class User {
+class UsersModel {
     public $id;
     public $username;
     public $email;
@@ -14,10 +14,42 @@ class User {
         $this->role = $role;
     }
 
+    public static function GET($table, $id, $idColumn) {
+        header("Content-type: application/json");
+
+        global $connect;
+        try {
+            $SQL = $id === null ? "SELECT * FROM $table" : "SELECT * FROM $table WHERE $idColumn = $id";
+            $query = $connect->query($SQL);
+
+            if(!$query) {
+                throw new Exception("Query execution failed: " . $connect->error);
+            }
+
+            $jsonResponse = [];
+            while($row = $query->fetch_assoc()) {
+                $jsonResponse[] = $row;
+            }
+
+            http_response_code(200);
+            echo json_encode($jsonResponse);
+        } catch (mysqli_sql_exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "error" => "SQL Error: " . $e->getMessage()
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                "error" => "An unexpected error occured: " . $e->getMessage()
+            ]);
+        }
+    }
+
     // Save user to the database
     public function save() {
-        global $conn;
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+        global $connect;
+        $stmt = $connect->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $this->username, $this->email, $this->password, $this->role);
         if ($stmt->execute()) {
             echo "User saved successfully!";
@@ -28,8 +60,8 @@ class User {
 
     // Find user by username or email
     public static function findByUsername($username) {
-        global $conn;
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        global $connect;
+        $stmt = $connect->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -42,8 +74,8 @@ class User {
     }
     
     public function update() {
-        global $conn;
-        $stmt = $conn->prepare("UPDATE users SET email = ?, phone = ?, city = ? WHERE id = ?");
+        global $connect;
+        $stmt = $connect->prepare("UPDATE users SET email = ?, phone = ?, city = ? WHERE id = ?");
         $stmt->bind_param("sssi", $this->email, $this->phone, $this->city, $this->id);
         if ($stmt->execute()) {
             echo "Thông tin cập nhật thành công!";
