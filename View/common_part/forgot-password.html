@@ -40,7 +40,7 @@
                         <button class="btn btn-success btn-block btn-lg shadow-lg mt-5 font-bold">Gửi</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Ghi nhớ tài khoản của bạn? <a href="signin.html" class="font-bold text-success">Đăng nhập</a>.
+                        <p class='text-gray-600'>Ghi nhớ tài khoản của bạn? <a href="signin.php" class="font-bold text-success">Đăng nhập</a>.
                         </p>
                     </div>
                 </div>
