@@ -1,11 +1,11 @@
 <?php
 require_once('../Model/User.php');
 class UsersController {
-    public function showUserList() {
+    public static function showUserList() {
         // Lấy toàn bộ user dưới dạng mảng đối tượng
-        $users = User::getAllUsers();  
+        $users = User::GET('users', null, "id");
         // include view và truyền $users vào
-        include __DIR__.'/../View/admin/user-management.php';
+        // include __DIR__.'/../View/admin/user-management.php';
     }
 
     public function changeUserRole($userId, $newRole) {
@@ -21,7 +21,5 @@ class UsersController {
     }
 }
 
-if ($_GET['action'] ?? '' === 'showUserList') {
-    (new UsersController())->showUserList();
-}
+UsersController::showUserList();
 ?>
