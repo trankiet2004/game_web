@@ -30,27 +30,27 @@
                     <h1 class="auth-title">Đăng Ký</h1>
                     <p class="auth-subtitle mb-5">Nhập dữ liệu của bạn để đăng ký vào trang web của chúng tôi.</p>
 
-                    <form action="../thinh/index.html">
+                    <form action="/Controller/AuthController.php?action=signup" method="POST">
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Email">
+                            <input name="email" type="text" class="form-control form-control-xl" placeholder="Email">
                             <div class="form-control-icon">
                                 <i class="bi bi-envelope"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" class="form-control form-control-xl" placeholder="Tên người dùng">
+                            <input name="username" type="text" class="form-control form-control-xl" placeholder="Tên người dùng">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Mật khẩu">
+                            <input name="password" type="password" class="form-control form-control-xl" placeholder="Mật khẩu">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" class="form-control form-control-xl" placeholder="Xác nhận mật khẩu">
+                            <input name="confirm" type="password" class="form-control form-control-xl" placeholder="Xác nhận mật khẩu">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -58,7 +58,7 @@
                         <button class="btn btn-success btn-block btn-lg shadow-lg mt-5 font-bold">Đăng Ký</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Đã có tài khoản? <a href="signin.html" class="font-bold text-success">Đăng nhập</a>.</p>
+                        <p class='text-gray-600'>Đã có tài khoản? <a href="signin.php" class="font-bold text-success">Đăng nhập</a>.</p>
                     </div>
                 </div>
             </div>

@@ -2701,5 +2701,3 @@ CREATE TABLE users (
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-INSERT INTO users (username, email, password, role) 
-VALUES ('admin', 'admin@example.com', 'admin', 'admin');

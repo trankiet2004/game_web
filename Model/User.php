@@ -1,16 +1,23 @@
 <?php
 require_once('DBConnect.php');
-class UsersModel {
+class User {
     public $id;
     public $username;
     public $email;
     public $password;
     public $role;  // admin or user
+    /**
+     * @param string $username
+     * @param string $email
+     * @param string $password  – nếu từ signup thì là raw password, nếu từ DB thì là hashed password
+     * @param string $role
+     * @param bool   $isHashed  – TRUE nếu $password đã được hash, FALSE nếu là raw
+     */
 
-    public function __construct($username, $email, $password, $role = 'user') {
+    public function __construct(string $username,string $email,string $password,string $role = 'user',bool $isHashed = false) {
         $this->username = $username;
         $this->email = $email;
-        $this->password = password_hash($password, PASSWORD_DEFAULT); // securely hashing the password
+        $this->password = $isHashed ? $password : password_hash($password, PASSWORD_DEFAULT); // securely hashing the password
         $this->role = $role;
     }
 
@@ -49,9 +56,9 @@ class UsersModel {
     // Save user to the database
     public function save() {
         global $connect;
-        $stmt = $connect->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $this->username, $this->email, $this->password, $this->role);
-        if ($stmt->execute()) {
+        $sql = $connect->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
+        $sql->bind_param("ssss", $this->username, $this->email, $this->password, $this->role);
+        if ($sql->execute()) {
             echo "User saved successfully!";
         } else {
             echo "Error saving user: " . $stmt->error;
@@ -59,13 +66,26 @@ class UsersModel {
     }
 
     // Find user by username or email
-    public static function findByUsername($username) {
+    public static function findByUsername($username): ?self {
         global $connect;
-        $stmt = $connect->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_object('User');
+        $sql = $connect->prepare("SELECT * FROM users WHERE username = ?");
+        $sql->bind_param("s", $username);
+        $sql->execute();
+        $res = $sql->get_result();
+
+        if ($row = $res->fetch_assoc()) {
+            // khởi tạo mới với đủ tham số
+            $user = new User(
+                $row['username'],      // username
+                $row['email'],         // email
+                $row['password'],      // hashed password
+                $row['role'],          // role
+                true
+            );
+            $user->id = $row['id'];    // gán thêm id
+            return $user;
+        }
+        return null;
     }
 
     // Validate password
