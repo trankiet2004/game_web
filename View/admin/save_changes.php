@@ -7,12 +7,12 @@ if (isset($request['file']) && isset($request['content'])) {
     $newContent = $request['content'];
 
     $allowedFiles = [
-        '../bao/about_us.html',
-        '../bao/forum.html',
-        '../thinh/index.html',
-        '../thinh/contact_us.html',
-        '../kiet/blogs.html',
-        '../kiet/detail.html'
+        '../bao/about_us.php',
+        '../bao/forum.php',
+        '../thinh/index.php',
+        '../thinh/contact_us.php',
+        '../kiet/blogs.php',
+        '../kiet/detail.php'
     ];
     
     if (!in_array($filePath, $allowedFiles)) {

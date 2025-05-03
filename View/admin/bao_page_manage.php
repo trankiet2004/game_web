@@ -1,23 +1,21 @@
 <?php
-$allHtmlFiles = [];
-$folders = [
-    realpath(__DIR__ . '/../thinh'),
-    realpath(__DIR__ . '/../kiet'),
-    realpath(__DIR__ . '/../tu'),
-    realpath(__DIR__ . '/../bao'),
-];
+$allPages = [];
+$subFolders = ['bao', 'kiet', 'thinh', 'tu'];
+$viewRoot   = realpath(__DIR__ . '/..');
 
-foreach ($folders as $directory) {
-    if (!is_dir($directory)) continue;
+foreach ($subFolders as $folder) {
+    $dir = $viewRoot . DIRECTORY_SEPARATOR . $folder;
+    if (!is_dir($dir)) continue;
 
-    $files = scandir($directory);
-    $htmlFiles = array_filter($files, function($file) use ($directory) {
-        $fullPath = $directory . DIRECTORY_SEPARATOR . $file;
-        return is_file($fullPath) && pathinfo($file, PATHINFO_EXTENSION) === 'php';
-    });
+    $files = scandir($dir);
+    if (!is_array($files)) continue;
 
-    foreach ($htmlFiles as $file) {
-        $allHtmlFiles[] = $directory . DIRECTORY_SEPARATOR . $file;
+    foreach ($files as $file) {
+        if (pathinfo($file, PATHINFO_EXTENSION) !== 'php') continue;
+        $allPages[] = [
+            'name' => $file,
+            'path' => "View/$folder/$file"
+        ];
     }
 }
 ?>
@@ -153,17 +151,16 @@ foreach ($folders as $directory) {
                                     </thead>
                                     
                                     <tbody>
-                                        <?php foreach($allHtmlFiles as $file): ?>
-                                            <?php
-                                            $baseName = pathinfo($file, PATHINFO_FILENAME);
-                                            if (strpos($file, "detail.html")) continue;
-                                            ?>
-                                            <tr data-path="<?php echo $file; ?>">
+                                        <?php foreach ($allPages as $p): ?>
+                                            <?php $slug = pathinfo($p['name'], PATHINFO_FILENAME); ?>
+                                            <tr>
                                                 <td><input type="checkbox" class="selectRow"></td>
-                                                <td><a href="<?php echo $file; ?>"><?php echo basename($file); ?></a></td>
+                                                <td><a href="/<?= $p['path'] ?>" target="_blank"><?= $p['name'] ?></a></td>
                                                 <td>
-                                                    <a href="bao_edit_page.php?id=<?php echo $baseName; ?>" class="btn btn-primary">Chỉnh Sửa</a>
-                                                    <a class="btn btn-danger">Xóa Trang</a>
+                                                    <a class="btn btn-primary" href="/index.php?page=bao_edit_page&id=<?= urlencode($slug) ?>">
+                                                        Chỉnh Sửa
+                                                    </a>
+                                                    <a  class="btn btn-danger">Xóa Trang</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

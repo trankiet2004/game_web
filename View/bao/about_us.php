@@ -1,6 +1,4 @@
-<?php session_start(); ?>
-<html lang="en" data-theme="dark" style="--primary: rgb(0, 172, 255);">
-<head>
+<html lang="en" data-theme="dark" style="--primary: rgb(255, 113, 0);"><head>
     <meta charset="UTF-8">
     <base href="/View/bao/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,20 +48,7 @@
                     </ul>
                     
                     <div class="d-flex align-items-center">
-                        <?php if (!isset($_SESSION['user'])): ?>
-                            <button class="btn btn-outline-neon me-2">
-                                <a href="../../index.php?page=signin" style="text-decoration: none; color: var(--primary);">
-                                    Đăng Nhập
-                                </a>
-                            </button>
-                            
-                            <button class="btn btn-neon">
-                                <a href="../../index.php?page=signup" style="color: black; text-decoration: none;">
-                                    Đăng Ký
-                                </a>
-                            </button>
-                        <?php else: ?>
-                            <button class="btn btn-outline-neon me-2">
+                                                    <button class="btn btn-outline-neon me-2">
                                 <a href="../../index.php?page=account-profile" style="text-decoration: none; color: var(--primary);">
                                     Tài khoản
                                 </a>
@@ -74,8 +59,7 @@
                                     Đăng Xuất
                                 </a>
                             </button>
-                        <?php endif; ?>
-                    </div>
+                                            </div>
                 </div>
             </div>
         </nav>
@@ -172,44 +156,44 @@
                 <div data-scroll="" class="visible" style="position: relative;">
                     <h4>2018 - Khởi Nguồn Đam Mê</h4>
                     <p>Thành lập với khát khao chinh phục thị trường game triệu đô, đặt nền móng cho những trải nghiệm chơi game đẳng cấp toàn cầu.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2020 - Dấu Ấn AAA</h4>
                     <p>Phối hợp với các studio quốc tế, mang về những tựa game AAA độc quyền, khẳng định vị thế công ty phân phối uy tín.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2022 - Định Hình Xu Hướng Mới</h4>
                     <p>Ra mắt chương trình hỗ trợ nhà phát triển indie, củng cố hệ sinh thái streaming và mở rộng hợp tác chiến lược toàn cầu.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2024 - Tăng Tốc Bền Vững</h4>
                     <p>Xây dựng cộng đồng eSports quốc tế, đầu tư mạnh vào AI và luôn đặt trải nghiệm người chơi làm trung tâm.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
             </div>
 
             <div class="col col-6" style="border-left: 4px solid aqua; padding-top: 6%; padding-left: 4%;" data-editable="true" contenteditable="true">
                 <div data-scroll="" class="visible" style="position: relative;">
                     <h4>2019 - Bứt Phá Ban Đầu</h4>
                     <p>Mở rộng mạng lưới phân phối, ra mắt nền tảng trực tuyến và ghi dấu ấn thương hiệu tiên phong trong cộng đồng game thủ.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2021 - Lan Tỏa Sức Ảnh Hưởng</h4>
                     <p>Đột phá về lượng người dùng, tham gia sự kiện eSports tầm cỡ và khẳng định thương hiệu qua chiến dịch marketing sáng tạo.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2023 - Vươn Ra Thế Giới</h4>
                     <p>Mở rộng quy mô toàn cầu với 5 studio, chinh phục giải thưởng ngành game danh giá và khai trương trụ sở sáng tạo.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
 
                 <div style="margin-top: 10%; position: relative;" data-scroll="" class="visible">
                     <h4>2025 - Tiếp Nối Hành Trình</h4>
                     <p>Hoàn thiện hệ sinh thái game toàn diện, không ngừng sáng tạo và hướng đến vị thế hàng đầu châu Á về phân phối và phát triển game.</p>
-                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
+                <button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button><button class="btn btn-danger btn-sm delete-btn" style="position: absolute; top: 5px; right: 5px;">Xóa</button></div>
             </div>
         </div>
     </div>
@@ -336,7 +320,7 @@
             <h3>Games Mới Nhất Của Chúng Tôi</h3>
         </div>
         <div class="game-card-container">
-            <div class="game-card-wrapper"><div class="card"><img class="card-img-top" src="../data/img/games/game28.jpg" alt="red-dead-redemption-2"><div class="card-body"><h4>Red Dead Redemption 2</h4><a href="https://www.rockstargames.com/reddeadredemption2/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game32.jpg" alt="destiny-2"><div class="card-body"><h4>Destiny 2</h4><a href="https://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game41.jpg" alt="little-nightmares"><div class="card-body"><h4>Little Nightmares</h4><a href="http://www.little-nightmares.com" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game278.jpg" alt="horizon-zero-dawn"><div class="card-body"><h4>Horizon Zero Dawn</h4><a href="https://www.guerrilla-games.com/play/horizon" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game416.jpg" alt="grand-theft-auto-san-andreas"><div class="card-body"><h4>Grand Theft Auto: San Andreas</h4><a href="http://www.rockstargames.com/sanandreas/pc" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game422.jpg" alt="terraria"><div class="card-body"><h4>Terraria</h4><a href="http://www.terraria.org/" class="btn btn-primary">Xem thêm</a></div></div></div>
+            <div class="game-card-wrapper"><div class="card"><img class="card-img-top" src="../data/img/games/game41494.jpg" alt="cyberpunk-2077"><div class="card-body"><h4>Cyberpunk 2077</h4><a href="https://www.cyberpunk.net/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game290856.jpg" alt="apex-legends"><div class="card-body"><h4>Apex Legends</h4><a href="https://www.ea.com/games/apex-legends" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game28.jpg" alt="red-dead-redemption-2"><div class="card-body"><h4>Red Dead Redemption 2</h4><a href="https://www.rockstargames.com/reddeadredemption2/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game58175.jpg" alt="god-of-war-2"><div class="card-body"><h4>God of War (2018)</h4><a href="https://godofwar.playstation.com/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game32.jpg" alt="destiny-2"><div class="card-body"><h4>Destiny 2</h4><a href="https://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data/img/games/game41.jpg" alt="little-nightmares"><div class="card-body"><h4>Little Nightmares</h4><a href="http://www.little-nightmares.com" class="btn btn-primary">Xem thêm</a></div></div></div>
         </div>
     </div>
 
@@ -397,7 +381,37 @@
         </div>
     </div> -->
 
-    <footer id="footer" class="cyber-footer py-5" style="margin-top: 0;" data-scroll=""></footer>
+    <footer id="footer" class="cyber-footer py-5" style="margin-top: 0;" data-scroll="">
+<footer class="py-4" style="margin-top: 10rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <h3 class="text-neon">Về BKGame</h3>
+                <h5>Tạo ra những trải nghiệm chơi game của tương lai</h5>
+            </div>
+            
+            <div class="col-lg-4">
+                <h3 class="text-neon">Quick Links</h3>
+                <ul class="list-unstyled">
+                    <li><a href="#" style="text-decoration: none;">Hỗ Trợ</a></li>
+                    <li><a href="#" style="text-decoration: none;">Điều khoản dịch vụ</a></li>
+                    <li><a href="#" style="text-decoration: none;">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-4">
+                <h3 class="text-neon">Phương Thức Thanh Toán</h3>
+                
+                <div class="payment-methods">
+                    <i class="bi bi-credit-card" style="font-size: 2rem;"></i>
+                    <i class="bi bi-paypal" style="font-size: 2rem;"></i>
+                    <i class="bi bi-wallet2" style="font-size: 2rem;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</footer>
 
     <script src="about_us.js" data-scroll=""></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" data-scroll=""></script>    

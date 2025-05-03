@@ -36,6 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/admin/bao_comment.php');
 } else if($page == 'bao_page_manage') {
     include('./View/admin/bao_page_manage.php');
+} else if($page == 'bao_edit_page') {
+    include('./View/admin/bao_edit_page.php');
+} else if($page == 'kiet_blog_manage') {
+    include('./View/admin/kiet_blog_manage.php');
+} else if($page == 'user-management') {
+    include('./View/admin/user-management.php');
 } else {
     // Default to the index (product list)
     $controller->index();

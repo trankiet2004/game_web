@@ -1,5 +1,5 @@
 <?php
-$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/../../Controller/ArticlesController.php');  
+$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/ArticlesController.php');
 $articles = json_decode($jsonData, true);
 
 if (!is_array($articles)) {

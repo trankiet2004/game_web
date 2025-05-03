@@ -53,11 +53,11 @@
         document.addEventListener("DOMContentLoaded", function(){
             var id = getParameterByName('id');
             var mapping = {
-                'blogs': '../kiet/blogs.html',
-                'index': '../thinh/index.html',
-                'about_us': '../bao/about_us.html',
-                'forum': '../bao/forum.html',
-                'contact_us': '../thinh/contact_us.html'
+                'blogs': '../kiet/blogs.php',
+                'index': '../thinh/index.php',
+                'about_us': '../bao/about_us.php',
+                'forum': '../bao/forum.php',
+                'contact_us': '../thinh/contact_us.php'
             };
 
             var urlToLoad = mapping[id];
