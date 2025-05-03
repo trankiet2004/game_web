@@ -55,7 +55,7 @@
                             </button>
                             
                             <button class="btn btn-neon">
-                                <a href="../../index.php?page=logout" style="color: black; text-decoration: none;">
+                                <a href="/Controller/AuthController.php?action=logout" style="color: black; text-decoration: none;">
                                     Đăng Xuất
                                 </a>
                             </button>

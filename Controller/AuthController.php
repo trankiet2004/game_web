@@ -68,6 +68,20 @@ class AuthController {
         (new User('admin','admin@example.com',$hashed,'admin',true))->save();
         echo 'Đã tạo tài khoản admin/admin123';
     }
+    public function logout() {
+        // Hủy session hoàn toàn
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params['path'], $params['domain'],
+                $params['secure'], $params['httponly']
+            );
+        }
+        session_destroy();
+        header('Location: /View/common_part/signin.php');
+        exit;
+    }
 }
 
 /* Router siêu gọn */
