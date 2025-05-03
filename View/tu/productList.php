@@ -37,6 +37,7 @@
     <div id="productList">
         <?php if (count($game) > 0): ?>
             <?php foreach ($game as $g): ?>
+                <a class="card container" href="/game_web/index.php?action=game&id=<?= $g['id'] ?>">
                 <div class="game">
                     <h3><?= htmlspecialchars($g['name']) ?></h3>
                     <p>Released: <?= htmlspecialchars($g['released']) ?></p>

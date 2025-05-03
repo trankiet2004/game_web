@@ -19,8 +19,8 @@ spl_autoload_register(function ($class) {
 $controller = new GamesController();
 $page = $_GET['page'] ?? '';
 
-// Check if the request is for loading products via AJAX
-if (isset($_POST['action']) && $_POST['action'] === 'load_products') {
+// Handle AJAX request
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_products') {
     $controller->load_products();
 } else if($page == '') {
     (new ThinhController())->index();
@@ -31,7 +31,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'load_products') {
 } else if($page == 'bao') {
     (new BaoController())->index();
 } else {
-    // If not an AJAX request, load the main page
+    // Default to the index (product list)
     $controller->index();
 }
-?>
