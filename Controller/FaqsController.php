@@ -19,10 +19,4 @@ $json = $_SERVER["REQUEST_METHOD"] === "POST" ? Array(
     trim($_POST["user_name"])
 ) : NULL;
 
-if (isset($_GET['delete'])) {
-    $fetch->deleteFaq($_GET['delete']);
-    echo json_encode(['success' => true]);
-    exit;
-}
-
 $fetch->fetch($_SERVER["REQUEST_METHOD"], "faqs", $id, "user_id", $json);

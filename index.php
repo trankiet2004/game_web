@@ -1,10 +1,6 @@
 <?php
 // Include necessary files
 require_once('Controller/GamesController.php');
-spl_autoload_register(function ($class) {
-    $file = __DIR__ . "/Controller/{$class}.php";
-    if (file_exists($file)) require_once $file;
-});
 // Create controller object
 $controller = new GamesController();
 $page = $_GET['page'] ?? '';
@@ -13,13 +9,31 @@ $page = $_GET['page'] ?? '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_products') {
     $controller->load_products();
 } else if($page == '') {
-    (new ThinhController())->index();
-} else if($page == 'tu') {
-    (new TuController())->index();
-} else if($page == 'kiet') {
-    (new KietController())->index();
-} else if($page == 'bao') {
-    (new BaoController())->index();
+    include('./View/thinh/index.php');
+} else if($page == 'contact_us') {
+    include('./View/thinh/contact_us.php');
+} else if($page == 'about_us') {
+    include('./View/bao/about_us.php');
+} else if($page == 'blogs') {
+    include('./View/kiet/blogs.php');
+} else if($page == 'forum') {
+    include('./View/bao/forum.php');
+} else if($page == 'signin') {
+    include('./View/common_part/signin.php');
+} else if($page == 'signup') {
+    include('./View/common_part/signup.php');
+} else if($page == 'forgot-password') {
+    include('./View/common_part/forgot-password.php');
+} else if($page == 'account-profile') {
+    include('./View/common_part/account-profile.php');
+} else if($page == 'logout') {
+    include('./View/common_part/logout.php');
+} else if($page == 'comment_manage') {
+    include('./View/common_part/comment_manage.php');
+} else if($page == 'indexAdmin') {
+    include('./View/admin/index.php');
+} else if($page == 'indexAdmin') {
+    include('./View/admin/index.php');
 } else {
     // Default to the index (product list)
     $controller->index();

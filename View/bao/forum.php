@@ -20,7 +20,7 @@
     <div id="header">
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a class="navbar-brand text-neon" href="../thinh/index.html">
+                <a class="navbar-brand text-neon" href="../../index.php?">
                     <img src="../img/logo.png" width="40" height="40" class="rounded-circle me-2 glow-effect" alt="CyberGameHub Logo">BKGame
                 </a>
 
@@ -30,7 +30,7 @@
                 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link text-neon" href="../thinh/index.html">Trang Chủ</a></li>                        
+                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?">Trang Chủ</a></li>                        
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
                             <ul class="dropdown-menu cyber-dropdown">
@@ -40,19 +40,19 @@
                                 <li><a class="dropdown-item" href="#">VR Games</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.php">Giới Thiệu</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../kiet/blogs.html">Tin Tức</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.php">Cộng Đồng</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../thinh/contact_us.html">Liên Hệ</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=about_us">Giới Thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=blogs">Tin Tức</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=forum">Cộng Đồng</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=contact_us">Liên Hệ</a></li>
                     </ul>
                     
                     <div class="d-flex align-items-center">
                         <button class="btn btn-outline-neon me-2">
-                            <a href="../common_part/signin.php" style="text-decoration: none; color: var(--primary);">Đăng Nhập</a>
+                            <a href="../../index.php?page=signin" style="text-decoration: none; color: var(--primary);">Đăng Nhập</a>
                         </button>
                         
                         <button class="btn btn-neon">
-                            <a href="../common_part/signup.php" style="color: black; text-decoration: none;">Đăng Ký</a>
+                            <a href="../../index.php?page=signup" style="color: black; text-decoration: none;">Đăng Ký</a>
                         </button>
                     </div>
                 </div>
@@ -66,8 +66,10 @@
         <div class="cyber-card mb-5 p-4 visible" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-patch-question-fill"></i> Đặt câu hỏi</h4>
             <form id="questionForm" method="POST" action="../../Controller/FaqsController.php">
-                <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user']['id'] ?>">
-                <input type="hidden" id="user_name" name="user_name" value="<?= $_SESSION['user']['username'] ?>">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user']['id'] ?>">
+                    <input type="hidden" id="user_name" name="user_name" value="<?= $_SESSION['user']['username'] ?>">
+                <?php endif; ?> 
 
                 <div class="mb-3">
                     <input type="text" class="form-control bg-transparent text-light" id="questionTitle" name="questionTitle" placeholder="Tiêu đề">
@@ -78,7 +80,7 @@
                 </div>
                 
                 <?php if (!isset($_SESSION['user'])): ?>
-                    <a type="button" href="../common_part/signin.php" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui Lòng Đăng Nhập</a>
+                    <a type="button" href="../../index.php?page=signin" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui Lòng Đăng Nhập</a>
                 <?php else: ?>
                     <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
                 <?php endif; ?> 

@@ -10,6 +10,7 @@ unset($_SESSION['err'], $_SESSION['old']);
 
 <head>
     <meta charset="UTF-8">
+    <base href="/View/common_part/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
     <link rel="shortcut icon" href="../assets/compiled/svg/favicon.svg" type="image/x-icon">
@@ -30,7 +31,7 @@ unset($_SESSION['err'], $_SESSION['old']);
             <div class="col-lg-5 col-12" style="background-color: #051209 !important;">
                 <div id="auth-left">
                     <div class="auth-logo d-flex justify-content-center">
-                        <a href="../thinh/index.html"><img src="../img/logo.png" class="rounded-circle" style="transform:scale(4.5)" alt="Logo"></a>
+                        <a href="../../index.php?"><img src="../img/logo.png" class="rounded-circle" style="transform:scale(4.5)" alt="Logo"></a>
                     </div>
                     <h1 class="auth-title">Đăng Nhập</h1>
 
@@ -82,7 +83,7 @@ unset($_SESSION['err'], $_SESSION['old']);
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     <script>
         function init(){ gapi.load('auth2',()=>gapi.auth2.init({client_id:'YOUR_CLIENT_ID'})); }
-        function onSignIn(googleUser){ var profile=googleUser.getBasicProfile(); console.log(profile.getEmail()); window.location.href='../thinh/index.html'; }
+        function onSignIn(googleUser){ var profile=googleUser.getBasicProfile(); console.log(profile.getEmail()); window.location.href='../../index.php?'; }
     </script>
 </body>
 </html>

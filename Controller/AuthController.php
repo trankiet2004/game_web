@@ -24,14 +24,14 @@ class AuthController {
                 "gender" => $user->gender ?? null
             ];
             header('Location: '.($user->role==='admin'
-                                 ? '/View/admin/index.html'
-                                 : '/View/thinh/index.html'));
+                                 ? '../index.php?page=indexAdmin'
+                                 : '../index.php?'));
             exit;
         }
 
         $_SESSION['old'] = ['username'=>$u];
         $_SESSION['err'] = 'Tên đăng nhập hoặc mật khẩu sai!';
-        header('Location: /View/common_part/signin.php');
+        header('Location: ../index.php?page=signin');
     }
 
     /** Xử lý đăng ký */
@@ -46,18 +46,18 @@ class AuthController {
 
         if ($pass!==$confirm){
             $_SESSION['err']='Mật khẩu xác nhận không khớp!';
-            header('Location: /View/common_part/signup.html'); exit;
+            header('Location: ../index.php?page=signup'); exit;
         }
         if (User::findByUsername($username)){
             $_SESSION['err']='Tên người dùng đã tồn tại!';
-            header('Location: /View/common_part/signup.html'); exit;
+            header('Location: ../index.php?page=signup'); exit;
         }
 
         $hashed = password_hash($pass,PASSWORD_DEFAULT);
         (new User($username,$email,$hashed,'user',true))->save();
 
         $_SESSION['msg']='Đăng ký thành công! Vui lòng đăng nhập.';
-        header('Location: /View/common_part/signin.php');
+        header('Location: ../index.php?page=signin');
     }
 
     /** Hàm tiện tạo admin đầu tiên (chạy 1 lần rồi xoá) */
