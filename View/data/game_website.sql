@@ -2722,3 +2722,13 @@ WHERE f.posted_by IS NOT NULL
 UPDATE faqs AS f
 JOIN   users AS u ON u.username = f.posted_by
 SET    f.user_id = u.id;
+
+CREATE TABLE answers (
+    answer_id INT AUTO_INCREMENT PRIMARY KEY,
+    faq_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (faq_id) REFERENCES faqs(faq_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

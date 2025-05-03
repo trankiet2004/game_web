@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,81 +18,34 @@
 </head>
 
 <body class="text-light" style="background-color: rgb(10, 10, 32);">
-    <div id="header">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container">
-                <a class="navbar-brand text-neon" href="../../index.php?">
-                    <img src="../img/logo.png" width="40" height="40" class="rounded-circle me-2 glow-effect" alt="CyberGameHub Logo">BKGame
-                </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?">Trang Chủ</a></li>                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
-                            <ul class="dropdown-menu cyber-dropdown">
-                                <li><a class="dropdown-item" href="#">PC Games</a></li>
-                                <li><a class="dropdown-item" href="#">Console Games</a></li>
-                                <li><a class="dropdown-item" href="#">Mobile Games</a></li>
-                                <li><a class="dropdown-item" href="#">VR Games</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=about_us">Giới Thiệu</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=blogs">Tin Tức</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=forum">Cộng Đồng</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../../index.php?page=contact_us">Liên Hệ</a></li>
-                    </ul>
-                    
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-neon me-2">
-                            <a href="../../index.php?page=signin" style="text-decoration: none; color: var(--primary);">Đăng Nhập</a>
-                        </button>
-                        
-                        <button class="btn btn-neon">
-                            <a href="../../index.php?page=signup" style="color: black; text-decoration: none;">Đăng Ký</a>
-                        </button>
-                    </div>
+    <header id="header"></header>
+
+    <div class="container py-5">
+        <div class="cyber-card p-4 mb-5" data-scroll="">
+            <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-send-fill"></i> Đặt câu hỏi</h4>
+            <form id="ask-form" class="row g-3">
+                <input type="hidden" id="user_id"   name="user_id"   value="<?= isset($_SESSION['user']) ? $_SESSION['user']['id'] : '' ?>">
+                <input type="hidden" id="user_name" name="user_name" value="<?= isset($_SESSION['user']) ? $_SESSION['user']['username'] : '' ?>">
+                <div class="col-12">
+                    <input type="text" class="form-control bg-transparent text-light" id="questionTitle" name="questionTitle" placeholder="Tiêu đề" required>
                 </div>
-            </div>
-        </nav>
-    </div>
-
-    <div class="container mt-5 visible" data-scroll="">
-        <h1 class="text-neon-without-shadow text-center mb-5" data-editable="true" contenteditable="true">HỎI &amp; ĐÁP</h1>
-
-        <div class="cyber-card mb-5 p-4 visible" data-scroll="">
-            <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-patch-question-fill"></i> Đặt câu hỏi</h4>
-            <form id="questionForm" method="POST" action="../../Controller/FaqsController.php">
-                <?php if (isset($_SESSION['user'])): ?>
-                    <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user']['id'] ?>">
-                    <input type="hidden" id="user_name" name="user_name" value="<?= $_SESSION['user']['username'] ?>">
-                <?php endif; ?> 
-
-                <div class="mb-3">
-                    <input type="text" class="form-control bg-transparent text-light" id="questionTitle" name="questionTitle" placeholder="Tiêu đề">
+                <div class="col-12">
+                    <textarea class="form-control bg-transparent text-light" id="questionContent" name="questionContent" rows="4" placeholder="Nội dung câu hỏi" required></textarea>
                 </div>
-                
-                <div class="mb-3">
-                    <textarea class="form-control bg-transparent text-light" id="questionContent" name="questionContent" style="height: 120px" placeholder="Nội dung"></textarea>
+                <div class="col-12 text-end">
+                    <?php if (!isset($_SESSION['user'])): ?>
+                        <a href="../../index.php?login" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui lòng đăng nhập</a>
+                    <?php else: ?>
+                        <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
+                    <?php endif; ?>
                 </div>
-                
-                <?php if (!isset($_SESSION['user'])): ?>
-                    <a type="button" href="../../index.php?page=signin" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui Lòng Đăng Nhập</a>
-                <?php else: ?>
-                    <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
-                <?php endif; ?> 
             </form>
         </div>
 
         <div class="cyber-card p-4" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-chat-square-text-fill"></i> Câu hỏi gần đây</h4>
-            
             <div id="faq-container"></div>
-
             <nav class="mt-4">
                 <ul class="pagination justify-content-center" id="pagination-container"></ul>
             </nav>
@@ -103,146 +57,193 @@
     <script src="forum.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        const currentUser = <?= isset($_SESSION['user'])
+            ? json_encode(['id'=>$_SESSION['user']['id'], 'username'=>$_SESSION['user']['username']])
+            : 'null' ?>;
+
         async function fetchData(URL_String) {
-            const URL_GAMES_API = new URL(URL_String, window.location.href).href;
+            const URL_API = new URL(URL_String, window.location.href).href;
             try {
-                const response = await fetch(URL_GAMES_API);
-                if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-                }
-                const json = await response.json();
-                return json;
+                const response = await fetch(URL_API);
+                if (!response.ok) throw new Error(`Response status: ${response.status}`);
+                return await response.json();
             } catch (error) {
-                console.error(error.message);
+                console.error(error);
+                return [];
             }
         }
 
-        function formatTime(dateTimeString) {
-            return dateTimeString;
+        function formatTime(dateString) {
+            const dt = new Date(dateString);
+            const pad = n => n.toString().padStart(2, '0');
+            return `${pad(dt.getHours())}:${pad(dt.getMinutes())} ${pad(dt.getDate())}/${pad(dt.getMonth()+1)}/${dt.getFullYear()}`;
         }
 
         const itemsPerPage = 4;
 
+        function attachReplyHandlers() {
+            document.querySelectorAll('.reply-form').forEach(form => {
+                if (form.dataset.hasListener) return;
+                form.dataset.hasListener = '1';
+
+                form.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    if (!currentUser) {
+                        return window.location.href = '../../index.php?login';
+                    }
+
+                    const faqId = this.dataset.faqId;
+                    const answerInput = this.querySelector('input[name="answer"]');
+                    const text = answerInput.value.trim();
+                    if (!text) {
+                        return alert('Vui lòng nhập nội dung trả lời.');
+                    }
+
+                    const formData = new FormData();
+                    formData.append('faq_id', faqId);
+                    formData.append('answer', text);
+                    formData.append('user_id', currentUser.id);
+                    formData.append('user_name', currentUser.username);
+
+                    try {
+                        const res = await fetch('../../Controller/AnswersController.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            const answersContainer = form.previousElementSibling;
+                            const item = document.createElement('div');
+                            item.className = 'answer-item bg-card p-3 rounded mt-2';
+                            item.innerHTML = `
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-person-circle text-neon me-2"></i>
+                                    <span class="text-neon">${currentUser.username}</span>
+                                    <small class="ms-3">${formatTime(new Date().toISOString())}</small>
+                                </div>
+                                <p class="text-light mb-0">${text}</p>
+                            `;
+                            answersContainer.appendChild(item);
+                            answerInput.value = '';
+                        } else {
+                            alert(data.message||'Đã có lỗi khi gửi trả lời.');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert('Lỗi khi gọi API trả lời.');
+                    }
+                });
+            });
+        }
+
+        async function loadAnswers(containerEl, faqId) {
+            containerEl.innerHTML = '<p class="text-light">Đang tải câu trả lời…</p>';
+            const answers = await fetchData(`/Controller/AnswersController.php?faq_id=${faqId}`);
+            containerEl.innerHTML = answers.map(ans => `
+                <div class="answer-item bg-card p-3 rounded mb-2">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-person-circle text-neon me-2"></i>
+                    <span class="text-neon">${ans.user_name}</span>
+                    <small class="ms-3">${formatTime(ans.created_at)}</small>
+                </div>
+                <p class="text-light mb-0">${ans.content}</p>
+                </div>
+            `).join('') || '<p class="text-light">Chưa có câu trả lời nào.</p>';
+        }
+
         function renderPage(pageNumber, data) {
-            const faqContainer = document.getElementById('faq-container');
-            faqContainer.innerHTML = "";
+            const container = document.getElementById('faq-container');
+            container.innerHTML = '';
+            const start = (pageNumber-1)*itemsPerPage;
+            const slice = data.slice(start, start+itemsPerPage);
 
-            const startIndex = (pageNumber - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pageData = data.slice(startIndex, endIndex);
-
-            pageData.forEach(faq => {
+            slice.forEach(faq => {
                 const faqItem = document.createElement('div');
                 faqItem.className = 'question-item mb-4 p-3';
                 faqItem.id = `faq-${faq.faq_id}`;
                 faqItem.innerHTML = `
-                <div class="question-header">
-                    <h5 class="text-neon-without-shadow">${faq.question}</h5>
-                    <small>Đăng bởi: ${faq.posted_by} - ${formatTime(faq.created_at)}</small>
-                </div>
-                <!-- Cấp chứa câu trả lời -->
-                <div class="answers-container mt-3">
-                    <div class="answer-item bg-card p-3 rounded">
-                    <div class="d-flex align-items-center mb-2">
-                        <i class="bi bi-person-circle text-neon me-2"></i>
-                        <span class="text-neon">${faq.posted_by}</span>
-                        <small class="ms-3">${formatTime(faq.updated_at)}</small>
+                    <div class="question-header">
+                        <h5 class="text-neon-without-shadow">${faq.question}</h5>
+                        <small>Đăng bởi: ${faq.posted_by} - ${formatTime(faq.created_at)}</small>
                     </div>
-                    <p class="text-light mb-0">${faq.answer}</p>
+                    <div class="answers-container mt-3" data-faq-id="${faq.faq_id}">
+                        ${ (faq.answers || []).map(ans => `
+                            <div class="answer-item bg-card p-3 rounded mb-2">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="bi bi-person-circle text-neon me-2"></i>
+                                    <span class="text-neon">${ans.user_name}</span>
+                                    <small class="ms-3">${formatTime(ans.created_at)}</small>
+                                </div>
+                                <p class="text-light mb-0">${ans.content}</p>
+                            </div>
+                        `).join('')}
                     </div>
-                </div>
-                <form class="mt-3">
-                    <div class="input-group">
-                    <input type="text" class="form-control bg-transparent text-light" placeholder="Viết câu trả lời...">
-                    <button class="btn btn-neon"><i class="bi bi-reply-fill"></i></button>
-                    </div>
-                </form>
+                    <form class="mt-3 reply-form" data-faq-id="${faq.faq_id}">
+                        <div class="input-group">
+                            <input type="text" name="answer" class="form-control bg-transparent text-light" placeholder="Viết câu trả lời..." ${!currentUser?'disabled':''}>
+                            ${!currentUser
+                                ? `<button type="button" class="btn btn-neon" onclick="window.location='../../index.php?login'"><i class="bi bi-reply-fill"></i></button>`
+                                : `<button type="submit" class="btn btn-neon"><i class="bi bi-reply-fill"></i></button>`
+                            }
+                        </div>
+                    </form>
                 `;
-                faqContainer.appendChild(faqItem);
+                container.appendChild(faqItem);
             });
-        }
 
-        function renderPagination(totalItems, currentPage, onPageChange) {
-            const container = document.getElementById('pagination-container');
-            container.innerHTML = "";
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-            for (let i = 1; i <= totalPages; i++) {
+            const totalPages = Math.ceil(data.length / itemsPerPage);
+            const pag = document.getElementById('pagination-container');
+            pag.innerHTML = '';
+            for (let i=1; i<=totalPages; i++) {
                 const li = document.createElement('li');
-                li.className = 'page-item' + (i === currentPage ? ' active' : '');
+                li.className = 'page-item'+(i===pageNumber?' active':'');
                 li.innerHTML = `<a class="page-link text-neon bg-dark" href="#">${i}</a>`;
-                li.addEventListener('click', e => {
+                li.addEventListener('click', e=>{
                     e.preventDefault();
-                    onPageChange(i);
+                    renderPage(i, data);
+                    attachReplyHandlers();
                 });
-                container.appendChild(li);
+                pag.appendChild(li);
             }
-        }
 
-        function scrollToId(id) {
-            requestAnimationFrame(() => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                el.style.boxShadow = '0 0 15px 4px #00ffcc';
-                setTimeout(() => el.style.boxShadow = '', 2000);
+            document.querySelectorAll('.answers-container').forEach(el => {
+                const faqId = el.dataset.faqId;
+                loadAnswers(el, faqId);
             });
+
+            attachReplyHandlers();
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            const data = await fetchData('../../Controller/FaqsController.php');
-            window.faqData = data;
-
-            const hash = window.location.hash || '';
-            const m    = hash.match(/^#faq-(\d+)$/);
-            const targetId   = m ? `faq-${m[1]}` : null;
-            const targetPage = m
-                ? Math.floor(data.findIndex(f=>f.faq_id==m[1]) / itemsPerPage) + 1
-                : 1;
-
-            const changePage = pageNum => {
-                renderPage(pageNum, data);
-                renderPagination(data.length, pageNum, changePage);
-                if (targetId) scrollToId(targetId);
-            };
-
-            renderPagination(data.length, targetPage, changePage);
-            changePage(targetPage);
-
-            if (targetId) scrollToId(targetId);
-        });
-
-        document.getElementById("questionForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-
-            const title = document.getElementById("questionTitle").value.trim();
-            const content = document.getElementById("questionContent").value.trim();
-            const userId = document.getElementById("user_id").value;
-            const userName = document.getElementById("user_name").value;
-
-            if (!title || !content) {
-                alert("Vui lòng nhập đầy đủ tiêu đề và nội dung.");
-                return;
+            if (typeof loadComponent === 'function') {
+                loadComponent('header','../component/header.php');
+                loadComponent('footer','../component/footer.php');
             }
 
-            formData.append("questionTitle", title);
-            formData.append("questionContent", content);
-            formData.append("user_id", userId);
-            formData.append("user_name", userName);
+            const data = await fetchData('../../Controller/FaqsController.php');
+            renderPage(1, data);
 
-            fetch("../../Controller/FaqsController.php", {
-                method: "POST",
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message || "Gửi câu hỏi thành công!");
-                this.reset();
-            })
-            .catch(error => {
-                console.error("Lỗi gửi dữ liệu:", error);
-                alert("Có lỗi xảy ra khi gửi câu hỏi.");
+            document.getElementById('ask-form').addEventListener('submit', async function(e){
+                e.preventDefault();
+                if (!currentUser) return window.location.href='../../index.php?login';
+                const fd = new FormData(this);
+                try {
+                    const res = await fetch('../../Controller/FaqsController.php', {
+                        method: 'POST',
+                        body: fd
+                    });
+                    const js = await res.json();
+                    if (js.success) {
+                        alert('Gửi câu hỏi thành công!');
+                        location.reload();
+                    } else {
+                        alert(js.message||'Lỗi gửi câu hỏi.');
+                    }
+                } catch(err) {
+                    console.error(err);
+                    alert('Có lỗi xảy ra.');
+                }
             });
         });
     </script>
