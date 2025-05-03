@@ -1,5 +1,7 @@
-<html lang="en" data-theme="dark" style="--primary: rgb(0, 172, 255);"><head>
+<html lang="en" data-theme="dark" style="--primary: rgb(0, 172, 255);">
+<head>
     <meta charset="UTF-8">
+    <base href="/View/bao/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
@@ -389,15 +391,27 @@
     <script data-scroll="">
         async function fetchData() {
             const URL_GAMES_API = new URL("../../Controller/GamesController.php", window.location.href).href;
+
             try {
-                const response = await fetch(URL_GAMES_API);
+                const formData = new URLSearchParams();
+                formData.append("action", "load_products");
+
+                const response = await fetch(URL_GAMES_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData
+                });
+
                 if (!response.ok) {
                     throw new Error(`Response status: ${response.status}`);
                 }
+
                 const json = await response.json();
-                return json;
+                return json.data;
             } catch (error) {
-                console.error(error.message);
+                console.error("Error fetch:", error.message);
             }
         }
     

@@ -634,7 +634,7 @@ footer {
 }
 
 .our-latest-game-section {
-    width: 100%;    
+    width: 100%;
 }
 
 .our-latest-game-section h3 {
@@ -663,7 +663,7 @@ footer {
     display: flex;
     gap: 20px;
     padding-bottom: 20px;
-    animation: scroll-horizontal 5s infinite ease-in-out;
+    animation: scroll-horizontal 20s linear infinite;
     padding-right: 20px;
 }
 
