@@ -14,7 +14,7 @@ foreach ($subFolders as $folder) {
         if (pathinfo($file, PATHINFO_EXTENSION) !== 'php') continue;
         $allPages[] = [
             'name' => $file,
-            'path' => "View/$folder/$file"
+            'path' => "../index.php?page=" . substr($file, 0, -4)
         ];
     }
 }
