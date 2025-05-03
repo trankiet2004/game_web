@@ -134,6 +134,7 @@
             pageData.forEach(faq => {
                 const faqItem = document.createElement('div');
                 faqItem.className = 'question-item mb-4 p-3';
+                faqItem.id = `faq-${faq.faq_id}`;
                 faqItem.innerHTML = `
                 <div class="question-header">
                     <h5 class="text-neon-without-shadow">${faq.question}</h5>
@@ -161,30 +162,54 @@
             });
         }
 
-        function renderPagination(totalItems) {
-            const paginationContainer = document.getElementById('pagination-container');
-            paginationContainer.innerHTML = "";
+        function renderPagination(totalItems, currentPage, onPageChange) {
+            const container = document.getElementById('pagination-container');
+            container.innerHTML = "";
             const totalPages = Math.ceil(totalItems / itemsPerPage);
 
             for (let i = 1; i <= totalPages; i++) {
                 const li = document.createElement('li');
-                li.className = "page-item";
+                li.className = 'page-item' + (i === currentPage ? ' active' : '');
                 li.innerHTML = `<a class="page-link text-neon bg-dark" href="#">${i}</a>`;
-                
-                li.addEventListener('click', function(event) {
-                event.preventDefault();
-                renderPage(i, window.faqData);
+                li.addEventListener('click', e => {
+                    e.preventDefault();
+                    onPageChange(i);
                 });
-                paginationContainer.appendChild(li);
+                container.appendChild(li);
             }
         }
 
-        document.addEventListener("DOMContentLoaded", async function() {
-            const data = await fetchData("../../Controller/FaqsController.php");
+        function scrollToId(id) {
+            requestAnimationFrame(() => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                el.style.boxShadow = '0 0 15px 4px #00ffcc';
+                setTimeout(() => el.style.boxShadow = '', 2000);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await fetchData('../../Controller/FaqsController.php');
             window.faqData = data;
 
-            renderPage(1, data);
-            renderPagination(data.length);
+            const hash = window.location.hash || '';
+            const m    = hash.match(/^#faq-(\d+)$/);
+            const targetId   = m ? `faq-${m[1]}` : null;
+            const targetPage = m
+                ? Math.floor(data.findIndex(f=>f.faq_id==m[1]) / itemsPerPage) + 1
+                : 1;
+
+            const changePage = pageNum => {
+                renderPage(pageNum, data);
+                renderPagination(data.length, pageNum, changePage);
+                if (targetId) scrollToId(targetId);
+            };
+
+            renderPagination(data.length, targetPage, changePage);
+            changePage(targetPage);
+
+            if (targetId) scrollToId(targetId);
         });
 
         document.getElementById("questionForm").addEventListener("submit", async function(event) {

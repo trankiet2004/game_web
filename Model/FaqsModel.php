@@ -70,7 +70,7 @@ class FaqsModel {
         $stmt = $this->connect->prepare("DELETE FROM faqs WHERE faq_id = ?");
         $stmt->bind_param("i", $faqId);
         return $stmt->execute();
-    }    
+    }
 
     public function fetch($method, $table, $id, $idColumn = "id", $json = NULL) {
         switch ($method) {
@@ -84,6 +84,8 @@ class FaqsModel {
 
             case "DELETE":
                 $this->DELETE($id);
+                header('Content-Type: application/json');
+                echo json_encode(['success'=>true]);  
                 break;
         }
     }

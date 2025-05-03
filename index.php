@@ -16,6 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/bao/about_us.php');
 } else if($page == 'blogs') {
     include('./View/kiet/blogs.php');
+} else if($page == 'detail') {
+    include('./View/kiet/detail.php');
 } else if($page == 'forum') {
     include('./View/bao/forum.php');
 } else if($page == 'signin') {

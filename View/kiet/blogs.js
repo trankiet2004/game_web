@@ -85,7 +85,7 @@ function displayBlogPosts(page) {
         `;
         // Dùng post.id để chuyển hướng trực tiếp đến trang chi tiết bài viết
         blogItem.querySelector('.btn-neon').addEventListener('click', function() {
-            window.location.href = 'detail.html?id=' + post.id;
+            window.location.href = 'detail.php?id=' + post.id;
         });
         blogContainer.appendChild(blogItem);
     });

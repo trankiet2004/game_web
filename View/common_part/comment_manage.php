@@ -172,12 +172,12 @@ $userId = $_SESSION['user']['id'];
                 <tr data-id="${faq.faq_id}">
                     <td><input type="checkbox" class="selectRow"></td>
                     <td>
-                        <a href="../kiet/detail.html?id=${faq.faq_id}">
+                        <a href="/index.php?page=forum#faq-${faq.faq_id}">
                             ${faq.question}
                         </a>
                     </td>
                     <td>
-                        <a href="edit_article.php?id=${faq.faq_id}" class="btn btn-primary">Xem</a>
+                        <a href="/index.php?page=forum#faq-${faq.faq_id}" class="btn btn-primary">Xem</a>
                         <button class="btn btn-danger delete-btn" data-id="${faq.faq_id}">Xoá Comment</button>
                     </td>
                 </tr>
@@ -188,29 +188,27 @@ $userId = $_SESSION['user']['id'];
             document.getElementById('faq-body').innerHTML = '<tr><td colspan="3">Lỗi khi tải dữ liệu.</td></tr>';
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const faqId = this.getAttribute('data-id');
-                    if (!confirm("Bạn có chắc chắn muốn xoá comment này?")) return;
+        document.getElementById('faq-body').addEventListener('click', function (e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const faqId = e.target.getAttribute('data-id');
+                if (!confirm("Bạn có chắc chắn muốn xoá comment này?")) return;
 
-                    fetch(`../../Controller/FaqsController.php/${faqId}`, {
-                        method: 'DELETE'
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            this.closest('tr').remove();
-                        } else {
-                            alert("Không thể xoá comment.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Lỗi khi xoá:", error);
-                        alert("Đã xảy ra lỗi khi xoá comment.");
-                    });
+                fetch(`../../Controller/FaqsController.php/${faqId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        e.target.closest('tr').remove();
+                    } else {
+                        alert("Không thể xoá comment.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi khi xoá:", error);
+                    alert("Đã xảy ra lỗi khi xoá comment.");
                 });
-            });
+            }
         });
     </script>
 </body>
