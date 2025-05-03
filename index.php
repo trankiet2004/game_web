@@ -8,7 +8,7 @@ $page = $_GET['page'] ?? '';
 // Handle AJAX request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_products') {
     $controller->load_products();
-} else if($page == '') {
+} else if($page == '' || $page == 'index') {
     include('./View/thinh/index.php');
 } else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');

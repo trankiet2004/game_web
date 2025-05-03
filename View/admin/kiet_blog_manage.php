@@ -132,7 +132,7 @@ if (!is_array($articles)) {
                                             <tr data-id="<?php echo $article['id']; ?>">
                                                 <td><input type="checkbox" class="selectRow"></td>
                                                 <td>
-                                                    <a href="../kiet/detail.html?id=<?php echo $article['id']; ?>">
+                                                    <a href="../kiet/detail.php?id=<?php echo $article['id']; ?>">
                                                         <?php echo htmlspecialchars($article['title']); ?>
                                                     </a>
                                                 </td>
