@@ -117,6 +117,14 @@ body {
     .cyber-card {
         margin-bottom: 1rem;
     }
+
+    .cyber-card p {
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* Giới hạn 5 dòng */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 .cyber-dropdown {
@@ -162,6 +170,15 @@ footer {
     border-radius: 15px;
     box-shadow: var(--neon-glow);
     transition: transform 0.3s ease;
+    -webkit-line-clamp: 5;
+}
+
+.cyber-card p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Giới hạn 5 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .cyber-card:hover {

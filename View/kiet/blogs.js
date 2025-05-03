@@ -1,7 +1,7 @@
 // blogs.js
 
 // Mảng dữ liệu mẫu có thêm thuộc tính 'id' cho mỗi bài viết
-const blogPosts = [
+let blogPosts = [
     {
         id: 0,
         title: "Làm sao để nâng cấp phần cứng?",
@@ -51,6 +51,21 @@ const blogPosts = [
         image: "../img/index/infinite_scroll/lol_bg.jpg"
     }
 ];
+
+blogPosts = [];
+
+// Hàm fetch dữ liệu từ API
+function fetchBlogPosts() {
+    fetch('http://localhost:8080/Controller/ArticlesController.php')
+    .then(response => response.json())
+    .then(data => {
+        blogPosts = data; // Cập nhật blogPosts bằng dữ liệu API
+        displayBlogPosts(currentPage); // Hiển thị bài viết lần đầu
+    })
+    .catch(error => {
+        console.error("Lỗi khi lấy dữ liệu blog từ API:", error);
+    });
+}
 
 const postsPerPage = 7;
 let currentPage = 1;
@@ -193,6 +208,7 @@ function loadComponent(id, file) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    fetchBlogPosts();
     displayBlogPosts(currentPage);
     loadComponent("header", "../component/header.php");
     loadComponent("footer", "../component/footer.php");
