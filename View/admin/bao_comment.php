@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <base href="/View/admin/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Hỏi/Đáp</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">

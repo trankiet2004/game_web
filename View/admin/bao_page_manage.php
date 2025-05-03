@@ -1,15 +1,23 @@
 <?php
 $allHtmlFiles = [];
-$folders = ['../thinh/', '../kiet/', '../tu/', '../bao/'];
+$folders = [
+    realpath(__DIR__ . '/../thinh'),
+    realpath(__DIR__ . '/../kiet'),
+    realpath(__DIR__ . '/../tu'),
+    realpath(__DIR__ . '/../bao'),
+];
 
 foreach ($folders as $directory) {
+    if (!is_dir($directory)) continue;
+
     $files = scandir($directory);
     $htmlFiles = array_filter($files, function($file) use ($directory) {
-        return is_file($directory . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'html';
+        $fullPath = $directory . DIRECTORY_SEPARATOR . $file;
+        return is_file($fullPath) && pathinfo($file, PATHINFO_EXTENSION) === 'php';
     });
 
     foreach ($htmlFiles as $file) {
-        $allHtmlFiles[] = $directory . $file;
+        $allHtmlFiles[] = $directory . DIRECTORY_SEPARATOR . $file;
     }
 }
 ?>
@@ -18,6 +26,7 @@ foreach ($folders as $directory) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <base href="/View/admin/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Các Trang</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
@@ -153,7 +162,7 @@ foreach ($folders as $directory) {
                                                 <td><input type="checkbox" class="selectRow"></td>
                                                 <td><a href="<?php echo $file; ?>"><?php echo basename($file); ?></a></td>
                                                 <td>
-                                                    <a href="bao_edit_page.html?id=<?php echo $baseName; ?>" class="btn btn-primary">Chỉnh Sửa</a>
+                                                    <a href="bao_edit_page.php?id=<?php echo $baseName; ?>" class="btn btn-primary">Chỉnh Sửa</a>
                                                     <a class="btn btn-danger">Xóa Trang</a>
                                                 </td>
                                             </tr>

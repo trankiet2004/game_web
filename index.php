@@ -32,8 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/common_part/comment_manage.php');
 } else if($page == 'indexAdmin') {
     include('./View/admin/index.php');
-} else if($page == 'indexAdmin') {
-    include('./View/admin/index.php');
+} else if($page == 'bao_comment') {
+    include('./View/admin/bao_comment.php');
+} else if($page == 'bao_page_manage') {
+    include('./View/admin/bao_page_manage.php');
 } else {
     // Default to the index (product list)
     $controller->index();
