@@ -2701,3 +2701,24 @@ CREATE TABLE users (
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 1. Thêm cột user_id vào bảng faqs (nếu chưa có)
+ALTER TABLE faqs
+    ADD COLUMN user_id INT UNSIGNED NULL AFTER posted_by;
+
+-- 2. Chèn user mới cho mọi tên xuất hiện ở posted_by (trừ những tên đã có)
+INSERT INTO users (username, email, password)
+SELECT DISTINCT 
+       f.posted_by, 
+       CONCAT(LOWER(REPLACE(f.posted_by, ' ', '')), '@example.com'),
+       MD5('1234')
+FROM faqs AS f
+WHERE f.posted_by IS NOT NULL
+  AND NOT EXISTS (
+      SELECT 1 FROM users u WHERE u.username = f.posted_by
+);
+
+-- 3. Gán user_id cho từng bản ghi trong faqs
+UPDATE faqs AS f
+JOIN   users AS u ON u.username = f.posted_by
+SET    f.user_id = u.id;

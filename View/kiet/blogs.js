@@ -194,8 +194,8 @@ function loadComponent(id, file) {
 
 document.addEventListener("DOMContentLoaded", function () {
     displayBlogPosts(currentPage);
-    loadComponent("header", "../component/header.html");
-    loadComponent("footer", "../component/footer.html");
+    loadComponent("header", "../component/header.php");
+    loadComponent("footer", "../component/footer.php");
 
     // Tạo hiệu ứng scroll cho các phần tử có thuộc tính data-scroll
     const observer = new IntersectionObserver((entries) => {

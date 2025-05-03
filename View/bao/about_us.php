@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html lang="en" data-theme="dark" style="--primary: rgb(0, 172, 255);">
 <head>
     <meta charset="UTF-8">
@@ -38,28 +39,42 @@
                             </ul>
                         </li>
         
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.html">Giới Thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.php">Giới Thiệu</a></li>
                         
                         <li class="nav-item"><a class="nav-link text-neon" href="../kiet/blogs.html">Tin Tức</a></li>
                         
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.html">Cộng Đồng</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.php">Cộng Đồng</a></li>
                         
                         <li class="nav-item"><a class="nav-link text-neon" href="../thinh/contact_us.html">Liên Hệ</a></li>
                     
                     </ul>
                     
                     <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-neon me-2">
-                            <a href="../common_part/signin.html" style="text-decoration: none; color: var(--primary);">
-                                Đăng Nhập
-                            </a>
-                        </button>
-                        
-                        <button class="btn btn-neon">
-                            <a href="../common_part/signup.html" style="color: black; text-decoration: none;">
-                                Đăng Ký
-                            </a>
-                        </button>
+                        <?php if (!isset($_SESSION['user'])): ?>
+                            <button class="btn btn-outline-neon me-2">
+                                <a href="../common_part/signin.php" style="text-decoration: none; color: var(--primary);">
+                                    Đăng Nhập
+                                </a>
+                            </button>
+                            
+                            <button class="btn btn-neon">
+                                <a href="../common_part/signup.php" style="color: black; text-decoration: none;">
+                                    Đăng Ký
+                                </a>
+                            </button>
+                        <?php else: ?>
+                            <button class="btn btn-outline-neon me-2">
+                                <a href="../common_part/account-profile.php" style="text-decoration: none; color: var(--primary);">
+                                    Tài khoản
+                                </a>
+                            </button>
+                            
+                            <button class="btn btn-neon">
+                                <a href="../common_part/logout.php" style="color: black; text-decoration: none;">
+                                    Đăng Xuất
+                                </a>
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

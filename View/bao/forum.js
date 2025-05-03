@@ -8,8 +8,8 @@ function loadComponent(id, file) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    loadComponent("header", "../component/header.html");
-    loadComponent("footer", "../component/footer.html");
+    loadComponent("header", "../component/header.php");
+    loadComponent("footer", "../component/footer.php");
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

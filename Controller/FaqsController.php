@@ -1,5 +1,5 @@
 <?php
-require_once('../Model/FaqsModel.php');
+require_once __DIR__ . '/../Model/FaqsModel.php';
 
 $URIPart = explode("/", $_SERVER["REQUEST_URI"]);
 $fetch = new FaqsModel();
@@ -15,7 +15,14 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && !(isset($_POST["questionTitle"]) && 
 $json = $_SERVER["REQUEST_METHOD"] === "POST" ? Array(
     trim($_POST["questionTitle"]),
     trim($_POST["questionContent"]),
-    "Admin"
+    trim($_POST["user_id"]),
+    trim($_POST["user_name"])
 ) : NULL;
 
-$fetch->fetch($_SERVER["REQUEST_METHOD"], "faqs", $id, "faq_id", $json);
+if (isset($_GET['delete'])) {
+    $fetch->deleteFaq($_GET['delete']);
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+$fetch->fetch($_SERVER["REQUEST_METHOD"], "faqs", $id, "user_id", $json);

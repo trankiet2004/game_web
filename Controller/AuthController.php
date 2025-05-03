@@ -13,7 +13,16 @@ class AuthController {
         $user = User::findByUsername($u);
 
         if ($user && $user->checkPassword($p)) {
-            $_SESSION['user'] = $user;
+            // $_SESSION['user'] = $user;
+            $_SESSION["user"] = [
+                "id" => $user->id,
+                "username" => $user->username,
+                "email" => $user->email,
+                "role" => $user->role,
+                "phone" => $user->phone ?? null,
+                "birthday" => $user->birthday ?? null,
+                "gender" => $user->gender ?? null
+            ];
             header('Location: '.($user->role==='admin'
                                  ? '/View/admin/index.html'
                                  : '/View/thinh/index.html'));

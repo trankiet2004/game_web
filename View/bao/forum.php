@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,19 +40,19 @@
                                 <li><a class="dropdown-item" href="#">VR Games</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.html">Giới Thiệu</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/about_us.php">Giới Thiệu</a></li>
                         <li class="nav-item"><a class="nav-link text-neon" href="../kiet/blogs.html">Tin Tức</a></li>
-                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.html">Cộng Đồng</a></li>
+                        <li class="nav-item"><a class="nav-link text-neon" href="../bao/forum.php">Cộng Đồng</a></li>
                         <li class="nav-item"><a class="nav-link text-neon" href="../thinh/contact_us.html">Liên Hệ</a></li>
                     </ul>
                     
                     <div class="d-flex align-items-center">
                         <button class="btn btn-outline-neon me-2">
-                            <a href="../common_part/signin.html" style="text-decoration: none; color: var(--primary);">Đăng Nhập</a>
+                            <a href="../common_part/signin.php" style="text-decoration: none; color: var(--primary);">Đăng Nhập</a>
                         </button>
                         
                         <button class="btn btn-neon">
-                            <a href="../common_part/signup.html" style="color: black; text-decoration: none;">Đăng Ký</a>
+                            <a href="../common_part/signup.php" style="color: black; text-decoration: none;">Đăng Ký</a>
                         </button>
                     </div>
                 </div>
@@ -65,6 +66,9 @@
         <div class="cyber-card mb-5 p-4 visible" data-scroll="">
             <h4 class="text-neon-without-shadow mb-4"><i class="bi bi-patch-question-fill"></i> Đặt câu hỏi</h4>
             <form id="questionForm" method="POST" action="../../Controller/FaqsController.php">
+                <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user']['id'] ?>">
+                <input type="hidden" id="user_name" name="user_name" value="<?= $_SESSION['user']['username'] ?>">
+
                 <div class="mb-3">
                     <input type="text" class="form-control bg-transparent text-light" id="questionTitle" name="questionTitle" placeholder="Tiêu đề">
                 </div>
@@ -73,7 +77,11 @@
                     <textarea class="form-control bg-transparent text-light" id="questionContent" name="questionContent" style="height: 120px" placeholder="Nội dung"></textarea>
                 </div>
                 
-                <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
+                <?php if (!isset($_SESSION['user'])): ?>
+                    <a type="button" href="../common_part/signin.php" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui Lòng Đăng Nhập</a>
+                <?php else: ?>
+                    <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
+                <?php endif; ?> 
             </form>
         </div>
 
@@ -134,7 +142,7 @@
                     <div class="answer-item bg-card p-3 rounded">
                     <div class="d-flex align-items-center mb-2">
                         <i class="bi bi-person-circle text-neon me-2"></i>
-                        <span class="text-neon">Admin</span>
+                        <span class="text-neon">${faq.posted_by}</span>
                         <small class="ms-3">${formatTime(faq.updated_at)}</small>
                     </div>
                     <p class="text-light mb-0">${faq.answer}</p>
@@ -181,19 +189,34 @@
             event.preventDefault();
             const formData = new FormData(this);
 
-            try {
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: formData
-                });
+            const title = document.getElementById("questionTitle").value.trim();
+            const content = document.getElementById("questionContent").value.trim();
+            const userId = document.getElementById("user_id").value;
+            const userName = document.getElementById("user_name").value;
 
-                const result = await response.json();
-                alert(result.message);
-                if(result.success) this.reset();
-            } catch (error) {
-                console.error("Lỗi khi gửi dữ liệu: ", error);
-                alert("Có lỗi xảy ra khi gửi câu hỏi.");
+            if (!title || !content) {
+                alert("Vui lòng nhập đầy đủ tiêu đề và nội dung.");
+                return;
             }
+
+            formData.append("questionTitle", title);
+            formData.append("questionContent", content);
+            formData.append("user_id", userId);
+            formData.append("user_name", userName);
+
+            fetch("../../Controller/FaqsController.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || "Gửi câu hỏi thành công!");
+                this.reset();
+            })
+            .catch(error => {
+                console.error("Lỗi gửi dữ liệu:", error);
+                alert("Có lỗi xảy ra khi gửi câu hỏi.");
+            });
         });
     </script>
 </body>

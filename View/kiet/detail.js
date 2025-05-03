@@ -94,8 +94,8 @@ async function fetchData(URL_string) {
 
 window.onload = async () => {
   // Load header và footer từ file component (đảm bảo đường dẫn đúng)
-  loadComponent("header", "../component/header.html");
-  loadComponent("footer", "../component/footer.html");
+  loadComponent("header", "../component/header.php");
+  loadComponent("footer", "../component/footer.php");
   
   // Lấy tham số "id" từ URL và chuyển đổi thành số nguyên
   const articleId = parseInt(getParameterByName('id'));

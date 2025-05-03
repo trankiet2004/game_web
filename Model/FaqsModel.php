@@ -44,8 +44,9 @@ class FaqsModel {
         if($table === "faqs") {
             $question = $json[0];
             $answer = $json[1];
-            $posted_by = $json[2];
-            $stmt = $this->connect->prepare("INSERT INTO faqs (question, answer, posted_by) VALUES (?, ?, ?)");
+            $user_id = $json[2];
+            $posted_by = $json[3];
+            $stmt = $this->connect->prepare("INSERT INTO faqs (question, answer, user_id, posted_by) VALUES (?, ?, ?, ?)");
             
             if($stmt === false) {
                 http_response_code(500);
@@ -53,7 +54,7 @@ class FaqsModel {
                 exit;
             }
 
-            $stmt->bind_param("sss", $question, $answer, $posted_by);
+            $stmt->bind_param("ssss", $question, $answer, $user_id, $posted_by);
             if ($stmt->execute()) {
                 echo json_encode(["success" => true, "message" => "Câu hỏi đã được cập nhật thành công"]);
             } else {
@@ -65,6 +66,12 @@ class FaqsModel {
         }
     }
 
+    public function DELETE($faqId) {
+        $stmt = $this->connect->prepare("DELETE FROM faqs WHERE faq_id = ?");
+        $stmt->bind_param("i", $faqId);
+        return $stmt->execute();
+    }    
+
     public function fetch($method, $table, $id, $idColumn = "id", $json = NULL) {
         switch ($method) {
             case "GET":
@@ -73,6 +80,10 @@ class FaqsModel {
 
             case "POST":
                 $this->POST($table, $json);
+                break;
+
+            case "DELETE":
+                $this->DELETE($id);
                 break;
         }
     }

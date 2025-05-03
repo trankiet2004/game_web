@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['user'])) header('Location: signin.php');
+$user = $_SESSION['user'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,8 +130,8 @@
                                             <img src="../img/avatar/chu_tich_hoi_dong_quan_tri.jpg" alt="Avatar">
                                         </div>
 
-                                        <h3 class="mt-3">Trần Tuấn Kiệt</h3>
-                                        <p class="text-small">Kỹ sư phần mềm cao cấp</p>
+                                        <h3 class="mt-3"><?= htmlspecialchars($user['username']) ?></h3>
+                                        <p class="text-small">Người Dùng</p>
                                     </div>
                                 </div>
                             </div>
@@ -151,19 +157,19 @@
                                     <form action="#" method="get">
                                         <div class="form-group">
                                             <label for="name" class="form-label">Tên</label>
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Tên Của Bạn" value="Trần Tuấn Kiệt">
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Tên Của Bạn" value="<?= htmlspecialchars($user['username']) ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="text" name="email" id="email" class="form-control" placeholder="Email Của Bạn" value="kiet.trantuan2004@hcmut.edu.vn">
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="Email Của Bạn" value="<?= htmlspecialchars($user['email']) ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="phone" class="form-label">Số Điện Thoại</label>
-                                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Số Điện Thoại Của Bạn" value="0707040551">
+                                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Số Điện Thoại Của Bạn" value="<?= htmlspecialchars($user['phone']) ?>">
                                         </div>
                                         <div class="form-group">
-                                            <label for="birthday" class="form-label">Ngày Sinh</label>
-                                            <input type="date" name="birthday" id="birthday" class="form-control" placeholder="Ngày Sinh Của Bạn" value="2004-11-11">
+                                            <label for="username" class="form-label">Username Của Bạn</label>
+                                            <input type="text" name="username" id="username" class="form-control" placeholder="Username Của Bạn" value="<?= htmlspecialchars($user['username']) ?>">
                                         </div>
                                         <div class="form-group">
                                             <label for="gender" class="form-label">Giới Tính</label>
