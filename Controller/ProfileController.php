@@ -5,7 +5,7 @@ require_once __DIR__.'/../Model/DBConnect.php';
 class ProfileController {
     public function uploadAvatar() {
         if (!isset($_SESSION['user'])) {
-            header('Location: /View/common_part/signin.php');
+            header('Location: ../../index.php?page=signin');
             exit;
         }
         $id = (int)$_SESSION['user']['id'];
