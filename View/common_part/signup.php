@@ -5,7 +5,6 @@
     <base href="/View/common_part/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký</title>
-    <link rel="shortcut icon" href="../assets/compiled/svg/favicon.svg" type="image/x-icon">
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" href="../assets/compiled/css/app.css">
     <link rel="stylesheet" href="../assets/compiled/css/app-dark.css">

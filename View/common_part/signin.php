@@ -13,7 +13,6 @@ unset($_SESSION['err'], $_SESSION['old']);
     <base href="/View/common_part/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
-    <link rel="shortcut icon" href="../assets/compiled/svg/favicon.svg" type="image/x-icon">
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" href="../assets/compiled/css/app.css">
     <link rel="stylesheet" href="../assets/compiled/css/app-dark.css">
@@ -74,7 +73,6 @@ unset($_SESSION['err'], $_SESSION['old']);
                 </div>
             </div>
             <div class="col-lg-7 d-none d-lg-block bg-secondary" style="background-color: #103c1c !important;"></div>
-            </div>></div>
         </div>
     </div>
 
