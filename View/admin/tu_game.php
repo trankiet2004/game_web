@@ -1,71 +1,190 @@
 <?php
-$data = file_get_contents('php://input');
-$request = json_decode($data, true);
+session_start();
 
-if (isset($request['file']) && isset($request['content'])) {
-    $filePath = $request['file'];
-    $newContent = $request['content'];
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../../index.php?page=signin');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
 
-    /* ======= PROTECT LOGIN SNIPPET ======= */
-    if (basename($filePath) === 'about_us.php') {
-        $original = file_get_contents($filePath);
+// 2. Đã đăng nhập nhưng không phải admin → 403 Forbidden
+if ($role !== 'admin') {
+    http_response_code(403);
+    exit('Bạn không có quyền truy cập trang này.');
+}
 
-        if (preg_match(
-                '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
-                $original, $m
-            )) {
 
-            $protected = $m[0];        // cả block kèm comment
+$allPages = [];
+$subFolders = ['bao', 'kiet', 'thinh', 'tu'];
+$viewRoot = realpath(__DIR__ . '/..');
 
-            if (preg_match(
-                    '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
-                    $newContent
-                )) {
-                /* ❶  Nếu người sửa vẫn giữ 2 comment:
-                    thay thế toàn bộ phần giữa comment = bản gốc  */
-                $newContent = preg_replace(
-                    '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
-                    $protected,
-                    $newContent,
-                    1                 // chỉ thay lần đầu
-                );
-            } else {
-                /* ❷  Nếu họ lỡ xoá 2 comment:
-                    thêm block gốc ngay trước thẻ </div> đóng .navbar-collapse */
-                $newContent = preg_replace(
-                    '/<\/div>\s*<\/div>\s*<\/nav>/s',
-                    $protected . "\n</div></div></nav>",
-                    $newContent,
-                    1
-                );
-            }
-        }
+foreach ($subFolders as $folder) {
+    $dir = $viewRoot . DIRECTORY_SEPARATOR . $folder;
+    if (!is_dir($dir))
+        continue;
+
+    $files = scandir($dir);
+    if (!is_array($files))
+        continue;
+
+    foreach ($files as $file) {
+        if (pathinfo($file, PATHINFO_EXTENSION) !== 'php')
+            continue;
+        $allPages[] = [
+            'name' => $file,
+            'path' => "../index.php?page=" . substr($file, 0, -4)
+        ];
     }
-    /* ===================================== */
-
-    $allowedFiles = [
-        '../bao/about_us.php',
-        '../bao/forum.php',
-        '../thinh/index.php',
-        '../thinh/contact_us.php',
-        '../kiet/blogs.php',
-        '../kiet/detail.php'
-    ];
-    
-    if (!in_array($filePath, $allowedFiles)) {
-        http_response_code(403);
-        echo json_encode(['status' => 'error', 'message' => 'Không được phép chỉnh sửa file này']);
-        exit;
-    }
-    
-    if (file_put_contents($filePath, $newContent) !== false) {
-        echo json_encode(['status' => 'success', 'message' => 'Lưu thay đổi thành công']);
-    } else {
-        http_response_code(500);
-        echo json_encode(['status' => 'error', 'message' => 'Lỗi khi ghi file']);
-    }
-} else {
-    http_response_code(400);
-    echo json_encode(['status' => 'error', 'message' => 'Dữ liệu không hợp lệ']);
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="./View/admin/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Các Trang</title>
+    <link rel="icon" type="image/icon" href="../img/logo.png">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+        }
+
+        [data-bs-theme=dark] body {
+            background-color: #0A1F15 !important;
+            border-radius: 10px;
+        }
+
+        [data-bs-theme=light] body {
+            background-color: #e9fef0 !important;
+            border-radius: 10px;
+        }
+
+        [data-bs-theme=light] h3,
+        [data-bs-theme=light] h4 {
+            color: #1d7534 !important;
+        }
+
+        [data-bs-theme=dark] .card,
+        [data-bs-theme=dark] .card-header,
+        [data-bs-theme=dark] .sidebar-wrapper {
+            background-color: #152D24 !important;
+            border-radius: 10px;
+        }
+
+        td a {
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+            background-color: green;
+            color: white;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let file = "./admin_component/sidebar.html";
+            let id = "sidebar";
+            fetch(file).then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                    $("li:has(i.bi.bi-globe)").addClass("active");
+                    const toggler = document.getElementById("toggle-dark");
+                    if (!toggler) return;
+                    const theme = localStorage.getItem("theme");
+                    toggler.checked = theme === "dark";
+                    toggler.addEventListener("input", (e) => {
+                        if (e.target.checked) {
+                            document.body.classList.add("dark");
+                            document.documentElement.setAttribute("data-bs-theme", "dark");
+                            localStorage.setItem("theme", "dark");
+                        } else {
+                            document.body.classList.remove("dark");
+                            document.documentElement.setAttribute("data-bs-theme", "light");
+                            localStorage.setItem("theme", "light");
+                        }
+                    });
+                }).catch(error => {
+                    console.error(`Lỗi khi tải ${file}:`, error);
+                });
+        });
+
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('.selectRow');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+    </script>
+</head>
+
+<body>
+    <script src="../assets/static/js/initTheme.js"></script>
+    <div id="app">
+        <div id="sidebar"></div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Quản Lý Games</h3>
+                            <p class="text-subtitle text-muted">Quản lý games dành cho quản trị viên.</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="../../index.php?page=indexAdmin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Quản Lý Games</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="section">
+                    <div class="card">
+                        <div class="card-header"
+                            style="display: flex; flex-flow: row wrap; justify-content: space-between;">
+                            <h5 class="card-title">
+                                Quản Lý Games
+                            </h5>
+                            <a id="deleteSelected" class="btn btn-danger disabled">
+                                Xóa Toàn Bộ Các Trang Được Chọn
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table1">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)">
+                                            </th>
+                                            <th style="width: 40rem;">Trang Web</th>
+                                            <th>Thao Tác</th>
+                                        </tr>
+                                    </thead>
+
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+</body>

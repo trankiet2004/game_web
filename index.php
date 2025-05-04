@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $devcontroller->get_developer_by_id($id);
 } else if($action === 'developer'){
     $devcontroller->index();
-} else if($page == 'tu_game') {
-    include('./View/admin/bao_comment.php');
+} else if($page == 'tu-game') {
+    include('./View/admin/tu_game.php');
 } else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');
 } else if($page == 'about_us') {
