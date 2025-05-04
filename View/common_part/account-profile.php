@@ -131,7 +131,7 @@ $user = $_SESSION['user'];
                                         <div class="avatar avatar-2xl">
                                         <?php
                                         // Xác định avatar (BLOB) sử dụng endpoint
-                                        $avatarSrc = "./Controller/AvatarController.php?id=" . urlencode($user['id']);
+                                        $avatarSrc = "../../Controller/AvatarController.php?id=" . urlencode($user['id']);
                                         ?>
                                             <img src="<?= htmlspecialchars($avatarSrc) ?>" alt="Avatar" class="img-fluid rounded-circle">
                                         </div>
