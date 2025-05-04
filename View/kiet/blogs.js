@@ -1,57 +1,6 @@
 // blogs.js
 
 // Mảng dữ liệu mẫu có thêm thuộc tính 'id' cho mỗi bài viết
-let blogPosts = [
-    {
-        id: 0,
-        title: "Làm sao để nâng cấp phần cứng?",
-        content: "Mình muốn nâng cấp GPU để chơi game AAA, có bạn nào tư vấn giúp không?",
-        author: "User123",
-        time: "2 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    },
-    {
-        id: 1,
-        title: "Cách tăng tốc máy tính chơi game",
-        content: "Máy tính mình hơi chậm khi chơi game, có cách nào cải thiện hiệu suất không?",
-        author: "User456",
-        time: "3 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    },
-    {
-        id: 2,
-        title: "Tư vấn chọn laptop chơi game",
-        content: "Chọn laptop chơi game với giá dưới 20 triệu, có ai có kinh nghiệm không?",
-        author: "Admin",
-        time: "5 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    },
-    {
-        id: 3,
-        title: "Hướng dẫn xây dựng máy tính chơi game",
-        content: "Chia sẻ cách lắp ráp máy tính chơi game từ các linh kiện phổ biến nhất hiện nay.",
-        author: "User789",
-        time: "7 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    },
-    {
-        id: 4,
-        title: "Phần mềm hỗ trợ chơi game tốt nhất",
-        content: "Những phần mềm giúp tối ưu trải nghiệm chơi game trên máy tính cá nhân.",
-        author: "User101",
-        time: "8 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    },
-    {
-        id: 5,
-        title: "Những game mobile hot nhất 2023",
-        content: "Danh sách những game mobile đang được yêu thích trong năm 2023.",
-        author: "Admin",
-        time: "10 giờ trước",
-        image: "../img/index/infinite_scroll/lol_bg.jpg"
-    }
-];
-
 blogPosts = [];
 
 function getApiUrl(path) {
@@ -95,10 +44,10 @@ function displayBlogPosts(page) {
     currentPosts.forEach(post => {
         const blogItem = document.createElement('div');
         blogItem.classList.add('blog-item', 'col-lg-4', 'col-md-6', 'mb-4');
-
+        const imgHTML = post.image_data && post.image_type ? `<img src="data:${post.image_type};base64,${post.image_data}"class="img-fluid mb-3"  alt="${post.title}">`  : '';
         blogItem.innerHTML = `
             <div class="cyber-card p-4">
-                <img src="${post.image}" class="img-fluid mb-3" alt="${post.title}">
+                ${imgHTML}
                 <h5 class="text-neon-without-shadow">${post.title}</h5>
                 <p>${post.content}</p>
                 <button class="btn btn-neon">Đọc thêm</button>
@@ -160,10 +109,10 @@ function displayFilteredPosts(filteredPosts) {
     filteredPosts.forEach(post => {
         const blogItem = document.createElement('div');
         blogItem.classList.add('blog-item', 'col-lg-4', 'col-md-6', 'mb-4');
-
+        const imgHTML = post.image_data && post.image_type ? `<img src="data:${post.image_type};base64,${post.image_data}"class="img-fluid mb-3"  alt="${post.title}">`  : '';
         blogItem.innerHTML = `
             <div class="cyber-card p-4">
-                <img src="${post.image}" class="img-fluid mb-3" alt="${post.title}">
+                ${imgHTML}
                 <h5 class="text-neon-without-shadow">${post.title}</h5>
                 <p>${post.content}</p>
                 <button class="btn btn-neon">Đọc thêm</button>
