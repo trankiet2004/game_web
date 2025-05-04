@@ -105,11 +105,11 @@ document.addEventListener("DOMContentLoaded", async function() {
         commentActionsShowButtonIcon.classList.add("bi", "bi-eye-fill");
         commentActionsShowButton.append(commentActionsShowButtonIcon, " Show");
 
-        let commentActionsEditButton = document.createElement("button");
-        commentActionsEditButton.classList.add("btn", "icon", "icon-left", "btn-warning", "me-2", "text-nowrap");
-        let commentActionsEditButtonIcon = document.createElement("i");
-        commentActionsEditButtonIcon.classList.add("bi", "bi-pencil-square");
-        commentActionsEditButton.append(commentActionsEditButtonIcon, " Edit");
+        // let commentActionsEditButton = document.createElement("button");
+        // commentActionsEditButton.classList.add("btn", "icon", "icon-left", "btn-warning", "me-2", "text-nowrap");
+        // let commentActionsEditButtonIcon = document.createElement("i");
+        // commentActionsEditButtonIcon.classList.add("bi", "bi-pencil-square");
+        // commentActionsEditButton.append(commentActionsEditButtonIcon, " Edit");
 
         let commentActionsRemoveButton = document.createElement("button");
         commentActionsRemoveButton.classList.add("btn", "icon", "icon-left", "btn-danger", "me-2", "text-nowrap");
@@ -117,7 +117,29 @@ document.addEventListener("DOMContentLoaded", async function() {
         commentActionsRemoveButtonIcon.classList.add("bi", "bi-x-circle");
         commentActionsRemoveButton.append(commentActionsRemoveButtonIcon, " Remove");
 
-        commentActionsDiv.append(commentActionsShowButton, commentActionsEditButton, commentActionsRemoveButton);
+        commentActionsShowButton.addEventListener('click', () => {
+            const origin = window.location.origin;
+            window.location.href = `${origin}/View/bao/forum.php#faq-${item.faq_id}`;
+        });
+
+        commentActionsRemoveButton.addEventListener('click', async () => {
+            if (!confirm('Bạn có chắc muốn xóa mục này?')) return;
+            try {
+                const deleteUrl = `${window.location.origin}/Controller/FaqsController.php/${item.faq_id}`;
+                const res = await fetch(deleteUrl, { method: 'DELETE' });
+                const json = await res.json();
+                if (json.success) {
+                    commentDiv.remove();
+                } else {
+                    alert('Xóa không thành công.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Lỗi khi xóa.');
+            }
+        });
+
+        commentActionsDiv.append(commentActionsShowButton, /*commentActionsEditButton,*/ commentActionsRemoveButton);
         commentBodyDiv.append(commentProfileName, commentTime, commentMessageDiv, commentActionsDiv);
         commentHeaderDiv.append(pr50Div, commentBodyDiv);
         commentDiv.append(commentHeaderDiv);
