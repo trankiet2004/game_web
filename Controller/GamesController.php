@@ -49,10 +49,8 @@ class GamesController
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
             // Get the title, sort option, and page number from the POST request
             $title = $_POST['title'] ?? '';
-            $sort = [
-                'by' => isset($_POST['sort_by']) ? $_POST['sort_by'] : 'released',
-                'order' => isset($_POST['sort_by']) ? explode('-', $_POST['sort_by'])[1] : 'DESC'
-            ];
+            $sort = $this->mapSortOption($_POST['sort_by'] ?? 'default');
+
             $page_num = $_POST['page_num'] ?? 1;
             $limit = $this->limit;
             $offset = ($page_num - 1) * $limit;
@@ -110,9 +108,9 @@ class GamesController
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
-    $games = new GamesController();
-    $games->load_products();
-}
+// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
+//     $games = new GamesController();
+//     $games->load_products();
+// }
 
 // $games = new GamesController();

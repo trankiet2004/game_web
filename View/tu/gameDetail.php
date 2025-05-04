@@ -50,7 +50,7 @@
 <body>
 
     <div class="game-detail-container">
-        <a class="back-link" href="/game_web/">← Back to Game List</a>
+        <a class="back-link" href="/game_web/index.php">← Back to Game List</a>
 
         <h1><?= htmlspecialchars($game['name']) ?></h1>
         <img src="/game_web/View/data/<?= htmlspecialchars($game['background_image']) ?>"

@@ -38,14 +38,15 @@
         <?php if (count($game) > 0): ?>
             <?php foreach ($game as $g): ?>
                 <a class="card container" href="/game_web/index.php?action=game&id=<?= $g['id'] ?>">
-                <div class="game">
-                    <h3><?= htmlspecialchars($g['name']) ?></h3>
-                    <p>Released: <?= htmlspecialchars($g['released']) ?></p>
-                    <p>Price: $<?= number_format($g['price'], 2) ?></p>
-                    <p>Rating: <?= htmlspecialchars($g['rating']) ?></p>
-                    <img src="<?= '/game_web/View/data/' . htmlspecialchars($g['background_image']) ?>"
-                        alt="<?= htmlspecialchars($g['id']) ?>" style="width:200px;">
-                </div>
+                    <div class="game">
+                        <h3><?= htmlspecialchars($g['name']) ?></h3>
+                        <p>Released: <?= htmlspecialchars($g['released']) ?></p>
+                        <p>Price: $<?= number_format($g['price'], 2) ?></p>
+                        <p>Rating: <?= htmlspecialchars($g['rating']) ?></p>
+                        <img src="<?= '/game_web/View/data/' . htmlspecialchars($g['background_image']) ?>"
+                            alt="<?= htmlspecialchars($g['id']) ?>" style="width:200px;">
+                    </div>
+                </a>
             <?php endforeach; ?>
         <?php else: ?>
             <p>No games found.</p>
@@ -91,14 +92,18 @@
                         }
 
                         games.forEach(g => {
+                            // console.log("Appending game: ", g.name);
                             const html = `
-                        <div class="game">
-                            <h3>${g.name}</h3>
-                            <p>Released: ${g.released}</p>
-                            <p>Price: $${parseFloat(g.price).toFixed(2)}</p>
-                            <p>Rating: ${g.rating}</p>
-                            <img src="/game_web/View/data/${g.background_image}" alt="${g.id}" style="width:200px;">
-                        </div>`;
+                            <a class="card container" href="/game_web/index.php?action=game&id=${g.id}">
+                                <div class="game">
+                                    <h3>${g.name}</h3>
+                                    <p>Released: ${g.released}</p>
+                                    <p>Price: $${parseFloat(g.price).toFixed(2)}</p>
+                                    <p>Rating: ${g.rating}</p>
+                                    <img src="/game_web/View/data/${g.background_image}" alt="${g.id}" style="width:200px;">
+                                </div>
+                            </a>
+                            `;
                             $('#productList').append(html);
                         });
 
