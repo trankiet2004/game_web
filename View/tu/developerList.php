@@ -169,7 +169,7 @@
         // Initial load already handled by PHP; only needed for filter or sort change
         $('#title, #sort_by').on('change keyup', function () {
             currentPage = 1;
-            loadDeveloperss(currentPage, false); // false means reset, not append
+            loadDevelopers(currentPage, false); // false means reset, not append
         });
 
         $('#loadMoreBtn').on('click', function () {
