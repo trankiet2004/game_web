@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 } else if($action === 'game' && $id !== null){
     $gamecontroller->get_game_by_id($id);
 } else if($action === 'game'){
-    $gamecontroller->index();
+    $gamecontroller->userindex();
 } else if($action === 'platform' && $id !== null){
     $platformcontroller->get_platform_by_id($id);
 } else if($action === 'platform'){
@@ -55,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $devcontroller->get_developer_by_id($id);
 } else if($action === 'developer'){
     $devcontroller->index();
-} else if($page == 'tu-game') {
-    include('./View/admin/tu_game.php');
+} else if($page == 'tu_game') {
+    $gamecontroller->adminindex();
 } else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');
 } else if($page == 'about_us') {
