@@ -40,11 +40,15 @@ class TagsController
         // Get tags based on the filter, sorting, and pagination
         $tags = $this->model->get_tags($sort, $filter, $this->limit, $offset);
         $total = $this->model->get_total_count($filter); // Get total tag count for pagination
-
+        
         // Calculate the total number of pages
         $totalPages = ceil($total / $this->limit);
         $limit = $this->limit;
         // Include the view to display tags and pass the data to the view
+        foreach ($tags as &$tag) {
+            $tag['game_count'] = $this->model->get_game_count_by_tag($tag['id']);
+        }
+    
         require __DIR__ . "/../View/tu/tagList.php";
     }
     public function load_tags()
@@ -68,7 +72,7 @@ class TagsController
             // Fetch data
             $tags = $this->model->get_tags($sort, $filter, $limit, $offset);
             $total = $this->model->get_total_count($filter);
-
+            
             // Return JSON response
             header('Content-Type: application/json');
             echo json_encode([

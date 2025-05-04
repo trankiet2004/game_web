@@ -1,6 +1,6 @@
 <h1><?= htmlspecialchars($tags['name']) ?></h1>
 <img src="/game_web/View/data/<?= htmlspecialchars($tags['background_image']) ?>" alt="<?= htmlspecialchars($tags['name']) ?>" width="300">
-<p><strong>Game Count:</strong> <?= $tags['game_count'] ?></p>
+<p><strong>Game Count:</strong> <?= $total_games ?></p>
 
 <!-- Games Container -->
 <div id="game-list">

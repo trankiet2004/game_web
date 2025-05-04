@@ -76,7 +76,7 @@
 
 <body>
 
-    <h1>tag List</h1>
+    <h1>Tag List</h1>
 
     <!-- Search and Sort -->
     <div class="filter-container">
