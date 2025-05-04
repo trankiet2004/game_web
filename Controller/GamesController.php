@@ -40,7 +40,7 @@ class GamesController
         $limit = $this->limit;
         // $sort_by = $sort;
         // Include the view to display products and pass the data to the view
-        require __DIR__ . "/../View/tu/productList.php";
+        require __DIR__ . "/../View/tu/gameList.php";
     }
 
     // Handle the AJAX request for loading more products

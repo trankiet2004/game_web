@@ -147,12 +147,82 @@ class GamesModel
     }
 
     public function get_game_by_id($id) {
+        // Get game
         $stmt = $this->connect->prepare("SELECT * FROM games WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc();
+        $game = $result->fetch_assoc();
+    
+        if (!$game) {
+            return null;
+        }
+    
+        // Get tags
+        $stmt = $this->connect->prepare("
+            SELECT t.* FROM tags t
+            JOIN game_tag gt ON t.id = gt.tag_id
+            WHERE gt.game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $tags = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['tags'] = $tags;
+    
+        // Get genres
+        $stmt = $this->connect->prepare("
+            SELECT g.* FROM genres g
+            JOIN game_genre gg ON g.id = gg.genre_id
+            WHERE gg.game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $genres = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['genres'] = $genres;
+    
+        // Get platforms
+        $stmt = $this->connect->prepare("
+            SELECT p.* FROM platforms p
+            JOIN game_platform gp ON p.id = gp.platform_id
+            WHERE gp.game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $platforms = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['platforms'] = $platforms;
+    
+        // Get screenshots
+        $stmt = $this->connect->prepare("
+            SELECT * FROM game_screenshots WHERE game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $screenshots = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['screenshots'] = $screenshots;
+    
+        // Get developers
+        $stmt = $this->connect->prepare("
+            SELECT d.* FROM developers d
+            JOIN game_developer gd ON d.id = gd.developer_id
+            WHERE gd.game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $developers = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['developers'] = $developers;
+    
+        // Get gameratings
+        $stmt = $this->connect->prepare("
+            SELECT * FROM gameratings WHERE game_id = ?
+        ");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $ratings = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $game['ratings'] = $ratings;
+    
+        return $game;
     }
+    
 }
 
 

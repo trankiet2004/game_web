@@ -1,14 +1,28 @@
 <?php
 // Include necessary files
 require_once('Controller/GamesController.php');
+require_once('Controller/PlatformsController.php');
 // Create controller object
-$controller = new GamesController();
+$gamecontroller = new GamesController();
+$platformcontroller = new PlatformsController();
 $page = $_GET['page'] ?? '';
+$action = $_GET['action'] ?? null;
+$id = $_GET['id'] ?? null;
 
 // Handle AJAX request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_products') {
-    $controller->load_products();
-} else if($page == '' || $page == 'index') {
+    $gamecontroller->load_products();
+} else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_platforms'){
+    $platformcontroller->load_platforms();
+} else if($action === 'load_more_games'){
+    $platformcontroller->load_more_games();
+} else if($action === 'game' && $id !== null){
+    $gamecontroller->get_game_by_id($id);
+} else if($action === 'platform' && $id !== null){
+    $platformcontroller->get_platform_by_id($id);
+} else if($action === 'platform'){
+    $platformcontroller->index();
+}else if($page == 'index') {
     include('./View/thinh/index.php');
 } else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');
@@ -46,5 +60,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/admin/user-management.php');
 } else {
     // Default to the index (product list)
-    $controller->index();
+    $gamecontroller->index();
 }
