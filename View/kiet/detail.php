@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <base href="/View/kiet/">
+  <base href="./View/kiet/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BKGame - Chi Tiết Bài Viết</title>
   <!-- Link đến file CSS chi tiết (detail.css) chứa các biến, style của trang detail và style dùng chung cho các block bài viết -->

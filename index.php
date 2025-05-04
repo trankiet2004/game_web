@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $platformcontroller->get_platform_by_id($id);
 } else if($action === 'platform'){
     $platformcontroller->index();
-}else if($page == 'index') {
+}else if($page == 'index' || $page == '') {
     include('./View/thinh/index.php');
 } else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');

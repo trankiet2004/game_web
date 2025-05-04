@@ -1,7 +1,0 @@
-# Không cho Apache hiển thị danh sách file
-Options -Indexes
-RewriteEngine On
-
-# Nếu người dùng truy cập chính xác 1 thư mục (không kèm file)
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^(.*/)?/?$ /index.php [L,R=302]

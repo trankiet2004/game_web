@@ -28,7 +28,7 @@ if (!is_array($users)) {
 
 <head>
     <meta charset="UTF-8">
-    <base href="/View/admin/">
+    <base href="./View/admin/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Người Dùng</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">

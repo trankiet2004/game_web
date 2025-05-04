@@ -13,7 +13,7 @@ if (!is_array($users)) {
 
 <html lang="en" data-theme="dark" style="--primary: rgb(210, 255, 0);"><head>
     <meta charset="UTF-8">
-    <base href="/View/bao/">
+    <base href="./View/bao/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
