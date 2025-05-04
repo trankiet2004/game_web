@@ -16,8 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $platformcontroller->load_platforms();
 } else if($action === 'load_more_games'){
     $platformcontroller->load_more_games();
-} else if($action === 'game' && $id !== null){
+}else if($action === 'game' && $id !== null){
     $gamecontroller->get_game_by_id($id);
+} else if($action === 'game'){
+    $gamecontroller->index();
 } else if($action === 'platform' && $id !== null){
     $platformcontroller->get_platform_by_id($id);
 } else if($action === 'platform'){

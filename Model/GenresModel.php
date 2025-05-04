@@ -76,4 +76,125 @@ class GenresModel {
                 break;
         }
     }
+    public function get_total_count($filter)
+    {
+        $params = [];
+        $types = '';
+        $sql = "SELECT COUNT(*) as total FROM genres WHERE 1";
+
+        // Search filter
+        if (!empty($filter['title'])) {
+            $sql .= " AND name LIKE ?";
+            $params[] = "%" . $filter['title'] . "%";
+            $types .= 's';
+        }
+
+        $stmt = $this->connect->prepare($sql);
+
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row ? (int) $row['total'] : 0;
+    }
+
+    public function get_genres($sort, $filter, $limit, $offset)
+    {
+        $params = [];
+        $types = '';
+        $sql = "SELECT * FROM genres WHERE 1";
+
+        // Search filter
+        if (!empty($filter['title'])) {
+            $sql .= " AND name LIKE ?";
+            $params[] = "%" . $filter['title'] . "%";
+            $types .= 's';
+        }
+
+        // Sorting: Only A-Z or Z-A by name
+        $sort_order = strtoupper($sort['order']) === 'ASC' ? 'ASC' : 'DESC';
+        $sql .= " ORDER BY name $sort_order";
+
+        // Pagination
+        $sql .= " LIMIT ? OFFSET ?";
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii';
+
+        $stmt = $this->connect->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param($types, ...$params);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $genres = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+
+            return $genres;
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "Database error: " . $this->connect->error]);
+            return [];
+        }
+    }
+    public function get_genres_by_id($id, $limit = 5, $offset = 0)
+    {
+        // Get genres info
+        $sql = "SELECT * FROM genres WHERE id = ?";
+        $stmt = $this->connect->prepare($sql);
+
+        if ($stmt) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $genres = $result->fetch_assoc();
+            $stmt->close();
+
+            if ($genres) {
+                // Get total games count
+                $genres['game_count'] = $this->get_game_count_by_genres($id);
+
+                // Get first games with limit & offset
+                $genres['games'] = $this->get_games_by_genres($id, $limit, $offset);
+            }
+
+            return $genres;
+        }
+
+        http_response_code(500);
+        echo json_encode(["error" => "Database error: " . $this->connect->error]);
+        return null;
+    }
+
+
+    public function get_games_by_genres($genre_id, $limit, $offset)
+    {
+        $sql = "
+        SELECT games.id, games.name, games.released, games.price, games.rating, games.background_image
+        FROM game_genre
+        JOIN games ON game_genre.game_id = games.id
+        WHERE game_genre.genre_id = ?
+        LIMIT ? OFFSET ?
+    ";
+
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("iii", $genre_id, $limit, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function get_game_count_by_genres($genre_id)
+    {
+        $sql = "SELECT COUNT(*) as total FROM game_genre WHERE genre_id = ?";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->bind_param("i", $genre_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result ? (int) $result['total'] : 0;
+    }
 }
