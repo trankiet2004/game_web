@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tag List</title>
+    <title>Developers List</title>
     <style>
-        /* Styling for the tag list */
-        .tag-container {
+        /* Styling for the developer list */
+        .developer-container {
             max-width: 1200px;
             margin: 2rem auto;
             display: grid;
@@ -14,7 +14,7 @@
             gap: 20px;
         }
 
-        .tag-card {
+        .developer-card {
             border: 1px solid #ccc;
             padding: 1rem;
             border-radius: 8px;
@@ -45,12 +45,12 @@
             height: auto;
         }
 
-        .tag-card h3 {
+        .developer-card h3 {
             font-size: 1.5rem;
             margin: 1rem 0;
         }
 
-        .tag-card p {
+        .developer-card p {
             margin: 0.5rem 0;
         }
 
@@ -76,12 +76,12 @@
 
 <body>
 
-    <h1>Tag List</h1>
+    <h1>Developers List</h1>
 
     <!-- Search and Sort -->
     <div class="filter-container">
         <!-- Title Filter -->
-        <input type="text" id="title" name="title" placeholder="Search for tags...">
+        <input type="text" id="title" name="title" placeholder="Search for developers...">
 
         <!-- Sort By Dropdown -->
         <select id="sort_by" name="sort_by">
@@ -90,12 +90,12 @@
         </select>
     </div>
 
-    <!-- tag List Container -->
-    <div id="tagList" class="tag-list">
-        <?php if (count($tags) > 0): ?>
-            <?php foreach ($tags as $g): ?>
-                <a class="card container" href="/game_web/index.php?action=tag&id=<?= $g['id'] ?>">
-                    <div class="tag">
+    <!-- developer List Container -->
+    <div id="developerList" class="developer-list">
+        <?php if (count($developers) > 0): ?>
+            <?php foreach ($developers as $g): ?>
+                <a class="card container" href="/game_web/index.php?action=developer&id=<?= $g['id'] ?>">
+                    <div class="developer">
                         <h3><?= htmlspecialchars($g['name']) ?></h3>
                         <p>Game count: <?= $g['game_count'] ?></p>
                         <img src="<?= '/game_web/View/data/' . htmlspecialchars($g['background_image']) ?>"
@@ -115,7 +115,7 @@
         let currentPage = 1;
         const totalPages = <?= ceil($total / $limit) ?>;
 
-        function loadTags(page = 1, append = false) {
+        function loadDevelopers(page = 1, append = false) {
             const title = $('#title').val();
             const sortBy = $('#sort_by').val();
 
@@ -124,40 +124,40 @@
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    action: 'load_tags',
+                    action: 'load_developers',
                     title: title,
                     sort_by: sortBy,
                     page_num: page
                 },
                 success: function (response) {
                     if (response.status === 'success') {
-                        let tags = response.data;
+                        let developers = response.data;
 
                         if (!append) {
-                            $('#tagList').empty(); // Clear previous list if not appending
+                            $('#developerList').empty(); // Clear previous list if not appending
                         }
 
-                        tags.forEach(p => {
+                        developers.forEach(p => {
                             const html = `
-                                <a class="card container" href="/game_web/index.php?action=tag&id=${p.id}">
-                                <div class="tag">
+                                <a class="card container" href="/game_web/index.php?action=developer&id=${p.id}">
+                                <div class="developer">
                                     <h3>${p.name}</h3>
                                     <p>Game count: ${p.game_count}</p>
                                     <img src="/game_web/View/data/${p.background_image}" alt="${p.name}" style="width:200px;">
                                 </div>
                                 </a>
                             `;
-                            $('#tagList').append(html);
+                            $('#developerList').append(html);
                         });
 
 
-                        if (page >= response.total_pages || tags.length === 0) {
+                        if (page >= response.total_pages || developers.length === 0) {
                             $('#loadMoreBtn').hide();
                         } else {
                             $('#loadMoreBtn').show();
                         }
                     } else {
-                        alert("No more tags to load.");
+                        alert("No more developers to load.");
                     }
                 },
                 error: function (xhr, status, error) {
@@ -169,12 +169,12 @@
         // Initial load already handled by PHP; only needed for filter or sort change
         $('#title, #sort_by').on('change keyup', function () {
             currentPage = 1;
-            loadTags(currentPage, false); // false means reset, not append
+            loadDevelopers(currentPage, false); // false means reset, not append
         });
 
         $('#loadMoreBtn').on('click', function () {
             currentPage++;
-            loadTags(currentPage, true); // true means append results
+            loadDevelopers(currentPage, true); // true means append results
         });
     </script>
 
