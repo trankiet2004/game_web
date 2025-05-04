@@ -14,7 +14,10 @@ if ($role !== 'admin') {
     exit('Bạn không có quyền truy cập trang này.');
 }
 
-$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/UsersController.php');
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
+$basePath = rtrim($basePath, '/');
+$apiUrl = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . '/Controller/UsersController.php';
+$jsonData = file_get_contents($apiUrl);
 $users = json_decode($jsonData, true);
 
 if (!is_array($users)) {

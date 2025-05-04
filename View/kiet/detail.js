@@ -92,6 +92,12 @@ async function fetchData(URL_string) {
   }
 }
 
+function getApiUrl(path) {
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const basePath = segments.length >= 2 ? `/${segments[0]}` : "";
+  return `${window.location.origin}${basePath}/${path}`;
+}
+
 window.onload = async () => {
   // Load header và footer từ file component (đảm bảo đường dẫn đúng)
   loadComponent("header", "../component/header.php");
@@ -99,7 +105,7 @@ window.onload = async () => {
   
   // Lấy tham số "id" từ URL và chuyển đổi thành số nguyên
   const articleId = parseInt(getParameterByName('id'));
-  const articles = await fetchData(`../../Controller/ArticlesController.php?id=${articleId}`);
+  const articles = await fetchData(`${getApiUrl("Controller/ArticlesController.php")}?id=${articleId}`);
   // const currentArticle = articles.find(a => a.id === articleId);
   const articleContainer = document.getElementById('article-container');
 

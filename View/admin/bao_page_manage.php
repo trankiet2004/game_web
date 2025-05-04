@@ -170,7 +170,7 @@ foreach ($subFolders as $folder) {
                                             <?php $slug = pathinfo($p['name'], PATHINFO_FILENAME); ?>
                                             <tr>
                                                 <td><input type="checkbox" class="selectRow"></td>
-                                                <td><a href="/<?= $p['path'] ?>" target="_blank"><?= $p['name'] ?></a></td>
+                                                <td><a href="../<?= $p['path'] ?>" target="_blank"><?= $p['name'] ?></a></td>
                                                 <td>
                                                     <a class="btn btn-primary" href="/index.php?page=bao_edit_page&id=<?= urlencode($slug) ?>">
                                                         Chỉnh Sửa

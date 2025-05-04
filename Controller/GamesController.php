@@ -108,9 +108,9 @@ class GamesController
     }
 }
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
-//     $games = new GamesController();
-//     $games->load_products();
-// }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
+    $games = new GamesController();
+    $games->load_products();
+}
 
-// $games = new GamesController();
+$games = new GamesController();

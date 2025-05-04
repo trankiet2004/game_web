@@ -2,7 +2,10 @@
 session_start();
 $role = $_SESSION['user']['role'] ?? null;
 
-$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/UsersController.php');
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
+$basePath = rtrim($basePath, '/');
+$apiUrl = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . '/Controller/UsersController.php';
+$jsonData = file_get_contents($apiUrl);
 $users = json_decode($jsonData, true);
 
 if (!is_array($users)) {
@@ -82,7 +85,7 @@ if (!is_array($users)) {
                         </button>
                         
                         <button class="btn btn-neon">
-                            <a href="/Controller/AuthController.php?action=logout" style="color: black; text-decoration: none;">
+                            <a href="../../Controller/AuthController.php?action=logout" style="color: black; text-decoration: none;">
                                 Đăng Xuất
                             </a>
                         </button>
@@ -348,9 +351,11 @@ if (!is_array($users)) {
             <h3>Games Mới Nhất Của Chúng Tôi</h3>
         </div>
         <div class="game-card-container">
-            <div class="game-card-wrapper"><div class="card"><img class="card-img-top" src="../data//games/game41494.jpg" alt="cyberpunk-2077"><div class="card-body"><h4>Cyberpunk 2077</h4><a href="https://www.cyberpunk.net/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data//games/game290856.jpg" alt="apex-legends"><div class="card-body"><h4>Apex Legends</h4><a href="https://www.ea.com/games/apex-legends" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data//games/game28.jpg" alt="red-dead-redemption-2"><div class="card-body"><h4>Red Dead Redemption 2</h4><a href="https://www.rockstargames.com/reddeadredemption2/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data//games/game58175.jpg" alt="god-of-war-2"><div class="card-body"><h4>God of War (2018)</h4><a href="https://godofwar.playstation.com/" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data//games/game32.jpg" alt="destiny-2"><div class="card-body"><h4>Destiny 2</h4><a href="https://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary">Xem thêm</a></div></div><div class="card"><img class="card-img-top" src="../data//games/game41.jpg" alt="little-nightmares"><div class="card-body"><h4>Little Nightmares</h4><a href="http://www.little-nightmares.com" class="btn btn-primary">Xem thêm</a></div></div></div>
-s://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary"&gt;Xem thêm</div></div><div class="card" data-scroll=""><img class="card-img-top" src="../data/img/games/game41.jpg" alt="little-nightmares"><div class="card-body"><h4>Little Nightmares</h4><a href="http://www.little-nightmares.com" class="btn btn-primary">Xem thêm</a></div></div>
-s://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary"&gt;Xem thêm<div class="card" data-scroll=""><img class="card-img-top" src="../data/img/games/game41.jpg" alt="little-nightmares"><div class="card-body"><h4>Little Nightmares</h4><a href="http://www.little-nightmares.com" class="btn btn-primary">Xem thêm</a></div></div>
+            <div class="game-card-wrapper">
+                
+            </div>
+        </div>
+    </div>
         
     
 
@@ -448,8 +453,14 @@ s://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary"&gt;Xem thêm<d
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" data-scroll=""></script>
 
     <script data-scroll="">
+        function getApiUrl(path) {
+            const segments = window.location.pathname.split("/").filter(Boolean);
+            const basePath = segments.length >= 2 ? `/${segments[0]}` : "";
+            return `${window.location.origin}${basePath}/${path}`;
+        }
+
         async function fetchData() {
-            const URL_GAMES_API = new URL("../../Controller/GamesController.php", window.location.href).href;
+            const URL_GAMES_API = new URL(getApiUrl("Controller/GamesController.php"), window.location.href).href;
 
             try {
                 const formData = new URLSearchParams();
@@ -496,7 +507,7 @@ s://www.bungie.net/7/en/Destiny/NewLight" class="btn btn-primary"&gt;Xem thêm<d
                 newGameCard.classList.add("card");
                 let newGameCardImg = document.createElement("img");
                 newGameCardImg.classList.add("card-img-top");
-                newGameCardImg.src = `../data/${item['background_image'].substr(3)}`;
+                newGameCardImg.src = `../data/${item['background_image']}`;
                 newGameCardImg.alt = item['slug'];
                 let newGameCardBody = document.createElement("div");
                 newGameCardBody.classList.add("card-body");
