@@ -1,5 +1,5 @@
 <?php 
-// session_start(); 
+session_start(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +39,7 @@
                     <?php if (!isset($_SESSION['user'])): ?>
                         <a href="../../index.php?page=signin" style="float: left;" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui lòng đăng nhập</a>
                     <?php else: ?>
-                        <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
+                        <button type="submit" style="float: left;" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
                     <?php endif; ?>
                 </div>
             </form>
@@ -81,6 +81,12 @@
             return `${pad(dt.getHours())}:${pad(dt.getMinutes())} ${pad(dt.getDate())}/${pad(dt.getMonth()+1)}/${dt.getFullYear()}`;
         }
 
+        function getApiUrl(path) {
+            const basePath = window.location.pathname.split("/").filter(Boolean)[0] || "";
+            const baseUrl = `${window.location.origin}${basePath ? '/' + basePath : ''}`;
+            return `${baseUrl}/${path}`;
+        }
+
         const itemsPerPage = 4;
 
         function attachReplyHandlers() {
@@ -109,7 +115,7 @@
                     formData.append('user_name', currentUser.username);
 
                     try {
-                        const res = await fetch('../../Controller/AnswersController.php', {
+                        const res = await fetch(getApiUrl("Controller/AnswersController.php"), {
                             method: 'POST',
                             body: formData
                         });
@@ -141,7 +147,7 @@
 
         async function loadAnswers(containerEl, faqId) {
             containerEl.innerHTML = '<p class="text-light">Đang tải câu trả lời…</p>';
-            const answers = await fetchData(`/Controller/AnswersController.php?faq_id=${faqId}`);
+            const answers = await fetchData(`${getApiUrl("Controller/AnswersController.php")}?faq_id=${faqId}`);
             containerEl.innerHTML = answers.map(ans => `
                 <div class="answer-item bg-card p-3 rounded mb-2">
                 <div class="d-flex align-items-center mb-2">
@@ -223,7 +229,7 @@
                 loadComponent('footer','../component/footer.php');
             }
 
-            const data = await fetchData('../../Controller/FaqsController.php');
+            const data = await fetchData(getApiUrl("Controller/FaqsController.php"));
             renderPage(1, data);
 
             document.getElementById('ask-form').addEventListener('submit', async function(e){
@@ -231,7 +237,7 @@
                 if (!currentUser) return window.location.href='../../index.php?page=signin';
                 const fd = new FormData(this);
                 try {
-                    const res = await fetch('../../Controller/FaqsController.php', {
+                    const res = await fetch(getApiUrl("Controller/FaqsController.php"), {
                         method: 'POST',
                         body: fd
                     });

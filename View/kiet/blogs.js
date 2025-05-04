@@ -54,9 +54,15 @@ let blogPosts = [
 
 blogPosts = [];
 
+function getApiUrl(path) {
+    const basePath = window.location.pathname.split("/").filter(Boolean)[0] || "";
+    const baseUrl = `${window.location.origin}${basePath ? '/' + basePath : ''}`;
+    return `${baseUrl}/${path}`;
+}
+
 // Hàm fetch dữ liệu từ API
 function fetchBlogPosts() {
-    fetch('http://localhost:8080/Controller/ArticlesController.php')
+    fetch(getApiUrl("Controller/ArticlesController.php"))
     .then(response => response.json())
     .then(data => {
         blogPosts = data; // Cập nhật blogPosts bằng dữ liệu API

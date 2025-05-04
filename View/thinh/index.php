@@ -250,8 +250,14 @@
     <script src="index.js"></script>
 
     <script>
+        function getApiUrl(path) {
+            const basePath = window.location.pathname.split("/").filter(Boolean)[0] || "";
+            const baseUrl = `${window.location.origin}${basePath ? '/' + basePath : ''}`;
+            return `${baseUrl}/${path}`;
+        }
+
         async function fetchData() {
-            const URL_GAMES_API = new URL("../../Controller/GamesController.php", window.location.href).href;
+            const URL_GAMES_API = new URL(getApiUrl("Controller/GamesController.php"));
 
             try {
                 const formData = new URLSearchParams();
@@ -292,7 +298,7 @@
                 
                 let newGameCardImg = document.createElement("img");
                 newGameCardImg.classList.add("card-img-top");
-                newGameCardImg.src = `../data/${item['background_image'].substr(3)}`;
+                newGameCardImg.src = `../data/${item['background_image']}`;
                 newGameCardImg.alt = item['slug'];
                 
                 let newGameCardBody = document.createElement("div");

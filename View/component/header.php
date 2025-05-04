@@ -59,7 +59,7 @@ $role = $_SESSION['user']['role'] ?? null;
                 </button>
                 
                 <button class="btn btn-neon">
-                    <a href="/Controller/AuthController.php?action=logout" style="color: black; text-decoration: none;">
+                    <a href="../../Controller/AuthController.php?action=logout" style="color: black; text-decoration: none;">
                         Đăng Xuất
                     </a>
                 </button>

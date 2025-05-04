@@ -36,17 +36,21 @@ async function fetchData(URL_String) {
     }
 }
 
+function getApiUrl(path) {
+    const basePath = window.location.pathname.split("/").filter(Boolean)[0] || "";
+    const baseUrl = `${window.location.origin}${basePath ? '/' + basePath : ''}`;
+    return `${baseUrl}/${path}`;
+}
+
 document.addEventListener("DOMContentLoaded", async function() {
     let commentListContainer = document.getElementsByClassName("card-body")[0];
     commentListContainer.innerHTML = "";
 
-    // Fetch cả FAQs và Users
     const [faqs, users] = await Promise.all([
-        fetchData("http://localhost:8080/Controller/FaqsController.php"),
-        fetchData("http://localhost:8080/Controller/UsersController.php")
+        fetchData(getApiUrl("Controller/FaqsController.php")),
+        fetchData(getApiUrl("Controller/UsersController.php"))
     ]);
 
-    // Map user_id -> images path
     const usersMap = {};
     users.forEach(user => {
         usersMap[user.id] = user.images;
@@ -125,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         commentActionsRemoveButton.addEventListener('click', async () => {
             if (!confirm('Bạn có chắc muốn xóa mục này?')) return;
             try {
-                const deleteUrl = `${window.location.origin}/Controller/FaqsController.php/${item.faq_id}`;
+                const deleteUrl = getApiUrl(`Controller/FaqsController.php/${item.faq_id}`);
                 const res = await fetch(deleteUrl, { method: 'DELETE' });
                 const json = await res.json();
                 if (json.success) {
