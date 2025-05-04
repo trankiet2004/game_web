@@ -1,10 +1,5 @@
 <?php 
 session_start(); 
-// 1. Chưa đăng nhập → quay về login
-if (!isset($_SESSION['user'])) {
-    header('Location: ../../index.php?page=signin');
-    exit;
-}
 $role = $_SESSION['user']['role'] ?? null;
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark">

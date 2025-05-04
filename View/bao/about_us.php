@@ -1,11 +1,5 @@
 <?php
 session_start();
-
-// 1. Chưa đăng nhập → quay về login
-if (!isset($_SESSION['user'])) {
-    header('Location: ../../index.php?page=signin');
-    exit;
-}
 $role = $_SESSION['user']['role'] ?? null;
 
 $jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/UsersController.php');
