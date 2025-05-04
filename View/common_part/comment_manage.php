@@ -10,7 +10,7 @@ $userId = $_SESSION['user']['id'];
 <html>
 <head>
     <title>Quản lý Comment</title>
-    <base href="/View/common_part/">
+    <base href="./View/common_part/">
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">

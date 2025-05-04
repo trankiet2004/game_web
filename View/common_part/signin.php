@@ -10,7 +10,7 @@ unset($_SESSION['err'], $_SESSION['old']);
 
 <head>
     <meta charset="UTF-8">
-    <base href="/View/common_part/">
+    <base href="./View/common_part/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
