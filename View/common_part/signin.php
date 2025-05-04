@@ -41,7 +41,7 @@ unset($_SESSION['err'], $_SESSION['old']);
 
                     <p class="auth-subtitle mb-5">Đăng nhập bằng dữ liệu bạn đã nhập khi đăng ký.</p>
 
-                    <form id="loginForm" action="/Controller/AuthController.php?action=login" method="POST">
+                    <form id="loginForm" action="./Controller/AuthController.php?action=login" method="POST">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input id="username" name="username" type="text" class="form-control form-control-xl" placeholder="Username" value="<?= htmlspecialchars($old['username'] ?? '') ?>">
                             <div class="form-control-icon">
