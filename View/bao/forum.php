@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php 
+// session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +37,7 @@
                 </div>
                 <div class="col-12 text-end">
                     <?php if (!isset($_SESSION['user'])): ?>
-                        <a href="../../index.php?login" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui lòng đăng nhập</a>
+                        <a href="../../index.php?page=signin" style="float: left;" class="btn btn-neon"><i class="bi bi-send-fill"></i> Vui lòng đăng nhập</a>
                     <?php else: ?>
                         <button type="submit" class="btn btn-neon"><i class="bi bi-send-fill"></i> Gửi câu hỏi</button>
                     <?php endif; ?>
@@ -90,7 +92,7 @@
                     e.preventDefault();
 
                     if (!currentUser) {
-                        return window.location.href = '../../index.php?login';
+                        return window.location.href = '../../index.php?page=signin';
                     }
 
                     const faqId = this.dataset.faqId;
@@ -183,7 +185,7 @@
                         <div class="input-group">
                             <input type="text" name="answer" class="form-control bg-transparent text-light" placeholder="Viết câu trả lời..." ${!currentUser?'disabled':''}>
                             ${!currentUser
-                                ? `<button type="button" class="btn btn-neon" onclick="window.location='../../index.php?login'"><i class="bi bi-reply-fill"></i></button>`
+                                ? `<button type="button" class="btn btn-neon" style="float: left;" onclick="window.location='../../index.php?page=signin'"><i class="bi bi-reply-fill"></i></button>`
                                 : `<button type="submit" class="btn btn-neon"><i class="bi bi-reply-fill"></i></button>`
                             }
                         </div>
@@ -226,7 +228,7 @@
 
             document.getElementById('ask-form').addEventListener('submit', async function(e){
                 e.preventDefault();
-                if (!currentUser) return window.location.href='../../index.php?login';
+                if (!currentUser) return window.location.href='../../index.php?page=signin';
                 const fd = new FormData(this);
                 try {
                     const res = await fetch('../../Controller/FaqsController.php', {

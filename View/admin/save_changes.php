@@ -6,6 +6,43 @@ if (isset($request['file']) && isset($request['content'])) {
     $filePath = $request['file'];
     $newContent = $request['content'];
 
+    /* ======= PROTECT LOGIN SNIPPET ======= */
+    if (basename($filePath) === 'about_us.php') {
+        $original = file_get_contents($filePath);
+
+        if (preg_match(
+                '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
+                $original, $m
+            )) {
+
+            $protected = $m[0];        // cả block kèm comment
+
+            if (preg_match(
+                    '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
+                    $newContent
+                )) {
+                /* ❶  Nếu người sửa vẫn giữ 2 comment:
+                    thay thế toàn bộ phần giữa comment = bản gốc  */
+                $newContent = preg_replace(
+                    '/<!-- START_PROTECTED_LOGIN_SNIPPET -->(.*?)<!-- END_PROTECTED_LOGIN_SNIPPET -->/s',
+                    $protected,
+                    $newContent,
+                    1                 // chỉ thay lần đầu
+                );
+            } else {
+                /* ❷  Nếu họ lỡ xoá 2 comment:
+                    thêm block gốc ngay trước thẻ </div> đóng .navbar-collapse */
+                $newContent = preg_replace(
+                    '/<\/div>\s*<\/div>\s*<\/nav>/s',
+                    $protected . "\n</div></div></nav>",
+                    $newContent,
+                    1
+                );
+            }
+        }
+    }
+    /* ===================================== */
+
     $allowedFiles = [
         '../bao/about_us.php',
         '../bao/forum.php',
