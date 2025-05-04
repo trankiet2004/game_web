@@ -5,7 +5,7 @@ require_once __DIR__.'/../Model/DBConnect.php';
 class ProfileController {
     public function uploadAvatar() {
         if (!isset($_SESSION['user'])) {
-            header('Location: /View/common_part/signin.php');
+            header('Location: ../../index.php?page=signin');
             exit;
         }
         $id = (int)$_SESSION['user']['id'];
@@ -35,7 +35,7 @@ class ProfileController {
         // Cập nhật session (nếu cần)
         $_SESSION['user']['avatar_type'] = $mime;
 
-        header('Location: /View/common_part/account-profile.php');
+        header('Location: ../../index.php?page=account-profile');
         exit;
     }
 }

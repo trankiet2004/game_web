@@ -2,10 +2,28 @@
 session_start();
 if (!isset($_SESSION['user'])) header('Location: ../../index.php?page=signin');
 $user = $_SESSION['user'];
-$basePath = dirname($_SERVER['SCRIPT_NAME']);
-$basePath = rtrim($basePath, '/');
-$apiUrl = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . '/Controller/UsersController.php';
-$jsonData = file_get_contents($apiUrl);
+
+function getApiUrl($path) {
+    $basePath = dirname($_SERVER['SCRIPT_NAME']); // Lấy thư mục gốc chứa index.php
+    $basePath = rtrim($basePath, '/');
+    $path = ltrim($path, '/');
+    return 'http://' . $_SERVER['HTTP_HOST'] . ($basePath ? $basePath . '/' : '/') . $path;
+}
+
+function fetchDataFromApi($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        curl_close($ch);
+        return false;
+    }
+    curl_close($ch);
+    return $result;
+}
+
+$apiUrl = getApiUrl('Controller/UsersController.php');
+$jsonData = fetchDataFromApi($apiUrl);
 ?>
 
 <!DOCTYPE html>
@@ -134,7 +152,7 @@ $jsonData = file_get_contents($apiUrl);
                                         <div class="avatar avatar-2xl">
                                         <?php
                                         // Xác định avatar (BLOB) sử dụng endpoint
-                                        $avatarSrc = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . "/Controller/AvatarController.php?id=" . urlencode($user['id']);
+                                        $avatarSrc = getApiUrl("/Controller/AvatarController.php?id=" . urlencode($user['id']));
                                         ?>
                                             <img src="<?= htmlspecialchars($avatarSrc) ?>" alt="Avatar" class="img-fluid rounded-circle">
                                         </div>
@@ -154,7 +172,7 @@ $jsonData = file_get_contents($apiUrl);
                                         <p class="card-text">
                                             Các định dạng được cho phép JPG, JPEG, PNG. Kích thước ảnh không được vượt quá 300KB.
                                         </p>
-                                        <form action="<?='http://' . $_SERVER['HTTP_HOST'] . $basePath . "Controller/ProfileController.php?action=uploadAvatar"?>" method="POST" enctype="multipart/form-data">
+                                        <form action="<?=getApiUrl("Controller/ProfileController.php?action=uploadAvatar")?>" method="POST" enctype="multipart/form-data">
                                             <input type="file" name="avatar" class="basic-filepond" accept="image/*" required>
                                             <button type="submit" class="btn btn-primary mt-3">Tải Lên Avatar</button>
                                         </form>

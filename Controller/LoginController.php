@@ -2,7 +2,7 @@
 require_once('../Model/User.php');
 class LoginController {
     public function showLoginPage() {
-        include('../View/common_part/signin.html');  // Display login page
+        include('../../index.php?page=signin');  // Display login page
     }
 
     public function handleLogin() {

@@ -58,6 +58,7 @@ if (isset($request['file']) && isset($request['content'])) {
         exit;
     }
     
+    $newContent = preg_replace('/<base href="\/View\/(.*?)\/">/', '<base href="./View/$1/">', $newContent);
     if (file_put_contents($filePath, $newContent) !== false) {
         echo json_encode(['status' => 'success', 'message' => 'Lưu thay đổi thành công']);
     } else {

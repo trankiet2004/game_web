@@ -86,9 +86,20 @@ if ($role !== 'admin') {
             urlToLoad += '?t=' + new Date().getTime();
 
             var iframe = document.getElementById('contentFrame');
-            iframe.src = urlToLoad;
+            fetch(`load_UI.php?id=${id}`)
+            .then(res => res.text())
+            .then(html => {
+                var doc = iframe.contentDocument || iframe.contentWindow.document;
+                doc.open();
+                doc.write(html);
+                doc.close();
+            });
             iframe.onload = function() {
                 var doc = iframe.contentDocument || iframe.contentWindow.document;
+                let baseTag = doc.querySelector("base[href]");
+                if (baseTag && baseTag.href.includes('./View/')) {
+                    baseTag.href = baseTag.href.replace('./View/', '/View/');
+                }
                 var editableEls = doc.querySelectorAll('[data-editable="true"]');
                 editableEls.forEach(function(el) {
                     el.contentEditable = true;

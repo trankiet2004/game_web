@@ -22,24 +22,25 @@ class User {
     }
 
     public static function GET($table, $id, $idColumn) {
-        header("Content-type: application/json");
-
+        header("Content-Type: application/json; charset=UTF-8");
         global $connect;
+    
         try {
             $SQL = $id === null ? "SELECT * FROM $table" : "SELECT * FROM $table WHERE $idColumn = $id";
             $query = $connect->query($SQL);
-
-            if(!$query) {
+    
+            if (!$query) {
                 throw new Exception("Query execution failed: " . $connect->error);
             }
-
+    
             $jsonResponse = [];
-            while($row = $query->fetch_assoc()) {
+            while ($row = $query->fetch_assoc()) {
+                unset($row['avatar'], $row['avatar_type']);
                 $jsonResponse[] = $row;
             }
-
+    
             http_response_code(200);
-            echo json_encode($jsonResponse);
+            echo json_encode($jsonResponse, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } catch (mysqli_sql_exception $e) {
             http_response_code(500);
             echo json_encode([
@@ -48,12 +49,12 @@ class User {
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
-                "error" => "An unexpected error occured: " . $e->getMessage()
+                "error" => "An unexpected error occurred: " . $e->getMessage()
             ]);
         }
     }
+    
 
-    // Save user to the database
     public function save() {
         global $connect;
         $sql = $connect->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
