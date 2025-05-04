@@ -77,10 +77,12 @@
 
             <p><strong>Tags:</strong>
                 <?php foreach ($game['tags'] as $index => $tag): ?>
-                    <?= htmlspecialchars($tag['name']) ?>
-                    <?= $index < count($game['tags']) - 1 ? ', ' : '' ?>
+                    <a href="/game_web/index.php?action=tag&id=<?= $tag['id'] ?>">
+                        <?= htmlspecialchars($tag['name']) ?>
+                    </a><?= $index < count($game['tags']) - 1 ? ', ' : '' ?>
                 <?php endforeach; ?>
             </p>
+
 
 
             <p><strong>Platforms:</strong>
