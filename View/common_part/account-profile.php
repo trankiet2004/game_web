@@ -4,15 +4,26 @@ if (!isset($_SESSION['user'])) header('Location: ../../index.php?page=signin');
 $user = $_SESSION['user'];
 
 function getApiUrl($path) {
-    $scriptName = $_SERVER['SCRIPT_NAME'];
-    $projectRoot = explode('/View/', $scriptName)[0];
-    $projectRoot = rtrim($projectRoot, '/');
+    $basePath = dirname($_SERVER['SCRIPT_NAME']); // Lấy thư mục gốc chứa index.php
+    $basePath = rtrim($basePath, '/');
     $path = ltrim($path, '/');
-    return 'http://' . $_SERVER['HTTP_HOST'] . ($projectRoot ? $projectRoot . '/' : '/') . $path;
+    return 'http://' . $_SERVER['HTTP_HOST'] . ($basePath ? $basePath . '/' : '/') . $path;
+}
+
+function fetchDataFromApi($url) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        curl_close($ch);
+        return false;
+    }
+    curl_close($ch);
+    return $result;
 }
 
 $apiUrl = getApiUrl('Controller/UsersController.php');
-$jsonData = file_get_contents($apiUrl);
+$jsonData = fetchDataFromApi($apiUrl);
 ?>
 
 <!DOCTYPE html>

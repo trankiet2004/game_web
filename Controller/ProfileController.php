@@ -35,7 +35,7 @@ class ProfileController {
         // Cập nhật session (nếu cần)
         $_SESSION['user']['avatar_type'] = $mime;
 
-        header('Location: /View/common_part/account-profile.php');
+        header('Location: ../../index.php?page=account-profile');
         exit;
     }
 }
