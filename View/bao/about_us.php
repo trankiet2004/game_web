@@ -46,10 +46,11 @@ if (!is_array($users)) {
                             <a class="nav-link dropdown-toggle text-neon" href="#" role="button" data-bs-toggle="dropdown">Games</a>
                             
                             <ul class="dropdown-menu cyber-dropdown">
-                                <li><a class="dropdown-item" href="#">PC Games</a></li>
-                                <li><a class="dropdown-item" href="#">Console Games</a></li>
-                                <li><a class="dropdown-item" href="#">Mobile Games</a></li>
-                                <li><a class="dropdown-item" href="#">VR Games</a></li>
+                                <li><a class="dropdown-item" href="../../index.php?action=game">All Games</a></li>
+                                <li><a class="dropdown-item" href="../../index.php?action=platform">Platforms</a></li>
+                                <li><a class="dropdown-item" href="../../index.php?action=genres">Genres</a></li>
+                                <li><a class="dropdown-item" href="../../index.php?action=developer">Developers</a></li>
+                                <li><a class="dropdown-item" href="../../index.php?action=tag">Tags</a></li>
                             </ul>
                         </li>
         
