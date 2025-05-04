@@ -2743,3 +2743,13 @@ ALTER TABLE users
   ADD COLUMN avatar LONGBLOB       NULL AFTER role,
   ADD COLUMN avatar_type VARCHAR(50) NULL AFTER avatar;
 */
+
+CREATE TABLE blog_comment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    article_id INT NOT NULL,
+    user_id INT NOT NULL,
+    user_name VARCHAR(100),
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (article_id) REFERENCES articles(id)
+);
