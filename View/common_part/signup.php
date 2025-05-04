@@ -29,7 +29,7 @@
                     <h1 class="auth-title">Đăng Ký</h1>
                     <p class="auth-subtitle mb-5">Nhập dữ liệu của bạn để đăng ký vào trang web của chúng tôi.</p>
 
-                    <form action="/Controller/AuthController.php?action=signup" method="POST">
+                    <form action="./Controller/AuthController.php?action=signup" method="POST">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input name="email" type="text" class="form-control form-control-xl" placeholder="Email">
                             <div class="form-control-icon">

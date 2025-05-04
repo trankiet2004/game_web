@@ -131,7 +131,7 @@ $user = $_SESSION['user'];
                                         <div class="avatar avatar-2xl">
                                         <?php
                                         // Xác định avatar (BLOB) sử dụng endpoint
-                                        $avatarSrc = "/Controller/AvatarController.php?id=" . urlencode($user['id']);
+                                        $avatarSrc = "./Controller/AvatarController.php?id=" . urlencode($user['id']);
                                         ?>
                                             <img src="<?= htmlspecialchars($avatarSrc) ?>" alt="Avatar" class="img-fluid rounded-circle">
                                         </div>
@@ -151,7 +151,7 @@ $user = $_SESSION['user'];
                                         <p class="card-text">
                                             Các định dạng được cho phép JPG, JPEG, PNG. Kích thước ảnh không được vượt quá 300KB.
                                         </p>
-                                        <form action="/Controller/ProfileController.php?action=uploadAvatar" method="POST" enctype="multipart/form-data">
+                                        <form action="./Controller/ProfileController.php?action=uploadAvatar" method="POST" enctype="multipart/form-data">
                                             <input type="file" name="avatar" class="basic-filepond" accept="image/*" required>
                                             <button type="submit" class="btn btn-primary mt-3">Tải Lên Avatar</button>
                                         </form>
