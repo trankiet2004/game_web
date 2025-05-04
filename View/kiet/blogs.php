@@ -31,11 +31,7 @@
         
         <!-- Pagination -->
         <nav class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link text-neon bg-dark" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-neon bg-dark" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-neon bg-dark" href="#">3</a></li>
-            </ul>
+            <ul class="pagination justify-content-center"></ul>
         </nav>
     </div>
 

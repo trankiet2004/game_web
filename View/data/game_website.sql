@@ -2518,7 +2518,8 @@ CREATE TABLE IF NOT EXISTS `articles` (
     `content` TEXT NOT NULL,
     `author` VARCHAR(100) NOT NULL,
     `time` VARCHAR(50) NOT NULL,
-    `image` VARCHAR(255) NOT NULL
+    `image`   LONGBLOB,
+    `image_type` VARCHAR(50)
 );
 INSERT INTO articles (id, title, content, author, time, image) VALUES
 (0, 'Cách nâng cấp GPU cho máy tính chơi game',
@@ -2753,3 +2754,9 @@ CREATE TABLE blog_comment (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (article_id) REFERENCES articles(id)
 );
+
+/* nếu đã có table articles thì chỉ cần thêm dòng này
+ALTER TABLE `articles`
+  MODIFY `image` LONGBLOB NOT NULL,
+  ADD   `image_type` VARCHAR(50) NOT NULL AFTER `image`;
+*/
