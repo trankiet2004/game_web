@@ -2,9 +2,11 @@
 // Include necessary files
 require_once('Controller/GamesController.php');
 require_once('Controller/PlatformsController.php');
+require_once('Controller/GenresController.php');
 // Create controller object
 $gamecontroller = new GamesController();
 $platformcontroller = new PlatformsController();
+$genrescontroller = new GenresController();
 $page = $_GET['page'] ?? '';
 $action = $_GET['action'] ?? null;
 $id = $_GET['id'] ?? null;
@@ -14,9 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $gamecontroller->load_products();
 } else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_platforms'){
     $platformcontroller->load_platforms();
+} else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_genres'){
+    $genrescontroller->load_genres();
 } else if($action === 'load_more_games'){
     $platformcontroller->load_more_games();
-}else if($action === 'game' && $id !== null){
+} else if($action === 'load_more_games_in_genres'){
+    $genrescontroller->load_more_games();
+} else if($action === 'game' && $id !== null){
     $gamecontroller->get_game_by_id($id);
 } else if($action === 'game'){
     $gamecontroller->index();
@@ -24,6 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $platformcontroller->get_platform_by_id($id);
 } else if($action === 'platform'){
     $platformcontroller->index();
+}else if($action === 'genres' && $id !== null){
+    $genrescontroller->get_genres_by_id($id);
+} else if($action === 'genres'){
+    $genrescontroller->index();
 }else if($page == 'index' || $page == '') {
     include('./View/thinh/index.php');
 } else if($page == 'contact_us') {

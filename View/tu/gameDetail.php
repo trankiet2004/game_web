@@ -64,17 +64,24 @@
                 <?= nl2br(htmlspecialchars($game['description'] ?? 'No description available.')) ?></p>
 
             <p><strong>Genres:</strong>
-                <?php foreach ($game['genres'] as $genre): ?>
-                    <?= htmlspecialchars($genre['name']) ?>
-                    <?= !$loopEnded = (next($game['genres']) === false) ? '' : ', ' ?>
+                <?php foreach ($game['genres'] as $index => $genre): ?>
+                    <a href="/game_web/index.php?action=genres&id=<?= $genre['id'] ?>">
+                        <?= htmlspecialchars($genre['name']) ?>
+                    </a>
+                    <?php if ($index < count($game['genres']) - 1): ?> <!-- If it's not the last genre -->
+                        ,
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </p>
 
+
             <p><strong>Tags:</strong>
-                <?php foreach ($game['tags'] as $tag): ?>
-                    <?= htmlspecialchars($tag['name']) ?>     <?= !$loopEnded = (next($game['tags']) === false) ? '' : ', ' ?>
+                <?php foreach ($game['tags'] as $index => $tag): ?>
+                    <?= htmlspecialchars($tag['name']) ?>
+                    <?= $index < count($game['tags']) - 1 ? ', ' : '' ?>
                 <?php endforeach; ?>
             </p>
+
 
             <p><strong>Platforms:</strong>
                 <?php foreach ($game['platforms'] as $index => $platform): ?>
