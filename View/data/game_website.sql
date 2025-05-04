@@ -2513,11 +2513,11 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 CREATE TABLE IF NOT EXISTS `articles` (
-    `id` INT PRIMARY KEY,
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
     `content` TEXT NOT NULL,
     `author` VARCHAR(100) NOT NULL,
-    `time` VARCHAR(50) NOT NULL,
+    `time`  DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `image`   LONGBLOB,
     `image_type` VARCHAR(50)
 );
@@ -2757,6 +2757,8 @@ CREATE TABLE blog_comment (
 
 /* nếu đã có table articles thì chỉ cần thêm dòng này
 ALTER TABLE `articles`
-  MODIFY `image` LONGBLOB NOT NULL,
-  ADD   `image_type` VARCHAR(50) NOT NULL AFTER `image`;
+  MODIFY `image` LONGBLOB,
+  ADD   `image_type` VARCHAR(50) AFTER `image`,
+  MODIFY COLUMN `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  MODIFY `id` INT PRIMARY KEY AUTO_INCREMENT;
 */
