@@ -1,3 +1,20 @@
+<?php 
+session_start();
+
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../../index.php?page=signin');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
+
+// 2. Đã đăng nhập nhưng không phải admin → 403 Forbidden
+if ($role !== 'admin') {
+    http_response_code(403);
+    exit('Bạn không có quyền truy cập trang này.');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>

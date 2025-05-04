@@ -1,4 +1,19 @@
 <?php
+session_start();
+
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../../index.php?page=signin');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
+
+// 2. Đã đăng nhập nhưng không phải admin → 403 Forbidden
+if ($role !== 'admin') {
+    http_response_code(403);
+    exit('Bạn không có quyền truy cập trang này.');
+}
+
 $jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/ArticlesController.php');
 $articles = json_decode($jsonData, true);
 

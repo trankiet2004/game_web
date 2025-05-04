@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../../index.php?page=signin');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
+?>
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand text-neon" href="../../index.php?">
@@ -49,7 +57,7 @@
                 </button>
                 <?php else: ?>
                 <button class="btn btn-outline-neon me-2">
-                    <a href="../../index.php?page=account-profile" style="text-decoration: none; color: var(--primary);">
+                    <a href="<?= $role !== 'admin' ? '../../index.php?page=account-profile' : '../../index.php?page=indexAdmin' ?>" style="text-decoration: none; color: var(--primary);">
                         Tài khoản
                     </a>
                 </button>

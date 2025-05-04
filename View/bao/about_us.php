@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../../index.php?page=signin');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
+
+$jsonData = file_get_contents('http://' . $_SERVER['HTTP_HOST'] . '/Controller/UsersController.php');
+$users = json_decode($jsonData, true);
+
+if (!is_array($users)) {
+    echo "Không có bài viết nào để hiển thị.";
+    exit;
+}
+?>
+
 <html lang="en" data-theme="dark" style="--primary: rgb(210, 255, 0);"><head>
     <meta charset="UTF-8">
     <base href="/View/bao/">
@@ -63,7 +82,7 @@
                             </button>
                         <?php else: ?>
                         <button class="btn btn-outline-neon me-2">
-                            <a href="../../index.php?page=account-profile" style="text-decoration: none; color: var(--primary);">
+                            <a href="<?= $role !== 'admin' ? '../../index.php?page=account-profile' : '../../index.php?page=indexAdmin' ?>" style="text-decoration: none; color: var(--primary);">
                                 Tài khoản
                             </a>
                         </button>
