@@ -68,7 +68,11 @@ class User {
     // Find user by username or email
     public static function findByUsername($username): ?self {
         global $connect;
-        $sql = $connect->prepare("SELECT * FROM users WHERE username = ?");
+        $sql = @$connect->prepare("SELECT * FROM users WHERE username = ?");
+    if (!$sql) {
+        // Có thể table không tồn tại hoặc lỗi SQL → coi như không tìm thấy user
+        return null;
+    }
         $sql->bind_param("s", $username);
         $sql->execute();
         $res = $sql->get_result();

@@ -10,8 +10,12 @@ class AuthController {
         $u = trim($_POST['username'] ?? '');
         $p = $_POST['password'] ?? '';
 
-        $user = User::findByUsername($u);
-
+        try {
+            $user = User::findByUsername($u);
+        } catch (\Throwable $e) {
+            $user = null;
+        }
+        
         if ($user && $user->checkPassword($p)) {
             // $_SESSION['user'] = $user;
             $_SESSION["user"] = [

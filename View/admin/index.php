@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+// 1. Chưa đăng nhập → quay về login
+if (!isset($_SESSION['user'])) {
+    header('Location: /View/common_part/signin.php');
+    exit;
+}
+$role = $_SESSION['user']['role'] ?? null;
+
+// 2. Đã đăng nhập nhưng không phải admin → 403 Forbidden
+if ($role !== 'admin') {
+    http_response_code(403);
+    exit('Bạn không có quyền truy cập trang này.');
+}
+
+// Tới đây mới được phép xem nội dung trang
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
