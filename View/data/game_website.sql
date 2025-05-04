@@ -2696,6 +2696,8 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'user') DEFAULT 'user',
+    avatar LONGBLOB,
+    avatar_type VARCHAR(50),
     phone VARCHAR(15),
     city VARCHAR(100),
     status ENUM('active', 'inactive') DEFAULT 'active',
@@ -2736,3 +2738,8 @@ CREATE TABLE answers (
 ALTER TABLE users ADD COLUMN images VARCHAR(255) DEFAULT NULL;
 UPDATE users
 SET images = CONCAT('../assets/static/images/faces/', FLOOR(1 + RAND() * 8), '.jpg');
+/* nếu đã tạo bảng user thì chỉ cần chạy dòng này
+ALTER TABLE users
+  ADD COLUMN avatar LONGBLOB       NULL AFTER role,
+  ADD COLUMN avatar_type VARCHAR(50) NULL AFTER avatar;
+*/
