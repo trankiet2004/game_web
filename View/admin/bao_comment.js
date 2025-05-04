@@ -39,12 +39,23 @@ async function fetchData(URL_String) {
 document.addEventListener("DOMContentLoaded", async function() {
     let commentListContainer = document.getElementsByClassName("card-body")[0];
     commentListContainer.innerHTML = "";
-    const data = await fetchData("../../Controller/FaqsController.php");
-    console.log(data);
-    
-    data.forEach((item, index) => {
+
+    // Fetch cả FAQs và Users
+    const [faqs, users] = await Promise.all([
+        fetchData("http://localhost:8080/Controller/FaqsController.php"),
+        fetchData("http://localhost:8080/Controller/UsersController.php")
+    ]);
+
+    // Map user_id -> images path
+    const usersMap = {};
+    users.forEach(user => {
+        usersMap[user.id] = user.images;
+    });
+
+    faqs.forEach((item, index) => {
         let commentDiv = document.createElement("div");
         commentDiv.classList.add("comment");
+
         let commentHeaderDiv = document.createElement("div");
         commentHeaderDiv.classList.add("comment-header");
 
@@ -54,7 +65,9 @@ document.addEventListener("DOMContentLoaded", async function() {
         avatarDiv.classList.add("avatar", "avatar-2xl");
 
         let imgTag = document.createElement("img");
-        imgTag.src = `../assets/static/images/faces/${Math.floor(Math.random() * 8) + 1}.jpg`;
+
+        // 🔥 Sử dụng avatar từ usersMap theo user_id
+        imgTag.src = usersMap[item.user_id] || "../assets/static/images/faces/default.jpg";
         imgTag.alt = "Avatar";
 
         avatarDiv.append(imgTag);
@@ -63,15 +76,15 @@ document.addEventListener("DOMContentLoaded", async function() {
 
         let commentBodyDiv = document.createElement("div");
         commentBodyDiv.classList.add("comment-body");
-        
+
         let commentProfileName = document.createElement("div");
         commentProfileName.classList.add("comment-profileName");
         commentProfileName.innerHTML = item.posted_by;
-        
+
         let commentTime = document.createElement("div");
         commentTime.classList.add("comment-time");
         commentTime.innerHTML = timeSince(item.created_at);
-        
+
         let commentMessageDiv = document.createElement("div");
         commentMessageDiv.classList.add("comment-profileName");
         let commentMessageP = document.createElement("p");

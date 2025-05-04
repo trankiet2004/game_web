@@ -79,7 +79,7 @@ class AuthController {
             );
         }
         session_destroy();
-        header('Location: /View/common_part/signin.php');
+        header('Location: ../index.php?page=signin');
         exit;
     }
 }

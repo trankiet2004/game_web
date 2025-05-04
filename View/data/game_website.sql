@@ -2732,3 +2732,7 @@ CREATE TABLE answers (
     FOREIGN KEY (faq_id) REFERENCES faqs(faq_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+ALTER TABLE users ADD COLUMN images VARCHAR(255) DEFAULT NULL;
+UPDATE users
+SET images = CONCAT('../assets/static/images/faces/', FLOOR(1 + RAND() * 8), '.jpg');
