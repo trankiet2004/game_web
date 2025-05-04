@@ -91,8 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/admin/kiet_blog_manage.php');
 } else if($page == 'user-management') {
     include('./View/admin/user-management.php');
-} else if($page == 'create_article' ){
-    include('./View/admin/user-management.php');
 } else {
     // Default to the index (product list)
     include('./View/thinh/index.php');

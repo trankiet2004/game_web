@@ -18,7 +18,9 @@ class GamesController
     }
 
     // Display the product list with form-based filtering and sorting
-    public function index()
+
+
+    public function userindex()
     {
         // Get the title and sort options from the POST request
         $title = isset($_POST['title']) ? trim($_POST['title']) : "";
@@ -39,9 +41,36 @@ class GamesController
         $total = $this->model->get_total_count($filter); // Get total products count for pagination
         $limit = $this->limit;
         // $sort_by = $sort;
-        // Include the view to display products and pass the data to the view
+        // Include the view to display products and pass the data to the view\
         require __DIR__ . "/../View/tu/gameList.php";
     }
+
+    public function adminindex()
+    {
+        // Get the title and sort options from the POST request
+        $title = isset($_POST['title']) ? trim($_POST['title']) : "";
+        $sort_option = isset($_POST['sort_by']) ? $_POST['sort_by'] : 'default';
+        $sort_by = $sort_option; // pass it to the view
+
+
+        // Map sort option to database column and order
+        $sort = $this->mapSortOption($sort_option);
+
+        // Prepare the filter for the title search
+        $filter = [
+            "title" => $title
+        ];
+
+        // Get products based on the filter, sorting, and pagination
+        $game = $this->model->get_products($sort, $filter, $this->limit, 0);
+        $total = $this->model->get_total_count($filter); // Get total products count for pagination
+        $limit = $this->limit;
+        // $sort_by = $sort;
+        // Include the view to display products and pass the data to the view\
+        require __DIR__ . "/../View/admin/tu-game.php";
+    }
+
+    
 
     // Handle the AJAX request for loading more products
     public function load_products()
@@ -75,7 +104,8 @@ class GamesController
         }
     }
 
-    public function get_game_by_id($id) {
+    public function get_game_by_id($id)
+    {
         $game = $this->model->get_game_by_id($id);
         if ($game) {
             require __DIR__ . "/../View/tu/gameDetail.php"; // Make sure you have this view
@@ -83,7 +113,7 @@ class GamesController
             echo "Game not found";
         }
     }
-    
+
 
 
     // Map the sort option to database columns and order
