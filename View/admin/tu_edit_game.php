@@ -244,7 +244,7 @@ if ($role !== 'admin') {
                                     </span>
     
                                     <!-- Hidden genre form -->
-                                <form id="genre-form" action="index.php?action=updateGenres&id=<?= $game['id'] ?>" method="post"
+                                <form id="genre-form" action="../../index.php?action=updateGenres&id=<?= $game['id'] ?>" method="post"
                                     style="display:none; margin-top: 10px;">
                                     <?php foreach ($allGenre as $genre): ?>
                                         <?php $checked = in_array($genre['id'], array_column($game['genres'], 'id')) ? 'checked' : ''; ?>
@@ -271,7 +271,7 @@ if ($role !== 'admin') {
                                     </span>
     
                                     <!-- Hidden tag form -->
-                                <form id="tag-form" action="index.php?action=updateTags&id=<?= $game['id'] ?>" method="post"
+                                <form id="tag-form" action="../../index.php?action=updateTags&id=<?= $game['id'] ?>" method="post"
                                     style="display:none; margin-top: 10px;">
                                     <?php foreach ($allTags as $tag): ?>
                                         <?php $checked = in_array($tag['id'], array_column($game['tags'], 'id')) ? 'checked' : ''; ?>
@@ -297,7 +297,7 @@ if ($role !== 'admin') {
                                     </span>
     
                                     <!-- Hidden platform form -->
-                                <form id="platform-form" action="index.php?action=updatePlatforms&id=<?= $game['id'] ?>"
+                                <form id="platform-form" action="../../index.php?action=updatePlatforms&id=<?= $game['id'] ?>"
                                     method="post" style="display:none; margin-top: 10px;">
                                     <?php foreach ($allPlatform as $platform): ?>
                                         <?php $checked = in_array($platform['id'], array_column($game['platforms'], 'id')) ? 'checked' : ''; ?>
@@ -323,7 +323,7 @@ if ($role !== 'admin') {
                                     </span>
     
                                     <!-- Hidden developer form -->
-                                <form id="developer-form" action="index.php?action=updateDevelopers&id=<?= $game['id'] ?>"
+                                <form id="developer-form" action="../../index.php?action=updateDevelopers&id=<?= $game['id'] ?>"
                                     method="post" style="display:none; margin-top: 10px;">
                                     <?php foreach ($allDev as $dev): ?>
                                         <?php $checked = in_array($dev['id'], array_column($game['developers'], 'id')) ? 'checked' : ''; ?>

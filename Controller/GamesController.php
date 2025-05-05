@@ -157,7 +157,44 @@ class GamesController
         }
     }
    
+    public function updateGenres($gameId, $selectedGenres) {
+        
+        $this->model->updateGenres($gameId, $selectedGenres);
+        // Redirect to the edit page or any page you want after saving
+        
+        
+        header("Location: index.php?page=editGame&id=" . $gameId);
+        exit;
+    }
+    public function updateTags($gameId, $selectedTags) {
+        
+        $this->model->updateTags($gameId, $selectedTags);
+        // Redirect to the edit page or any page you want after saving
+        
+        
+        header("Location: index.php?page=editGame&id=" . $gameId);
+        exit;
+    }
 
+    public function updatePlatforms($gameId, $selectedPlatforms) {
+        
+        $this->model->updatePlatforms($gameId, $selectedPlatforms);
+        // Redirect to the edit page or any page you want after saving
+        
+        
+        header("Location: index.php?page=editGame&id=" . $gameId);
+        exit;
+    }
+
+    public function updateDevelopers($gameId, $selectedDevelopers) {
+        
+        $this->model->updateDevelopers($gameId, $selectedDevelopers);
+        // Redirect to the edit page or any page you want after saving
+        
+        header("Location: index.php?page=editGame&id=" . $gameId);
+        exit;
+    }
+    
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {

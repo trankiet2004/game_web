@@ -337,7 +337,7 @@ class GamesModel
     {
         try {
             // Delete existing genres for the game
-            $stmt = $this->connect->prepare("DELETE FROM game_genres WHERE game_id = ?");
+            $stmt = $this->connect->prepare("DELETE FROM game_genre WHERE game_id = ?");
             if (!$stmt) {
                 throw new Exception("Error preparing delete statement: " . $this->connect->error);
             }
@@ -347,7 +347,7 @@ class GamesModel
 
             // Insert the selected genres using INSERT IGNORE to prevent duplicates
             foreach ($selectedGenres as $genreId) {
-                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_genres (game_id, genre_id) VALUES (?, ?)");
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_genre (game_id, genre_id) VALUES (?, ?)");
                 if (!$stmt) {
                     throw new Exception("Error preparing insert statement: " . $this->connect->error);
                 }
@@ -368,7 +368,7 @@ class GamesModel
     {
         try {
             // Delete existing tags for the game
-            $stmt = $this->connect->prepare("DELETE FROM game_tags WHERE game_id = ?");
+            $stmt = $this->connect->prepare("DELETE FROM game_tag WHERE game_id = ?");
             if (!$stmt) {
                 throw new Exception("Error preparing delete statement: " . $this->connect->error);
             }
@@ -378,7 +378,7 @@ class GamesModel
 
             // Insert the selected tags with INSERT IGNORE
             foreach ($selectedTags as $tagId) {
-                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_tags (game_id, tag_id) VALUES (?, ?)");
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_tag (game_id, tag_id) VALUES (?, ?)");
                 if (!$stmt) {
                     throw new Exception("Error preparing insert statement: " . $this->connect->error);
                 }
@@ -399,7 +399,7 @@ class GamesModel
     {
         try {
             // Delete existing platforms for the game
-            $stmt = $this->connect->prepare("DELETE FROM game_platforms WHERE game_id = ?");
+            $stmt = $this->connect->prepare("DELETE FROM game_platform WHERE game_id = ?");
             if (!$stmt) {
                 throw new Exception("Error preparing delete statement: " . $this->connect->error);
             }
@@ -409,7 +409,7 @@ class GamesModel
 
             // Insert the selected platforms with INSERT IGNORE
             foreach ($selectedPlatforms as $platformId) {
-                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_platforms (game_id, platform_id) VALUES (?, ?)");
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_platform (game_id, platform_id) VALUES (?, ?)");
                 if (!$stmt) {
                     throw new Exception("Error preparing insert statement: " . $this->connect->error);
                 }
@@ -430,7 +430,7 @@ class GamesModel
     {
         try {
             // Delete existing developers for the game
-            $stmt = $this->connect->prepare("DELETE FROM game_developers WHERE game_id = ?");
+            $stmt = $this->connect->prepare("DELETE FROM game_developer WHERE game_id = ?");
             if (!$stmt) {
                 throw new Exception("Error preparing delete statement: " . $this->connect->error);
             }
@@ -440,7 +440,7 @@ class GamesModel
 
             // Insert the selected developers with INSERT IGNORE
             foreach ($selectedDevelopers as $developerId) {
-                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_developers (game_id, developer_id) VALUES (?, ?)");
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_developer (game_id, developer_id) VALUES (?, ?)");
                 if (!$stmt) {
                     throw new Exception("Error preparing insert statement: " . $this->connect->error);
                 }
