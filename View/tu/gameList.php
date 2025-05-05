@@ -168,7 +168,7 @@
     <div id="productList">
         <?php if (count($game) > 0): ?>
             <?php foreach ($game as $g): ?>
-                <div class="game-card">
+                <a href="../../index.php?action=game&id=<?= $g['id'] ?>" class="game-card">
                     <img src="<?= '../../View/data/' . htmlspecialchars($g['background_image']) ?>" alt="<?= htmlspecialchars($g['id']) ?>" class="game-img">
                     <div class="game-info">
                         <h5 class="game-title"><?= htmlspecialchars($g['name']) ?></h5>
@@ -176,7 +176,7 @@
                         <p class="price">Price: $<?= number_format($g['price'], 2) ?></p>
                         <p class="rating">Rating: <?= htmlspecialchars($g['rating']) ?></p>
                     </div>
-                </div>
+                </a>
             <?php endforeach; ?>
         <?php else: ?>
             <p style="text-align:center;">No games found.</p>
