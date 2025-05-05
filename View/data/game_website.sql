@@ -2757,8 +2757,6 @@ CREATE TABLE blog_comment (
 
 /* nếu đã có table articles thì chỉ cần thêm dòng này
 ALTER TABLE `articles`
-  MODIFY `image` LONGBLOB,
-  ADD   `image_type` VARCHAR(50) AFTER `image`,
-  MODIFY COLUMN `time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  MODIFY `id` INT PRIMARY KEY AUTO_INCREMENT;
+  MODIFY `image` text NULL,
+  ADD   `image_type`;
 */
