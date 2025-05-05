@@ -57,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $devcontroller->index();
 } else if($page == 'tu_game') {
     $gamecontroller->adminindex();
-} else if($page == 'contact_us') {
+} else if($page == 'editGame' && $id!== null) {
+    $gamecontroller->editgame($id);
+}else if($page == 'contact_us') {
     include('./View/thinh/contact_us.php');
 } else if($page == 'about_us') {
     include('./View/bao/about_us.php');
@@ -90,6 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 } else if($page == 'kiet_blog_manage') {
     include('./View/admin/kiet_blog_manage.php');
 } else if($page == 'user-management') {
+    include('./View/admin/user-management.php');
+} else if($page == 'create_article' ){
     include('./View/admin/user-management.php');
 } else {
     // Default to the index (product list)
