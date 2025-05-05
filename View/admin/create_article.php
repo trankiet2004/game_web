@@ -32,10 +32,27 @@ $msg   = $_GET['msg']   ?? '';
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif !important; }
-        [data-bs-theme=light] body { background-color: #e9fef0 !important; border-radius: 10px; }
-        [data-bs-theme=dark]  body { background-color: #0A1F15 !important; border-radius: 10px; }
-        [data-bs-theme=dark]  .card, .card-header, .sidebar-wrapper { background-color: #152D24 !important; border-radius: 10px; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+        }
+        [data-bs-theme=dark] body {
+            background-color: #0A1F15 !important;
+            border-radius: 10px;
+        }
+        [data-bs-theme=light] body {
+            background-color: #e9fef0 !important;
+            border-radius: 10px;
+        }
+        [data-bs-theme=light] h3,
+        [data-bs-theme=light] h4 {
+            color: #1d7534 !important;
+        }
+        [data-bs-theme=dark] .card,
+        [data-bs-theme=dark] .card-header,
+        [data-bs-theme=dark] .sidebar-wrapper {
+            background-color: #152D24 !important;
+            border-radius: 10px;
+        }
     </style>
     <script>
     document.addEventListener("DOMContentLoaded", function() {

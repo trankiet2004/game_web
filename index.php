@@ -94,10 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 } else if($page == 'user-management') {
     include('./View/admin/user-management.php');
 } else if($page == 'create_article' ){
-    include('./View/admin/user-management.php');
-} else if($page == 'create_article' ){
-    include('./View/admin/user-management.php');
-}else {
+    include('./View/admin/create_article.php');
+} else {
     // Default to the index (product list)
     include('./View/thinh/index.php');
 }

@@ -140,7 +140,7 @@ if ($role !== 'admin') {
             fetch(file).then(response => response.text())
                 .then(data => {
                     document.getElementById(id).innerHTML = data;
-                    $("li:has(i.bi.bi-globe)").addClass("active");
+                    $("li:has(i.fas.fa-gamepad)").addClass("active");
                     const toggler = document.getElementById("toggle-dark");
                     if (!toggler) return;
                     const theme = localStorage.getItem("theme");
