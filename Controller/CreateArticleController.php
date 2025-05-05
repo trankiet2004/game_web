@@ -51,7 +51,7 @@ $content = trim($_POST['content'] ?? '');
 
 // Validate
 if ($title === '' || $content==='') {
-    header('Location: /index.php?page=create_article&error=Thiếu+tiêu+đề+hoặc+nội+dung');
+    header('Location: ../index.php?page=create_article&error=Thiếu+tiêu+đề+hoặc+nội+dung');
     exit;
 }
 
@@ -68,15 +68,14 @@ if (!empty($_FILES['image']['tmp_name'])) {
 // Lưu vào DB
 $stmt = $connect->prepare("
     INSERT INTO articles
-      (title, content, author, time, image, image_type)
-    VALUES (?, ?, ?, NOW(), ?, ?)
+      (title, content, author, time, image)
+    VALUES (?, ?, ?, NOW(), ?)
 ");
-$stmt->bind_param('sssss',
+$stmt->bind_param('ssss',
     $title,
     $htmlBody,
     $_SESSION['user']['username'],
-    $imgData,
-    $imgType
+    $imgData
 );
 // Nếu là blob, send_long_data
 if ($imgData !== null) {
@@ -84,10 +83,10 @@ if ($imgData !== null) {
 }
 if (!$stmt->execute()) {
     $err = $stmt->error;
-    header('Location: /index.php?page=create_article&error='.urlencode($err));
+    header('Location: ../index.php?page=create_article&error='.urlencode($err));
     exit;
 }
 
 // Thành công
-header('Location: /index.php?page=kiet_blog_manage&msg=' . urlencode('Đã tạo mới bài viết'));
+header('Location: ../index.php?page=kiet_blog_manage&msg=' . urlencode('Đã tạo mới bài viết'));
 exit;

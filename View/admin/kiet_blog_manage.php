@@ -17,6 +17,7 @@ if ($role !== 'admin') {
 $basePath = dirname($_SERVER['SCRIPT_NAME']);
 $basePath = rtrim($basePath, '/');
 $apiUrl = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . '/Controller/ArticlesController.php';
+echo $apiUrl;
 $jsonData = file_get_contents($apiUrl);
 $articles = json_decode($jsonData, true);
 

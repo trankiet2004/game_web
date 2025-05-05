@@ -23,7 +23,7 @@ $msg   = $_GET['msg']   ?? '';
     <meta charset="UTF-8">
     <base href="./View/admin/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo bài viết mới – BKGame Admin</title>
+    <title>Tạo bài viết mới - BKGame Admin</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
