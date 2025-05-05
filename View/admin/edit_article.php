@@ -40,20 +40,49 @@ $cm->close();
   <base href="./View/admin/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chỉnh sửa bài viết #<?= $id ?></title>
+  <link rel="icon" type="image/icon" href="../img/logo.png">
   <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
   <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" crossorigin href="../assets/compiled/css/iconly.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      <style>
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
+        }
+
+        [data-bs-theme=dark] body {
+            background-color: #0A1F15 !important;
+            border-radius: 10px;
+        }
+
+        [data-bs-theme=light] body {
+            background-color: #e9fef0 !important;
+            border-radius: 10px;
+        }
+
+        [data-bs-theme=light] h3,
+        [data-bs-theme=light] h4 {
+            color: #1d7534 !important;
+        }
+
+        [data-bs-theme=dark] .card,
+        [data-bs-theme=dark] .card-header,
+        [data-bs-theme=dark] .sidebar-wrapper {
+            background-color: #152D24 !important;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
   <div id="app">
-    <div id="sidebar"><!-- load bằng JS giống các page khác --></div>
-    <div id="main">
-      <header class="mb-3">…</header>
+    
+    <div id="main" style="margin-left: 0;">
+      <!-- <header class="mb-3">…</header> -->
 
       <div class="page-heading">
         <h3>Chỉnh sửa bài viết</h3>
-        <a href="kiet_blog_manage.php" class="btn btn-secondary mb-3">
+        <a href="../../index.php?page=kiet_blog_manage" class="btn btn-secondary mb-3">
           <i class="fas fa-arrow-left"></i> Quay lại
         </a>
 
@@ -150,6 +179,13 @@ $cm->close();
       </div> <!-- /.page-heading -->
     </div>
   </div>
-  <!-- load sidebar, dark.js, app.js như các page khác -->
+  
+  <script src="../assets/static/js/components/dark.js"></script>
+    <!-- <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script> -->
+    <script src="../assets/compiled/js/app.js"></script>
+    <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/static/js/pages/dashboard.js"></script>
+    <script src="../assets/extensions/jquery/jquery.min.js"></script>
+    <script src="../assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
