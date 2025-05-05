@@ -1,5 +1,6 @@
 <?php
-require_once('DBConnect.php');
+// Model/ArticlesModel.php
+require_once 'DBConnect.php';
 
 class ArticlesModel {
     private $connect;
@@ -9,103 +10,88 @@ class ArticlesModel {
         $this->connect = $connect;
     }
 
-    public function GET($table, $id, $idColumn) {
-        header("Content-type: application/json");
-    
+    /**
+     * Xử lý GET: nếu $id=null thì trả về full list, ngược lại trả về 1 record
+     */
+    public function GET(string $table, $id = null, string $idColumn = 'id') {
+        header("Content-Type: application/json; charset=utf-8");
+
         try {
-            // Bước 1: Lấy danh sách các cột, trừ 'image'
-            $exclude = ['image'];
-            $placeholders = implode(',', array_fill(0, count($exclude), '?'));
-            $types = str_repeat('s', count($exclude));
-    
-            $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS 
-                    WHERE TABLE_NAME = ? AND TABLE_SCHEMA = DATABASE()";
-            if (!empty($exclude)) {
-                $sql .= " AND COLUMN_NAME NOT IN ($placeholders)";
-            }
-    
-            $stmt = $this->connect->prepare($sql);
-            if (!empty($exclude)) {
-                $stmt->bind_param('s' . $types, $table, ...$exclude);
+            if ($id === null) {
+                // Lấy toàn bộ
+                $sql  = "SELECT id, title, content, author, time, image
+                         FROM `$table`
+                         ORDER BY time DESC";
+                $stmt = $this->connect->prepare($sql);
             } else {
-                $stmt->bind_param('s', $table);
+                // Lấy theo id
+                $sql  = "SELECT id, title, content, author, time, image
+                         FROM `$table`
+                         WHERE `$idColumn` = ?";
+                $stmt = $this->connect->prepare($sql);
+                $stmt->bind_param('i', $id);
             }
-    
-            $stmt->execute();
-            $res = $stmt->get_result();
-            $columns = [];
-            while ($row = $res->fetch_assoc()) {
-                $columns[] = $row['COLUMN_NAME'];
+
+            if (!$stmt->execute()) {
+                throw new Exception("Execute failed: " . $stmt->error);
             }
-            if (empty($columns)) throw new Exception("Không lấy được danh sách cột từ bảng $table");
-    
-            $columnList = implode(',', $columns);
-    
-            // Bước 2: Tạo câu truy vấn đúng như logic gốc
-            $SQL = $id === null
-                ? "SELECT $columnList FROM $table"
-                : "SELECT $columnList FROM $table WHERE $idColumn = $id";
-    
-            $query = $this->connect->query($SQL);
-            if (!$query) {
-                throw new Exception("Query execution failed: " . $this->connect->error);
-            }
-    
-            // Bước 3: Trả về JSON
-            $jsonResponse = [];
-            while ($row = $query->fetch_assoc()) {
-                $jsonResponse[] = $row;
-            }
-    
-            http_response_code(200);
-            echo json_encode($jsonResponse);
-        } catch (mysqli_sql_exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                "error" => "SQL Error: " . $e->getMessage()
-            ]);
+
+            $res    = $stmt->get_result();
+            $rows   = $res->fetch_all(MYSQLI_ASSOC);
+
+            // JSON encode và output
+            echo json_encode($rows, JSON_UNESCAPED_UNICODE);
+            exit;
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
-                "error" => "An unexpected error occured: " . $e->getMessage()
+                'error' => $e->getMessage()
             ]);
-        }
-    }    
-
-    public function POST($table, $json) {
-        if($table === "faqs") {
-            $question = $json[0];
-            $answer = $json[1];
-            $posted_by = $json[2];
-            $stmt = $this->connect->prepare("INSERT INTO faqs (question, answer, posted_by) VALUES (?, ?, ?)");
-            
-            if($stmt === false) {
-                http_response_code(500);
-                echo json_encode(["success" => false, "message" => "Prepare statement thất bại: " . $this->connect->error]);
-                exit;
-            }
-
-            $stmt->bind_param("sss", $question, $answer, $posted_by);
-            if ($stmt->execute()) {
-                echo json_encode(["success" => true, "message" => "Câu hỏi đã được cập nhật thành công"]);
-            } else {
-                http_response_code(500);
-                echo json_encode(["success" => false, "message" => "Có lỗi xảy ra: " . $stmt->error]);
-            }
-
-            $stmt->close();
+            exit;
         }
     }
 
-    public function fetch($method, $table, $id, $idColumn = "id", $json = NULL) {
-        switch ($method) {
-            case "GET":
-                $this->GET($table, $id, $idColumn);
-                break;
+    /**
+     * Xử lý POST cho table 'faqs' (nếu bạn có)
+     */
+    public function POST($table, $json) {
+        if ($table !== 'faqs') {
+            http_response_code(400);
+            echo json_encode(['success'=>false,'message'=>'Unsupported POST table']);
+            exit;
+        }
 
-            case "POST":
-                $this->POST($table, $json);
-                break;
+        list($question, $answer, $posted_by) = $json;
+        $stmt = $this->connect->prepare(
+            "INSERT INTO faqs (question, answer, posted_by) VALUES (?, ?, ?)"
+        );
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(['success'=>false,'message'=>"Prepare failed: ".$this->connect->error]);
+            exit;
+        }
+        $stmt->bind_param('sss', $question, $answer, $posted_by);
+        if ($stmt->execute()) {
+            echo json_encode(['success'=>true,'message'=>'Câu hỏi đã được cập nhật thành công']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['success'=>false,'message'=>'Execute failed: '.$stmt->error]);
+        }
+        exit;
+    }
+
+    /**
+     * Router đơn giản: GET / POST
+     */
+    public function fetch(string $method, string $table, $id = null, string $idColumn = 'id', array $json = null) {
+        if (strtoupper($method) === 'GET') {
+            $this->GET($table, $id, $idColumn);
+        } elseif (strtoupper($method) === 'POST') {
+            $this->POST($table, $json);
+        } else {
+            http_response_code(405);
+            echo json_encode(['error'=>'Method Not Allowed']);
+            exit;
         }
     }
 }
