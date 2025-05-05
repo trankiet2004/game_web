@@ -39,6 +39,11 @@ $role = $_SESSION['user']['role'] ?? null;
             </ul>
             
             <div class="d-flex align-items-center">
+                <button class="btn btn-outline-neon me-2">
+                    <a href="../../index.php?page=cart" style="text-decoration: none; color: var(--primary);">
+                        <i class="bi bi-cart-fill"></i>
+                    </a>
+                </button>
                 <?php if (!isset($_SESSION['user'])): ?>
                 <button class="btn btn-outline-neon me-2">
                     <a href="../../index.php?page=signin" style="text-decoration: none; color: var(--primary);">

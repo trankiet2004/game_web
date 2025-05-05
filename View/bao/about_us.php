@@ -22,7 +22,7 @@ if (!is_array($users)) {
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>       
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>    
     <link rel="stylesheet" href="about_us.css">
 </head>
 
@@ -66,6 +66,11 @@ if (!is_array($users)) {
                     
                     <!-- START_PROTECTED_LOGIN_SNIPPET -->
                     <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-neon me-2">
+                            <a href="../../index.php?page=cart" style="text-decoration: none; color: var(--primary);">
+                                <i class="bi bi-cart-fill"></i>
+                            </a>
+                        </button>
                         <?php if (!isset($_SESSION['user'])): ?>
                             <button class="btn btn-outline-neon me-2">
                                 <a href="../../index.php?page=signin" style="text-decoration: none; color: var(--primary);">
