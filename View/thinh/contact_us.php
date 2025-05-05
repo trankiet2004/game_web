@@ -1,10 +1,12 @@
-<html lang="vi"><head>
+<html lang="vi">
+<head>
     <meta charset="UTF-8">
     <base href="./View/thinh/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liên Hệ - BKGame</title>
     <link rel="icon" type="image/icon" href="../img/logo.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"> 
     <link rel="stylesheet" href="contact_us.css">
 
     <script>
