@@ -130,6 +130,132 @@ if ($role !== 'admin') {
             text-align: center;
             /* 10% width for the sixth column (Actions) */
         }
+        /* Style the container of the screenshot */
+        .screenshot-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Style the delete button */
+        .delete-btn {
+            position: absolute;
+            top: 0px;  /* Adjust as needed to position it above the image */
+            right: 0%;
+            transform: translateX(-50%);  /* Center the button horizontally */
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 50%;
+        }
+
+        /* Optional: Add some space around the image */
+        .screenshot-container img {
+            display: block;
+            margin-top: 20px;  /* Create space below the delete button */
+        }
+        /* Style for the Add Screenshot button */
+        .add-screenshot-btn {
+            background-color: #28a745;  /* Green color */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        /* Hover effect */
+        .add-screenshot-btn:hover {
+            background-color: #218838;  /* Darker green */
+            transform: scale(1.05);  /* Slightly increase the button size */
+        }
+
+        /* Active state */
+        .add-screenshot-btn:active {
+            background-color: #1e7e34;  /* Even darker green */
+            transform: scale(0.98);  /* Shrink the button slightly */
+        }
+
+        /* Focus style (for accessibility) */
+        .add-screenshot-btn:focus {
+            outline: none;  /* Remove the default outline */
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);  /* Add a glow effect around the button */
+        }
+        /* Style for the upload form container */
+        #upload-form {
+            background-color: #f8f9fa; /* Light background color */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto; /* Center the form */
+            display: none; /* Initially hidden */
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Style for the label */
+        #upload-form label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        /* Style for the file input */
+        .upload-input {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .upload-input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        /* Style for the upload button */
+        .upload-btn {
+            background-color: #28a745;  /* Green color */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 40%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%; /* Make button take up full width */
+        }
+
+        .upload-btn:hover {
+            background-color: #218838;  /* Darker green */
+        }
+
+        .upload-btn:active {
+            background-color: #1e7e34;  /* Even darker green */
+        }
+
+        /* Show form with fade-in effect when it becomes visible */
+        #upload-form.show {
+            display: block;
+            opacity: 1;
+        }
+
     </style>
 
     <script>
@@ -213,7 +339,7 @@ if ($role !== 'admin') {
                                             style="background: url('../data/<?= htmlspecialchars($game['background_image']) ?>') center/cover no-repeat; opacity: 0.2; z-index: 0;">
                                         </div>
     
-                                        <div style="position: relative; z-index: 1;">
+                                        <div style="position: relative; z-index: 1;padding: 20px;">
                                             <h3><span id="game-name"><?= htmlspecialchars($game['name']) ?></span></h3>
                                             <p><strong>Ngày phát hành:</strong>
                                                 <span id="game-released"><?= $game['released'] ?></span>
@@ -341,11 +467,32 @@ if ($role !== 'admin') {
     
                                 <p><strong>Ảnh chụp màn hình:</strong></p>
                                 <div class="d-flex flex-wrap gap-2" id="game-screenshots">
-                                    <?php foreach ($game['screenshots'] as $shot): ?>
-                                        <img src="../data/<?= htmlspecialchars($shot['img_path']) ?>"
-                                            alt="Screenshot" style="width: 150px; height: auto;">
+                                    <?php 
+                                    // Assuming $game['screenshots'] contains all the screenshot data for the game
+                                    foreach ($game['screenshots'] as $shot): ?>
+                                        <div class="screenshot-container">
+                                            <!-- Delete button above the image -->
+                                            <button class="delete-btn" data-img-path="<?= $shot['img_path'] ?>" onclick="deleteScreenshot('<?= $shot['img_path'] ?>') " style="display:none;">x</button>
+                                            <!-- Image display -->
+                                            <img src="../data/<?= htmlspecialchars($shot['img_path']) ?>" alt="Screenshot" style="width: 150px; height: auto;">
+                                        </div>
                                     <?php endforeach; ?>
                                 </div>
+
+
+                                <!-- Add new screenshot button -->
+                                <button type="button" class="add-screenshot-btn" onclick="showUploadForm()" style="display: none;">+ Add Screenshot</button>
+                                <!-- Upload form (hidden initially) -->
+                                <div id="upload-form" style="display: none;">
+                                    <form id="screenshot-upload-form" enctype="multipart/form-data" class="upload-form">
+                                        <label for="screenshot">Choose a screenshot:</label>
+                                        <input type="file" name="screenshot" id="screenshot" accept="image/*" class="upload-input">
+                                        <input type="hidden" name="game_id" value="<?= $game['id'] ?>">
+                                        <button type="submit" class="upload-btn">Upload Screenshot</button>
+                                    </form>
+                                </div>
+
+
     
                                 <p class="mt-3"><strong>Đánh giá người dùng:</strong></p>
                                 <ul id="game-ratings">
@@ -394,8 +541,23 @@ if ($role !== 'admin') {
             // Show Save button, hide Edit button
             document.querySelector('button.btn-warning').classList.add('d-none'); // Edit button
             document.getElementById('saveButton').classList.remove('d-none');     // Save button
+
+            // Show the delete buttons and the add screenshot button when in edit mode
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            const addButton = document.querySelector('.add-screenshot-btn');
+
+            // Change the display style of the delete buttons and add button
+            deleteButtons.forEach(button => {
+                button.style.display = 'inline-block'; // Show delete buttons
+            });
+            addButton.style.display = 'inline-block'; // Show add screenshot button
+
+            // Show the upload form as well
+            // document.getElementById('upload-form').style.display = 'block';
         }
+
         document.addEventListener('DOMContentLoaded', function () {
+            // Setup toggle functionality for each edit button and form
             const setupToggle = (editBtnId, formId) => {
                 const editButton = document.getElementById(editBtnId);
                 const form = document.getElementById(formId);
@@ -406,12 +568,114 @@ if ($role !== 'admin') {
                 }
             };
 
-            // Apply toggle setup for each section
+            // Apply toggle setup for each section (like genre, tag, platform, developer)
             setupToggle('genre-edit', 'genre-form');
             setupToggle('tag-edit', 'tag-form');
             setupToggle('platform-edit', 'platform-form');
             setupToggle('developer-edit', 'developer-form');
+
+            // Assuming you have a button to trigger edit mode (e.g. "Chỉnh sửa")
+            const editButton = document.getElementById('edit-button'); // Add the correct ID for the edit button
+
+            if (editButton) {
+                editButton.addEventListener('click', enableEditMode);
+            }
         });
+
+        document.getElementById('screenshot-upload-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            formData.append('action', 'uploadScreenshot');
+
+            fetch('../../index.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Screenshot uploaded!");
+                    location.reload(); // or append new image to the page
+                } else {
+                    alert("Upload failed: " + data.message);
+                }
+            })
+            .catch(err => {
+                console.error("Upload error:", err);
+                alert("An error occurred during upload.");
+            });
+        });
+        document.getElementById('saveButton').addEventListener('click', function () {
+            const gameData = {
+                action: 'saveEditedGame',
+                name: document.getElementById('game-name').innerText,
+                released: document.getElementById('game-released').innerText,
+                price: document.getElementById('game-price').innerText,
+                rating: document.getElementById('game-rating').innerText,
+                meta: document.getElementById('game-meta').innerText,
+                description: document.getElementById('game-description').innerText,
+                id: <?= $game['id'] ?> // Assuming you're editing a specific game by ID
+            };
+
+            fetch('../../index.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(gameData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Cập nhật thành công!");
+                    location.reload(); // optional: refresh the page to reflect updated info
+                } else {
+                    alert("Cập nhật thất bại!");
+                    console.error(data.message);
+                }
+            })
+            .catch(error => {
+                alert("Đã xảy ra lỗi.");
+                console.error(error);
+            });
+        });
+
+
+
+        // Show the upload form
+        function showUploadForm() {
+            document.getElementById('upload-form').style.display = 'block';
+        }
+
+        // Delete screenshot
+        
+        function deleteScreenshot(imgPath) {
+            if (!confirm("Are you sure you want to delete this screenshot?")) return;
+
+            fetch('../../index.php?action=deleteScreenshot"', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `action=deleteScreenshot&img_path=${encodeURIComponent(imgPath)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelector(`button[data-img-path="${imgPath}"]`).closest('.screenshot-container').remove();
+                    } else {
+                        alert("Error deleting screenshot.");
+                        console.error(data.error);
+                    }
+                })
+                .catch(error => {
+                    alert("Failed to send request.");
+                    console.error("Error:", error);
+                });
+        }
+
+
 
     </script>
         
