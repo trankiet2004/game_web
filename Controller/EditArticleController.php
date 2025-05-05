@@ -99,7 +99,7 @@ case 'delete_comment':
     $cid = (int)($_GET['id'] ?? 0);
     $aid = (int)($_GET['article_id'] ?? 0);
     if ($cid && $aid) {
-        $d = $connect->prepare("DELETE FROM comments WHERE id=?");
+        $d = $connect->prepare("DELETE FROM blog_comment WHERE id=?");
         $d->bind_param('i',$cid);
         $d->execute();
         $d->close();

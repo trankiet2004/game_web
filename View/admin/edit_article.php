@@ -136,8 +136,7 @@ $cm->close();
               <div class="d-flex justify-content-between">
                 <span><strong><?= htmlspecialchars($c['user_name']) ?></strong>
                       &bull; <?= date('Y-m-d H:i', strtotime($c['created_at'])) ?></span>
-                <a href="/Controller/EditArticleController.php?action=delete_comment
-                           &id=<?= $c['id'] ?>&article_id=<?= $id ?>"
+                <a href="/Controller/EditArticleController.php?action=delete_comment&id=<?= $c['id'] ?>&article_id=<?= $id ?>"
                    class="btn btn-sm btn-danger"
                    onclick="return confirm('Xóa bình luận này?')">
                   <i class="fas fa-trash"></i>
