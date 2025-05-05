@@ -2518,8 +2518,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
     `content` TEXT NOT NULL,
     `author` VARCHAR(100) NOT NULL,
     `time`  DATETIME  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `image`   LONGBLOB,
-    `image_type` VARCHAR(50)
+    `image`   TEXT NULL
 );
 INSERT INTO articles (title, content, author, time, image) VALUES
 ('Cách nâng cấp GPU cho máy tính chơi game',
@@ -2697,6 +2696,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'user') DEFAULT 'user',
+    images VARCHAR(50),
     avatar LONGBLOB,
     avatar_type VARCHAR(50),
     phone VARCHAR(15),

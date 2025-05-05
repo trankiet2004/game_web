@@ -1,8 +1,10 @@
 <?php
 session_start();
 
-// Chỉ POST mới được lưu
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+// 1) Chỉ cho phép admin POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST'
+ || !isset($_GET['action']) || $_GET['action'] !== 'store'
+) {
     header('HTTP/1.0 405 Method Not Allowed');
     exit('Method Not Allowed');
 }
@@ -11,82 +13,84 @@ if (!isset($_SESSION['user']) || ($_SESSION['user']['role'] ?? '') !== 'admin') 
     exit('Bạn không có quyền');
 }
 
+// Kết nối DB
 require_once __DIR__ . '/../Model/DBConnect.php';
-
-// Hàm parse Markdown-nhẹ: đoạn ngắt bằng 2 newline → <p>, #… → <h1>..</h1>
-function parseContent(string $raw): string {
-    $lines  = preg_split('/\r\n|\n|\r/', trim($raw));
-    $html   = '';
-    $buf    = '';
-    foreach ($lines as $line) {
-        if (preg_match('/^(#{1,6})\s+(.*)$/', $line, $m)) {
-            // flush buffer
-            if ($buf!=='') {
-                $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
-                $buf = '';
-            }
-            $lvl  = min(strlen($m[1]),6);
-            $txt  = htmlspecialchars(trim($m[2]));
-            $html .= "<h{$lvl}>{$txt}</h{$lvl}>";
-        }
-        elseif (trim($line)==='') {
-            if ($buf!=='') {
-                $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
-                $buf = '';
-            }
-        }
-        else {
-            $buf .= $line ."\n";
-        }
-    }
-    if ($buf!=='') {
-        $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
-    }
-    return $html;
-}
 
 // Nhận dữ liệu
 $title   = trim($_POST['title'] ?? '');
 $content = trim($_POST['content'] ?? '');
 
-// Validate
-if ($title === '' || $content==='') {
-    header('Location: ../index.php?page=create_article&error=Thiếu+tiêu+đề+hoặc+nội+dung');
+if ($title === '' || $content === '') {
+    header('Location: /index.php?page=create_article&error=' . urlencode('Thiếu tiêu đề hoặc nội dung'));
     exit;
 }
 
-// Parse nội dung
-$htmlBody = parseContent($content);
-
-// Xử lý ảnh
-$imgData = null; $imgType = null;
-if (!empty($_FILES['image']['tmp_name'])) {
-    $imgData = file_get_contents($_FILES['image']['tmp_name']);
-    $imgType = mime_content_type($_FILES['image']['tmp_name']);
+// Parse nội dung: ngắt đoạn 2 newline → <p>, # Heading → <hN>
+function parseContent(string $raw): string {
+    $lines = preg_split('/\r\n|\n|\r/', trim($raw));
+    $html  = ''; $buf = '';
+    foreach ($lines as $line) {
+        if (preg_match('/^(#{1,6})\s+(.*)$/', $line, $m)) {
+            if ($buf !== '') {
+                $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
+                $buf = '';
+            }
+            $lvl = min(strlen($m[1]), 6);
+            $html .= "<h{$lvl}>". htmlspecialchars(trim($m[2])) ."</h{$lvl}>";
+        } elseif (trim($line) === '') {
+            if ($buf !== '') {
+                $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
+                $buf = '';
+            }
+        } else {
+            $buf .= $line ."\n";
+        }
+    }
+    if ($buf !== '') {
+        $html .= '<p>'. nl2br(htmlspecialchars(trim($buf))) .'</p>';
+    }
+    return $html;
 }
 
-// Lưu vào DB
+$htmlBody = parseContent($content);
+
+// Xử lý upload ảnh: lưu vào /View/img/blogsImg và chỉ giữ đường dẫn
+$imagePath = null;
+if (!empty($_FILES['image']['tmp_name'])) {
+    $uploadDir = __DIR__ . '/../View/img/blogsImg/';
+    if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+    // đặt tên file tránh trùng
+    $ext      = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+    $filename = time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $dest     = $uploadDir . $filename;
+
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
+        // đường dẫn public (tùy theo base của bạn)
+        $imagePath = '/View/img/blogsImg/' . $filename;
+    }
+}
+
+// Chèn vào DB
 $stmt = $connect->prepare("
     INSERT INTO articles
       (title, content, author, time, image)
     VALUES (?, ?, ?, NOW(), ?)
 ");
-$stmt->bind_param('ssss',
+$stmt->bind_param(
+    'ssss',
     $title,
     $htmlBody,
     $_SESSION['user']['username'],
-    $imgData
+    $imagePath
 );
-// Nếu là blob, send_long_data
-if ($imgData !== null) {
-    $stmt->send_long_data(3, $imgData);
-}
+
 if (!$stmt->execute()) {
     $err = $stmt->error;
-    header('Location: ../index.php?page=create_article&error='.urlencode($err));
+    header('Location: /index.php?page=create_article&error=' . urlencode($err));
     exit;
 }
 
-// Thành công
-header('Location: ../index.php?page=kiet_blog_manage&msg=' . urlencode('Đã tạo mới bài viết'));
+// Thành công → luôn redirect về index.php
+header('Location: /index.php?page=kiet_blog_manage&msg=' . urlencode('Đã tạo bài viết thành công'));
 exit;
