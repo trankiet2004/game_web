@@ -454,7 +454,48 @@ class GamesModel
             return json_encode(["error" => $e->getMessage()]);
         }
     }
+    public function deleteScreenshotByPath($path)
+    {
+        $stmt = $this->connect->prepare("DELETE FROM game_screenshots WHERE img_path = ?");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(["error" => "Prepare failed: " . $this->connect->error]);
+            return false;
+        }
 
+        $stmt->bind_param("s", $path);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+
+    public function insertScreenshot($gameId, $imgPath)
+    {
+        $stmt = $this->connect->prepare("INSERT INTO game_screenshots (game_id, img_path) VALUES (?, ?)");
+        if (!$stmt) {
+            http_response_code(500);
+            echo json_encode(["error" => "Prepare failed: " . $this->connect->error]);
+            return false;
+        }
+
+        $stmt->bind_param("is", $gameId, $imgPath);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    }
+    public function updateGame($id, $name, $released, $price, $rating, $meta, $description) {
+        $sql = "UPDATE games SET name = ?, released = ?, price = ?, rating = ?, metacritic = ?, description = ? WHERE id = ?";
+        $stmt = $this->connect->prepare($sql);
+        return $stmt->execute([$name, $released, $price, $rating, $meta, $description, $id]);
+    }
+    
+    public function addScreenshot($gameId, $imgPath) {
+        $stmt = $this->connect->prepare("INSERT INTO game_screenshots (game_id, img_path) VALUES (?, ?)");
+        return $stmt->execute([$gameId, $imgPath]);
+    }
+    
 
 }
 

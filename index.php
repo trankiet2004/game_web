@@ -27,6 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $tagcontroller->load_tags();
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'load_developers') {
     $devcontroller->load_developers();
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'saveEditedGame') {
+    $gamecontroller->saveEditedGame($_POST);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'uploadScreenshot') {
+    $gamecontroller->uploadScreenshot($_POST, $_FILES);
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'deleteScreenshot') {
+    $imgPath = $_POST['img_path'] ?? '';
+    if ($imgPath) {
+        // $encodedPath = urldecode($imgPath);
+        $gamecontroller->deleteScreenshot($imgPath);
+    } else {
+        echo '<script>alert("Welcome to Geeks for Geeks")</script>';
+    }
 } else if ($action === 'updateTags' && $id !== null) {
     $selectedTags = $_POST['tags'] ?? [];
     $gamecontroller->updateTags($id, $selectedTags);

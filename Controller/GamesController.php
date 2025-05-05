@@ -21,7 +21,7 @@ class GamesController
     }
 
     // Display the product list with form-based filtering and sorting
-    
+
 
     public function userindex()
     {
@@ -117,7 +117,7 @@ class GamesController
         }
     }
 
-   
+
 
     public function editGame($id)
     {
@@ -126,7 +126,7 @@ class GamesController
         $devmodel = new DevelopersModel();
         $genremodel = new GenresModel();
         $platformmodel = new PlatformsModel();
-        $allTags = $tagmodel->getAllTags(); 
+        $allTags = $tagmodel->getAllTags();
         $allDev = $devmodel->getAllDev();
         $allGenre = $genremodel->getAllGenre();
         $allPlatform = $platformmodel->getAllPlatform();
@@ -156,45 +156,116 @@ class GamesController
                 return ["by" => "released", "order" => "DESC"]; // Default sort option
         }
     }
-   
-    public function updateGenres($gameId, $selectedGenres) {
-        
+
+    public function updateGenres($gameId, $selectedGenres)
+    {
+
         $this->model->updateGenres($gameId, $selectedGenres);
         // Redirect to the edit page or any page you want after saving
-        
-        
+
+
         header("Location: index.php?page=editGame&id=" . $gameId);
         exit;
     }
-    public function updateTags($gameId, $selectedTags) {
-        
+    public function updateTags($gameId, $selectedTags)
+    {
+
         $this->model->updateTags($gameId, $selectedTags);
         // Redirect to the edit page or any page you want after saving
-        
-        
+
+
         header("Location: index.php?page=editGame&id=" . $gameId);
         exit;
     }
 
-    public function updatePlatforms($gameId, $selectedPlatforms) {
-        
+    public function updatePlatforms($gameId, $selectedPlatforms)
+    {
+
         $this->model->updatePlatforms($gameId, $selectedPlatforms);
         // Redirect to the edit page or any page you want after saving
-        
-        
+
+
         header("Location: index.php?page=editGame&id=" . $gameId);
         exit;
     }
 
-    public function updateDevelopers($gameId, $selectedDevelopers) {
-        
+    public function updateDevelopers($gameId, $selectedDevelopers)
+    {
+
         $this->model->updateDevelopers($gameId, $selectedDevelopers);
         // Redirect to the edit page or any page you want after saving
-        
+
         header("Location: index.php?page=editGame&id=" . $gameId);
         exit;
     }
-    
+    public function deleteScreenshot($imgPath)
+    {
+        if ($imgPath) {
+            $fullPath = __DIR__ . '../View/data/' . $imgPath;
+            // Remove from DB
+            $this->model->deleteScreenshotByPath($imgPath);
+
+            // Remove file
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'No path']);
+        }
+
+    }
+
+    public function saveEditedGame($data)
+    {
+        $id = $data['id'];
+        $name = $data['name'];
+        $released = $data['released'];
+        $price = $data['price'];
+        $rating = $data['rating'];
+        $meta = $data['meta'];
+        $description = $data['description'];
+
+        $success = $this->model->updateGame($id, $name, $released, $price, $rating, $meta, $description);
+
+        echo json_encode(['success' => $success]);
+    }
+
+    public function uploadScreenshot($post, $files)
+    {
+        $gameId = $post['game_id'] ?? null;
+
+        if (!$gameId || !isset($files['screenshot'])) {
+            echo json_encode(['success' => false, 'message' => 'Missing game ID or file.']);
+            return;
+        }
+
+        $file = $files['screenshot'];
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            echo json_encode(['success' => false, 'message' => 'File upload error.']);
+            return;
+        }
+
+        $uploadDir = __DIR__ . '/../View/data/img/screenshots/';
+        $filename = uniqid() . '_' . basename($file['name']);
+        $targetPath = $uploadDir . $filename;
+        $relativePath = 'img/screenshots/' . $filename; // for DB (img_path)
+
+        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+            echo json_encode(['success' => false, 'message' => 'Failed to move uploaded file.']);
+            return;
+        }
+
+        // Insert to DB
+        if ($this->model->addScreenshot($gameId, $relativePath)) {
+            echo json_encode(['success' => true, 'img_path' => $relativePath]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'DB insert failed.']);
+        }
+    }
+
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
