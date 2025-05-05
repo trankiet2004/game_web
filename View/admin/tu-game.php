@@ -129,12 +129,10 @@ if ($role !== 'admin') {
             text-align: center;
             /* 10% width for the sixth column (Actions) */
         }
-        }
     </style>
 
     <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             let file = "./admin_component/sidebar.html";
             let id = "sidebar";
             fetch(file).then(response => response.text())
@@ -202,7 +200,7 @@ if ($role !== 'admin') {
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5>Danh Sách Games</h5>
-                            <a id="deleteSelected" class="btn btn-danger disabled">Xoá Các Game Đã Chọn</a>
+                            <a id="add-games" class="btn btn-danger " href="../../index.php?page=addGame">Thêm game mới</a>
                         </div>
 
                         <div class="card-body">
@@ -247,7 +245,7 @@ if ($role !== 'admin') {
                                     <tbody id="games-table-body">
                                         <?php if (!empty($game)): ?>
                                             <?php foreach ($game as $g): ?>
-                                                <tr>
+                                                <tr id="game-<?= $g['id']?>">
                                                     <td><input type="checkbox" class="selectRow" name="selected[]"
                                                             value="<?= $g['id'] ?>"></td>
                                                     <td><?= htmlspecialchars($g['name']) ?></td>
@@ -256,12 +254,11 @@ if ($role !== 'admin') {
                                                     <td><?= $g['rating'] ?></td>
                                                     <td><?= $g['metacritic'] ?></td>
                                                     <td>
-                                                    <a href="../../index.php?page=editGame&id=<?= $g['id'] ?>" class="btn btn-sm btn-danger" ">Xem chi tiết</a>
+                                                        <a href="../../index.php?page=editGame&id=<?= $g['id'] ?>" class="btn btn-sm btn-danger" ">Xem chi tiết</a>
                                 
 
-                                                        <a href="../../index.php?page=deleteGame&id=<?= $g['id'] ?>"
-                                                            class="btn btn-sm btn-danger"
-                                                            onclick="return confirm('Xác nhận xoá game này?')">Xoá</a>
+                                                        <a class="btn btn-sm btn-danger"
+                                                            onclick="deleteGame(<?= $g['id'] ?>)">Xoá</a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -285,13 +282,25 @@ if ($role !== 'admin') {
             </div>
         </div>
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-
         let currentPage = 1;
+
+        async function deleteGame(id) {
+            if (confirm("Are you sure you want to delete this game?")) {
+                const url = "../../index.php?action=deleteGame&id=" + id
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                })
+                const res = await response.json()
+                if (res.status === 'success') {
+                    document.querySelector(`#game-${id}`).remove()
+                }
+            }
+        }
 
         function fetchGames(page = 1) {
             const title = $("input[name='title']").val();
@@ -302,7 +311,7 @@ if ($role !== 'admin') {
                 title: title,
                 sort_by: sort_by,
                 page_num: page
-            }, function (res) {
+            }, function(res) {
                 if (res.status === "success") {
                     const games = res.data;
                     const totalPages = res.total_pages;
@@ -311,7 +320,7 @@ if ($role !== 'admin') {
                     let rowsHtml = "";
                     for (let game of games) {
                         rowsHtml += `
-                    <tr>
+                    <tr id="game-${game.id}">
                         <td><input type="checkbox" class="selectRow" value="${game.id}"></td>
                         <td>${game.name}</td>
                         <td>${game.released}</td>
@@ -320,7 +329,7 @@ if ($role !== 'admin') {
                         <td>${game.metacritic}</td>
                         <td>
                              <a href="../../index.php?page=editGame&id=${game.id}" class="btn btn-sm btn-primary" ">Xem chi tiết</a>
-                            <a href="../../index.php?page=deleteGame&id=${game.id}" class="btn btn-sm btn-danger" onclick="return confirm('Xác nhận xoá game này?')">Xoá</a>
+                            <a class="btn btn-sm btn-danger" onclick="deleteGame(${game.id})">Xoá</a>
                         </td>
                     </tr>`;
                     }
@@ -340,22 +349,14 @@ if ($role !== 'admin') {
         }
 
         // Load first page on page load
-        $(document).ready(function () {
-            fetchGames(1);  // Trigger the first page load
+        $(document).ready(function() {
+            fetchGames(1); // Trigger the first page load
         });
 
         // Handle filter form submit
-        $("#filter-form").on("submit", function (e) {
-            e.preventDefault();  // Prevent the form from submitting normally
-            fetchGames(1);  // Reset to page 1 and fetch the filtered games
+        $("#filter-form").on("submit", function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+            fetchGames(1); // Reset to page 1 and fetch the filtered games
         });
-    
-            
-        
-    
-
-
-
-
     </script>
 </body>

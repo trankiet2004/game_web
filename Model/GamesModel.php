@@ -485,18 +485,110 @@ class GamesModel
 
         return $result;
     }
-    public function updateGame($id, $name, $released, $price, $rating, $meta, $description) {
+    public function updateGame($id, $name, $released, $price, $rating, $meta, $description)
+    {
         $sql = "UPDATE games SET name = ?, released = ?, price = ?, rating = ?, metacritic = ?, description = ? WHERE id = ?";
         $stmt = $this->connect->prepare($sql);
         return $stmt->execute([$name, $released, $price, $rating, $meta, $description, $id]);
     }
-    
-    public function addScreenshot($gameId, $imgPath) {
+
+    public function addScreenshot($gameId, $imgPath)
+    {
         $stmt = $this->connect->prepare("INSERT INTO game_screenshots (game_id, img_path) VALUES (?, ?)");
         return $stmt->execute([$gameId, $imgPath]);
     }
-    
 
+
+    public function getNextGameId()
+    {
+        $result = $this->connect->query("SELECT MAX(id) AS max_id FROM games");
+        $row = $result->fetch_assoc();
+        return $row['max_id'] + 1;
+    }
+    private function uploadImage($inputName, $gameId)
+    {
+        if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] === UPLOAD_ERR_OK) {
+            $targetDir = "data/img/games/";
+            $filePath = $targetDir . "game{$gameId}.jpg";
+            move_uploaded_file($_FILES[$inputName]['tmp_name'], $filePath);
+            return $filePath;
+        }
+        return "";
+    }
+
+    public function addGame($id, $name, $released, $description, $background_image, $website, $updated, $price, $metacritic)
+    {
+        $stmt = $this->connect->prepare(
+            "INSERT INTO games (id, name, slug, released, rating, description, background_image, website, updated, rating_sum, price, metacritic) 
+             VALUES (?, ?, '', ?, 0, ?, ?, ?, ?, 0, ?, ?)"
+        );
+
+        // Corrected to 9 types for 9 variables
+        $stmt->bind_param(
+            'issssssii',
+            $id,
+            $name,
+            $released,
+            $description,
+            $background_image,
+            $website,
+            $updated,
+            $price,
+            $metacritic
+        );
+
+        if ($stmt->execute()) {
+            return $id; // Since you manually insert the ID
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "Failed to insert game: " . $stmt->error]);
+            exit;
+        }
+    }
+
+
+    public function insertGameRelations($gameId, $genres, $tags, $platforms, $developers)
+    {
+        // Insert genres
+        foreach ($genres as $genreId) {
+            $this->insertGameRelationgeneral('game_genre', "genre_id", $gameId, $genreId);
+        }
+
+        // Insert tags
+        foreach ($tags as $tagId) {
+            $this->insertGameRelationgeneral('game_tag', "tag_id", $gameId, $tagId);
+        }
+
+        // Insert platforms
+        foreach ($platforms as $platformId) {
+            $this->insertGameRelationgeneral('game_platform', "platform_id", $gameId, $platformId);
+        }
+
+        // Insert developers
+        foreach ($developers as $developerId) {
+            $this->insertGameRelationgeneral('game_developer', "developer_id", $gameId, $developerId);
+        }
+    }
+
+    public function delete($gameId) {
+        try {
+            $stmt = $this->connect->prepare("DELETE FROM games WHERE id = ?");
+            $stmt->bind_param('i', $gameId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return ['status'=>'success', 'result'=> $result];
+        } catch (Exception $e) {
+            return ['status'=> 'fail', 'msg'=>$e->getMessage()];
+        }
+    }
+    private function insertGameRelationgeneral($table, $relatedCol, $gameId, $relatedId)
+    {
+        $stmt = $this->connect->prepare("INSERT INTO $table (game_id, $relatedCol) VALUES (?, ?)");
+        $stmt->bind_param('ii', $gameId, $relatedId);
+
+        if (!$stmt->execute()) {
+            echo json_encode(["error" => "Failed to insert relation: " . $stmt->error]);
+            exit;
+        }
+    }
 }
-
-

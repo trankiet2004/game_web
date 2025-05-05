@@ -2477,22 +2477,22 @@ ALTER TABLE `gameratings`
 -- Constraints for table `game_developer`
 --
 ALTER TABLE `game_developer`
-  ADD CONSTRAINT `game_developer_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
-  ADD CONSTRAINT `game_developer_ibfk_2` FOREIGN KEY (`developer_id`) REFERENCES `developers` (`id`);
+  ADD CONSTRAINT `game_developer_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `game_developer_ibfk_2` FOREIGN KEY (`developer_id`) REFERENCES `developers` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `game_genre`
 --
 ALTER TABLE `game_genre`
-  ADD CONSTRAINT `game_genre_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
-  ADD CONSTRAINT `game_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`);
+  ADD CONSTRAINT `game_genre_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `game_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `game_platform`
 --
 ALTER TABLE `game_platform`
-  ADD CONSTRAINT `game_platform_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
-  ADD CONSTRAINT `game_platform_ibfk_2` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`id`);
+  ADD CONSTRAINT `game_platform_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `game_platform_ibfk_2` FOREIGN KEY (`platform_id`) REFERENCES `platforms` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `game_screenshots`
@@ -2504,8 +2504,8 @@ ALTER TABLE `game_screenshots`
 -- Constraints for table `game_tag`
 --
 ALTER TABLE `game_tag`
-  ADD CONSTRAINT `game_tag_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
-  ADD CONSTRAINT `game_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`);
+  ADD CONSTRAINT `game_tag_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `games` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `game_tag_ibfk_2` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

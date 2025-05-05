@@ -42,6 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 } else if ($action === 'updateTags' && $id !== null) {
     $selectedTags = $_POST['tags'] ?? [];
     $gamecontroller->updateTags($id, $selectedTags);
+} else if ($action === 'addNewGame') {
+    $gamecontroller->addNewGame($_POST);
+} else if ($action === 'deleteGame') {
+    $gamecontroller->deleteGame($_GET['id']);
 } else if ($action === 'updateDevelopers' && $id !== null) {
     $selectedDevelopers = $_POST['developers'] ?? [];
     $gamecontroller->updateDevelopers($id, $selectedDevelopers);
@@ -81,6 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $devcontroller->index();
 } else if ($page == 'tu_game') {
     $gamecontroller->adminindex();
+} else if ($page == 'addGame') {
+    $gamecontroller->addGame();
 } else if ($page == 'editGame' && $id !== null) {
     $gamecontroller->editgame($id);
 } else if ($page == 'contact_us') {

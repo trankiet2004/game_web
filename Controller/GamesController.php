@@ -214,7 +214,6 @@ class GamesController
         } else {
             echo json_encode(['success' => false, 'message' => 'No path']);
         }
-
     }
 
     public function saveEditedGame($data)
@@ -248,7 +247,9 @@ class GamesController
         }
 
         $uploadDir = __DIR__ . '/../View/data/img/screenshots/';
-        $filename = uniqid() . '_' . basename($file['name']);
+        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+        $uniqueNumber = uniqid();
+        $filename = "{$gameId}_screenshot_{$uniqueNumber}.{$extension}";
         $targetPath = $uploadDir . $filename;
         $relativePath = 'img/screenshots/' . $filename; // for DB (img_path)
 
@@ -264,8 +265,76 @@ class GamesController
             echo json_encode(['success' => false, 'message' => 'DB insert failed.']);
         }
     }
+    public function addGame()
+    {
+        $tagmodel = new TagsModel();
+        $devmodel = new DevelopersModel();
+        $genremodel = new GenresModel();
+        $platformmodel = new PlatformsModel();
+        $allTags = $tagmodel->getAllTags();
+        $allDev = $devmodel->getAllDev();
+        $allGenre = $genremodel->getAllGenre();
+        $allPlatform = $platformmodel->getAllPlatform();
+        require __DIR__ . "/../View/admin/tu_add_game.php"; // Make sure you have this view
+
+    }
+    private function uploadImage($inputName)
+    {
+        $uploadDir =  __DIR__ . '/../View/data/img/games/';
+        $fileName = '';
+
+        if (isset($_FILES[$inputName]) && $_FILES[$inputName]['error'] == 0) {
+            $fileTmpPath = $_FILES[$inputName]['tmp_name'];
+            $fileName =  'game' . time() . '.jpg'; // Format the file name as game{id}.jpg
+
+            // Move the file to the desired directory
+            if (move_uploaded_file($fileTmpPath, $uploadDir . $fileName)) {
+                return "img/games/" . $fileName;
+            }
+        }
+
+        // Return default if no file is uploaded
+        return '';
+    }
 
 
+    public function addNewGame($post)
+    {
+        // Get the next game ID for image naming
+        $nextGameId = $this->model->getNextGameId();
+
+        // Upload image with game ID in filename
+        $background_image = $this->uploadImage('background_image', $nextGameId);
+
+        // Collect POST data
+        $name = $_POST['name'] ?? '';
+        $released = $_POST['released'] ?? '';
+        $description = $_POST['description'] ?? '';
+        $website = $_POST['website'] ?? '';
+        $updated = $_POST['updated'] ?? '';
+        $price = $_POST['price'] ?? 0;
+        $metacritic = $_POST['metacritic'] ?? 0;
+
+        $genres = $_POST['genres'] ?? [];
+        $tags = $_POST['tags'] ?? [];
+        $platforms = $_POST['platforms'] ?? [];
+        $developers = $_POST['developers'] ?? [];
+
+        // Insert game using the known ID and background image
+        $gameId = $this->model->addGame($nextGameId, $name, $released, $description, $background_image, $website, $updated, $price, $metacritic);
+
+        // Insert into relation tables
+        $this->model->insertGameRelations($gameId, $genres, $tags, $platforms, $developers);
+
+        header("Location: index.php?page=tu_game");
+        exit;
+    }
+    public function deleteGame($id) {
+        $res = $this->model->delete($id);
+        header("ContentType: application/json");
+        echo json_encode($res);
+        exit;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {
