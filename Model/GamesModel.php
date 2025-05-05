@@ -146,18 +146,19 @@ class GamesModel
         return $row ? (int) $row['total'] : 0;
     }
 
-    public function get_game_by_id($id) {
+    public function get_game_by_id($id)
+    {
         // Get game
         $stmt = $this->connect->prepare("SELECT * FROM games WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
         $game = $result->fetch_assoc();
-    
+
         if (!$game) {
             return null;
         }
-    
+
         // Get tags
         $stmt = $this->connect->prepare("
             SELECT t.* FROM tags t
@@ -168,7 +169,7 @@ class GamesModel
         $stmt->execute();
         $tags = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['tags'] = $tags;
-    
+
         // Get genres
         $stmt = $this->connect->prepare("
             SELECT g.* FROM genres g
@@ -179,7 +180,7 @@ class GamesModel
         $stmt->execute();
         $genres = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['genres'] = $genres;
-    
+
         // Get platforms
         $stmt = $this->connect->prepare("
             SELECT p.* FROM platforms p
@@ -190,7 +191,7 @@ class GamesModel
         $stmt->execute();
         $platforms = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['platforms'] = $platforms;
-    
+
         // Get screenshots
         $stmt = $this->connect->prepare("
             SELECT * FROM game_screenshots WHERE game_id = ?
@@ -199,7 +200,7 @@ class GamesModel
         $stmt->execute();
         $screenshots = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['screenshots'] = $screenshots;
-    
+
         // Get developers
         $stmt = $this->connect->prepare("
             SELECT d.* FROM developers d
@@ -210,7 +211,7 @@ class GamesModel
         $stmt->execute();
         $developers = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['developers'] = $developers;
-    
+
         // Get gameratings
         $stmt = $this->connect->prepare("
             SELECT * FROM gameratings WHERE game_id = ?
@@ -219,10 +220,120 @@ class GamesModel
         $stmt->execute();
         $ratings = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $game['ratings'] = $ratings;
-    
+
         return $game;
     }
-    
+
+    public function getGameWithTags($gameId)
+    {
+        try {
+            // Get game information
+            $stmt = $this->connect->prepare("SELECT * FROM games WHERE id = ?");
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $game = $result->fetch_assoc();
+            $stmt->close();
+
+            if (!$game) {
+                return null; // Or return a custom error response
+            }
+
+            // Get tags
+            $stmt = $this->connect->prepare("
+            SELECT t.* FROM tags t
+            JOIN game_tag gt ON t.id = gt.tag_id
+            WHERE gt.game_id = ?
+        ");
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $tags = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+
+            $game['tags'] = $tags;
+
+            return $game;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["error" => "An error occurred: " . $e->getMessage()]);
+            return null;
+        }
+    }
+
+    // Delete tags associated with a game
+    public function deleteGameTags($gameId)
+    {
+        try {
+            // Prepare the delete query
+            $query = "DELETE FROM game_tag WHERE game_id = ?";
+            $stmt = $this->connect->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Failed to prepare statement: " . $this->connect->error);
+            }
+
+            // Bind the parameters and execute the query
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+
+            // Check if the delete was successful
+            if ($stmt->affected_rows > 0) {
+                echo json_encode(["success" => true, "message" => "Tags deleted successfully."]);
+            } else {
+                echo json_encode(["success" => false, "message" => "No tags found for the game."]);
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["error" => "An error occurred: " . $e->getMessage()]);
+        }
+    }
+
+    // Add a tag to a game
+    public function addGameTag($gameId, $tagName)
+    {
+        try {
+            // First, check if the tag already exists for this game
+            $checkQuery = "SELECT * FROM game_tag WHERE game_id = ? AND tag_name = ?";
+            $checkStmt = $this->connect->prepare($checkQuery);
+            if (!$checkStmt) {
+                throw new Exception("Failed to prepare check statement: " . $this->connect->error);
+            }
+
+            $checkStmt->bind_param("is", $gameId, $tagName);
+            $checkStmt->execute();
+            $checkResult = $checkStmt->get_result();
+
+            if ($checkResult->num_rows > 0) {
+                echo json_encode(["success" => false, "message" => "Tag already added to the game."]);
+                $checkStmt->close();
+                return;
+            }
+
+            // Insert the new tag into the game_tag table
+            $query = "INSERT INTO game_tag (game_id, tag_name) VALUES (?, ?)";
+            $stmt = $this->connect->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Failed to prepare insert statement: " . $this->connect->error);
+            }
+
+            $stmt->bind_param("is", $gameId, $tagName);
+            $stmt->execute();
+
+            // Check if the insert was successful
+            if ($stmt->affected_rows > 0) {
+                echo json_encode(["success" => true, "message" => "Tag added successfully."]);
+            } else {
+                echo json_encode(["success" => false, "message" => "Failed to add tag."]);
+            }
+
+            $stmt->close();
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(["error" => "An error occurred: " . $e->getMessage()]);
+        }
+    }
+
 }
 
 

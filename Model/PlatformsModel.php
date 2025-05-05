@@ -107,6 +107,27 @@ class PlatformsModel
         return $row ? (int) $row['total'] : 0;
     }
 
+    public function getAllPlatform()
+    {
+        // Assuming $this->connect is your MySQLi connection object
+        $query = "SELECT * FROM platforms";
+
+        // Execute the query
+        $result = $this->connect->query($query);
+
+        // Check if the query was successful
+        if ($result) {
+            $platforms = [];
+            // Fetch all rows as associative array
+            while ($row = $result->fetch_assoc()) {
+                $platforms[] = $row; // Add each row to the $tags array
+            }
+            return $platforms; // Return the array of tags
+        } else {
+            // Return an empty array if no result or error occurs
+            return [];
+        }
+    }
     public function get_platforms($sort, $filter, $limit, $offset)
     {
         $params = [];

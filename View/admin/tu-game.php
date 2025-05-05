@@ -29,6 +29,8 @@ if ($role !== 'admin') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         body {
@@ -82,47 +84,51 @@ if ($role !== 'admin') {
             width: 100%;
             /* Ensure table takes up the full width */
         }
+
         .table th:nth-child(1),
         .table td:nth-child(1) {
-                width: 5%;
-                /* 10% width for the first column (checkbox) */
-            }
+            width: 5%;
+            /* 10% width for the first column (checkbox) */
+        }
 
-            .table th:nth-child(2),
-            .table td:nth-child(2) {
-                width: 30%;
-                /* 30% width for the second column (Game Name) */
-            }
+        .table th:nth-child(2),
+        .table td:nth-child(2) {
+            width: 30%;
+            /* 30% width for the second column (Game Name) */
+        }
 
-            .table th:nth-child(3),
-            .table td:nth-child(3) {
-                width: 15%;
-                text-align: center;
-                /* 20% width for the third column (Release Date) */
-            }
+        .table th:nth-child(3),
+        .table td:nth-child(3) {
+            width: 15%;
+            text-align: center;
+            /* 20% width for the third column (Release Date) */
+        }
 
-            .table th:nth-child(4),
-            .table td:nth-child(4) {
-                width: 5%;
-                /* 15% width for the fourth column (Price) */
-            }
+        .table th:nth-child(4),
+        .table td:nth-child(4) {
+            width: 5%;
+            /* 15% width for the fourth column (Price) */
+        }
 
-            .table th:nth-child(5),
-            .table td:nth-child(5) {
-                width: 10%;
-                /* 15% width for the fifth column (Rating) */
-            }
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            width: 10%;
+            text-align: center;
+            /* 15% width for the fifth column (Rating) */
+        }
 
-            .table th:nth-child(6),
-            .table td:nth-child(6) {
-                width: 10%;
-                /* 10% width for the sixth column (Actions) */
-            }
-            .table th:nth-child(7),
-            .table td:nth-child(7) {
-                width: 10%;
-                /* 10% width for the sixth column (Actions) */
-            }
+        .table th:nth-child(6),
+        .table td:nth-child(6) {
+            width: 5%;
+            /* 10% width for the sixth column (Actions) */
+        }
+
+        .table th:nth-child(7),
+        .table td:nth-child(7) {
+            width: 15%;
+            text-align: center;
+            /* 10% width for the sixth column (Actions) */
+        }
         }
     </style>
 
@@ -250,8 +256,9 @@ if ($role !== 'admin') {
                                                     <td><?= $g['rating'] ?></td>
                                                     <td><?= $g['metacritic'] ?></td>
                                                     <td>
-                                                        <a href="../../index.php?page=editGame&id=<?= $g['id'] ?>"
-                                                            class="btn btn-sm btn-primary">Sửa</a>
+                                                    <a href="../../index.php?page=editGame&id=<?= $g['id'] ?>" class="btn btn-sm btn-danger" ">Xem chi tiết</a>
+                                
+
                                                         <a href="../../index.php?page=deleteGame&id=<?= $g['id'] ?>"
                                                             class="btn btn-sm btn-danger"
                                                             onclick="return confirm('Xác nhận xoá game này?')">Xoá</a>
@@ -278,6 +285,8 @@ if ($role !== 'admin') {
             </div>
         </div>
     </div>
+    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -310,7 +319,7 @@ if ($role !== 'admin') {
                         <td>${game.rating}</td>
                         <td>${game.metacritic}</td>
                         <td>
-                            <a href="../../index.php?page=editGame&id=${game.id}" class="btn btn-sm btn-primary">Sửa</a>
+                             <a href="../../index.php?page=editGame&id=${game.id}" class="btn btn-sm btn-primary" ">Xem chi tiết</a>
                             <a href="../../index.php?page=deleteGame&id=${game.id}" class="btn btn-sm btn-danger" onclick="return confirm('Xác nhận xoá game này?')">Xoá</a>
                         </td>
                     </tr>`;
@@ -340,6 +349,12 @@ if ($role !== 'admin') {
             e.preventDefault();  // Prevent the form from submitting normally
             fetchGames(1);  // Reset to page 1 and fetch the filtered games
         });
+    
+            
+        
+    
+
+
 
 
     </script>

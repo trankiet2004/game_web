@@ -76,6 +76,27 @@ class DevelopersModel {
                 break;
         }
     }
+    public function getAllDev()
+    {
+        // Assuming $this->connect is your MySQLi connection object
+        $query = "SELECT * FROM developers";
+
+        // Execute the query
+        $result = $this->connect->query($query);
+
+        // Check if the query was successful
+        if ($result) {
+            $developers = [];
+            // Fetch all rows as associative array
+            while ($row = $result->fetch_assoc()) {
+                $developers[] = $row; // Add each row to the $tags array
+            }
+            return $developers; // Return the array of tags
+        } else {
+            // Return an empty array if no result or error occurs
+            return [];
+        }
+    }
 
     public function get_total_count($filter)
     {

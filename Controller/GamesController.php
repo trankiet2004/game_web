@@ -1,6 +1,9 @@
 <?php
 require_once(__DIR__ . '/../Model/GamesModel.php');
-
+require_once(__DIR__ . '/../Model/TagsModel.php');
+require_once(__DIR__ . '/../Model/PlatformsModel.php');
+require_once(__DIR__ . '/../Model/GenresModel.php');
+require_once(__DIR__ . '/../Model/DeveloperModel.php');
 // $URIPart = explode("/", $_SERVER["REQUEST_URI"]);
 // $fetch = new GamesModel();
 // $id = substr($URIPart[count($URIPart) - 1], strlen($URIPart[count($URIPart) - 1]) - 3) === "php" ? null : $URIPart[count($URIPart) - 1];
@@ -18,7 +21,7 @@ class GamesController
     }
 
     // Display the product list with form-based filtering and sorting
-
+    
 
     public function userindex()
     {
@@ -70,7 +73,7 @@ class GamesController
         require __DIR__ . "/../View/admin/tu-game.php";
     }
 
-    
+
 
     // Handle the AJAX request for loading more products
     public function load_products()
@@ -114,8 +117,25 @@ class GamesController
         }
     }
 
+   
 
-
+    public function editGame($id)
+    {
+        $game = $this->model->get_game_by_id($id);
+        $tagmodel = new TagsModel();
+        $devmodel = new DevelopersModel();
+        $genremodel = new GenresModel();
+        $platformmodel = new PlatformsModel();
+        $allTags = $tagmodel->getAllTags(); 
+        $allDev = $devmodel->getAllDev();
+        $allGenre = $genremodel->getAllGenre();
+        $allPlatform = $platformmodel->getAllPlatform();
+        if ($game) {
+            require __DIR__ . "/../View/admin/tu_edit_game.php"; // Make sure you have this view
+        } else {
+            echo "Game not found";
+        }
+    }
     // Map the sort option to database columns and order
     private function mapSortOption($sort_option)
     {
@@ -136,6 +156,8 @@ class GamesController
                 return ["by" => "released", "order" => "DESC"]; // Default sort option
         }
     }
+   
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'load_products') {

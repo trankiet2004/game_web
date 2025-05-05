@@ -1,27 +1,30 @@
 <?php
 require_once('DBConnect.php');
 
-class TagsModel {
+class TagsModel
+{
     private $connect;
 
-    public function __construct() {
+    public function __construct()
+    {
         global $connect;
         $this->connect = $connect;
     }
 
-    public function GET($table, $id, $idColumn) {
+    public function GET($table, $id, $idColumn)
+    {
         header("Content-type: application/json");
 
         try {
             $SQL = $id === null ? "SELECT * FROM $table" : "SELECT * FROM $table WHERE $idColumn = $id";
             $query = $this->connect->query($SQL);
 
-            if(!$query) {
+            if (!$query) {
                 throw new Exception("Query execution failed: " . $this->connect->error);
             }
 
             $jsonResponse = [];
-            while($row = $query->fetch_assoc()) {
+            while ($row = $query->fetch_assoc()) {
                 $jsonResponse[] = $row;
             }
 
@@ -40,14 +43,15 @@ class TagsModel {
         }
     }
 
-    public function POST($table, $json) {
-        if($table === "faqs") {
+    public function POST($table, $json)
+    {
+        if ($table === "faqs") {
             $question = $json[0];
             $answer = $json[1];
             $posted_by = $json[2];
             $stmt = $this->connect->prepare("INSERT INTO faqs (question, answer, posted_by) VALUES (?, ?, ?)");
-            
-            if($stmt === false) {
+
+            if ($stmt === false) {
                 http_response_code(500);
                 echo json_encode(["success" => false, "message" => "Prepare statement thất bại: " . $this->connect->error]);
                 exit;
@@ -65,7 +69,8 @@ class TagsModel {
         }
     }
 
-    public function fetch($method, $table, $id, $idColumn = "id", $json = NULL) {
+    public function fetch($method, $table, $id, $idColumn = "id", $json = NULL)
+    {
         switch ($method) {
             case "GET":
                 $this->GET($table, $id, $idColumn);
@@ -169,6 +174,29 @@ class TagsModel {
         echo json_encode(["error" => "Database error: " . $this->connect->error]);
         return null;
     }
+
+    public function getAllTags()
+    {
+        // Assuming $this->connect is your MySQLi connection object
+        $query = "SELECT * FROM tags";
+
+        // Execute the query
+        $result = $this->connect->query($query);
+
+        // Check if the query was successful
+        if ($result) {
+            $tags = [];
+            // Fetch all rows as associative array
+            while ($row = $result->fetch_assoc()) {
+                $tags[] = $row; // Add each row to the $tags array
+            }
+            return $tags; // Return the array of tags
+        } else {
+            // Return an empty array if no result or error occurs
+            return [];
+        }
+    }
+
 
 
     public function get_games_by_tag($tag_id, $limit, $offset)
