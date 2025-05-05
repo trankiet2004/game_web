@@ -212,7 +212,7 @@ if ($role !== 'admin') {
                                         <div class="position-absolute top-0 start-0 w-100 h-100"
                                             style="background: url('../data/<?= htmlspecialchars($game['background_image']) ?>') center/cover no-repeat; opacity: 0.2; z-index: 0;">
                                         </div>
-
+    
                                         <div style="position: relative; z-index: 1;">
                                             <h3><span id="game-name"><?= htmlspecialchars($game['name']) ?></span></h3>
                                             <p><strong>Ngày phát hành:</strong>
@@ -231,9 +231,9 @@ if ($role !== 'admin') {
                                         </div>
                                     </div>
                                 <?php endif; ?>
-
+    
                                 <hr>
-
+    
                                 <p><strong>Thể loại:</strong>
                                     <span id="genre-list">
                                         <?php foreach ($game['genres'] as $genre): ?>
@@ -242,10 +242,10 @@ if ($role !== 'admin') {
                                         <span type="button" id="genre-edit" class="badge bg-primary"
                                             style="cursor:pointer;display:none;">Chỉnh sửa thể loại</span>
                                     </span>
-
+    
                                     <!-- Hidden genre form -->
-                                <form id="genre-form" action="index.php?action=updateGenres&id=<?= $game['id'] ?>"
-                                    method="post" style="display:none; margin-top: 10px;">
+                                <form id="genre-form" action="index.php?action=updateGenres&id=<?= $game['id'] ?>" method="post"
+                                    style="display:none; margin-top: 10px;">
                                     <?php foreach ($allGenre as $genre): ?>
                                         <?php $checked = in_array($genre['id'], array_column($game['genres'], 'id')) ? 'checked' : ''; ?>
                                         <label style="margin-right: 10px;">
@@ -258,8 +258,8 @@ if ($role !== 'admin') {
                                         loại</button>
                                 </form>
                                 </p>
-
-
+    
+    
                                 <!-- Chỉnh sửa phần Tags trong HTML -->
                                 <p><strong>Tags:</strong>
                                     <span id="tag-list">
@@ -269,7 +269,7 @@ if ($role !== 'admin') {
                                         <span type="button" id="tag-edit" class="badge bg-success"
                                             style="cursor:pointer;display:none;">Chỉnh sửa tags</span>
                                     </span>
-
+    
                                     <!-- Hidden tag form -->
                                 <form id="tag-form" action="index.php?action=updateTags&id=<?= $game['id'] ?>" method="post"
                                     style="display:none; margin-top: 10px;">
@@ -285,18 +285,17 @@ if ($role !== 'admin') {
                                         tags</button>
                                 </form>
                                 </p>
-
-
+    
+    
                                 <p><strong>Nền tảng:</strong>
                                     <span id="platform-list">
                                         <?php foreach ($game['platforms'] as $platform): ?>
-                                            <span
-                                                class="badge bg-info text-dark"><?= htmlspecialchars($platform['name']) ?></span>
+                                            <span class="badge bg-info text-dark"><?= htmlspecialchars($platform['name']) ?></span>
                                         <?php endforeach; ?>
                                         <span type="button" id="platform-edit" class="badge bg-info text-dark"
                                             style="cursor:pointer;display:none;">Chỉnh sửa nền tảng</span>
                                     </span>
-
+    
                                     <!-- Hidden platform form -->
                                 <form id="platform-form" action="index.php?action=updatePlatforms&id=<?= $game['id'] ?>"
                                     method="post" style="display:none; margin-top: 10px;">
@@ -312,31 +311,34 @@ if ($role !== 'admin') {
                                         tảng</button>
                                 </form>
                                 </p>
-
-
+    
+    
                                 <p><strong>Nhà phát triển:</strong>
-                                <span id="developer-list">
-                                <?php foreach ($game['developers'] as $dev): ?>
-                                <span class="badge bg-warning text-dark"><?= htmlspecialchars($dev['name']) ?></span>
-                                <?php endforeach; ?>
-                                <span type="button" id="developer-edit" class="badge bg-warning text-dark" style="cursor:pointer;display:none;">Chỉnh sửa nhà phát triển</span>
-                                 </span>
-
-                                    <!-- Hidden developer form -->
-                                    <form id="developer-form" action="index.php?action=updateDevelopers&id=<?= $game['id'] ?>" method="post" style="display:none; margin-top: 10px;">
-                                        <?php foreach ($allDev as $dev): ?>
-                                            <?php $checked = in_array($dev['id'], array_column($game['developers'], 'id')) ? 'checked' : ''; ?>
-                                            <label style="margin-right: 10px;">
-                                                <input type="checkbox" name="developers[]" value="<?= $dev['id'] ?>" <?= $checked ?>>
-                                                <?= htmlspecialchars($dev['name']) ?>
-                                            </label>
+                                    <span id="developer-list">
+                                        <?php foreach ($game['developers'] as $dev): ?>
+                                            <span class="badge bg-warning text-dark"><?= htmlspecialchars($dev['name']) ?></span>
                                         <?php endforeach; ?>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px;">Lưu nhà phát triển</button>
-                                    </form>
+                                        <span type="button" id="developer-edit" class="badge bg-warning text-dark"
+                                            style="cursor:pointer;display:none;">Chỉnh sửa nhà phát triển</span>
+                                    </span>
+    
+                                    <!-- Hidden developer form -->
+                                <form id="developer-form" action="index.php?action=updateDevelopers&id=<?= $game['id'] ?>"
+                                    method="post" style="display:none; margin-top: 10px;">
+                                    <?php foreach ($allDev as $dev): ?>
+                                        <?php $checked = in_array($dev['id'], array_column($game['developers'], 'id')) ? 'checked' : ''; ?>
+                                        <label style="margin-right: 10px;">
+                                            <input type="checkbox" name="developers[]" value="<?= $dev['id'] ?>" <?= $checked ?>>
+                                            <?= htmlspecialchars($dev['name']) ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary btn-sm" style="margin-top: 10px;">Lưu nhà phát
+                                        triển</button>
+                                </form>
                                 </p>
-
-
+    
+    
                                 <p><strong>Ảnh chụp màn hình:</strong></p>
                                 <div class="d-flex flex-wrap gap-2" id="game-screenshots">
                                     <?php foreach ($game['screenshots'] as $shot): ?>
@@ -344,7 +346,7 @@ if ($role !== 'admin') {
                                             alt="Screenshot" style="width: 150px; height: auto;">
                                     <?php endforeach; ?>
                                 </div>
-
+    
                                 <p class="mt-3"><strong>Đánh giá người dùng:</strong></p>
                                 <ul id="game-ratings">
                                     <?php foreach ($game['ratings'] as $rating): ?>
@@ -354,64 +356,64 @@ if ($role !== 'admin') {
                                         <li>Skip: <?= (int) $rating['skip'] ?></li>
                                     <?php endforeach; ?>
                                 </ul>
-
+    
                                 <button class="btn btn-warning mt-3" onclick="enableEditMode()">Chỉnh sửa</button>
                                 <button class="btn btn-success mt-3 d-none" id="saveButton">Lưu</button>
-
+    
                             <?php else: ?>
                                 <p class="text-danger">Không tìm thấy thông tin game.</p>
                             <?php endif; ?>
                         </div>
-
-
+    
+    
                     </div>
                     <div id="pagination-container" class="mt-3 text-center"></div>
                 </section>
             </div>
         </div>
     </div>
-
-
+    
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function enableEditMode() {
-    // Make fields editable
-    document.getElementById('game-name').contentEditable = true;
-    document.getElementById('game-released').contentEditable = true;
-    document.getElementById('game-price').contentEditable = true;
-    document.getElementById('game-rating').contentEditable = true;
-    document.getElementById('game-meta').contentEditable = true;
-    document.getElementById('game-description').contentEditable = true;
+            // Make fields editable
+            document.getElementById('game-name').contentEditable = true;
+            document.getElementById('game-released').contentEditable = true;
+            document.getElementById('game-price').contentEditable = true;
+            document.getElementById('game-rating').contentEditable = true;
+            document.getElementById('game-meta').contentEditable = true;
+            document.getElementById('game-description').contentEditable = true;
 
-    // Show "Chỉnh sửa" buttons for list fields
-    document.getElementById('genre-edit').style.display = 'inline';
-    document.getElementById('tag-edit').style.display = 'inline';
-    document.getElementById('platform-edit').style.display = 'inline';
-    document.getElementById('developer-edit').style.display = 'inline';
+            // Show "Chỉnh sửa" buttons for list fields
+            document.getElementById('genre-edit').style.display = 'inline';
+            document.getElementById('tag-edit').style.display = 'inline';
+            document.getElementById('platform-edit').style.display = 'inline';
+            document.getElementById('developer-edit').style.display = 'inline';
 
-    // Show Save button, hide Edit button
-    document.querySelector('button.btn-warning').classList.add('d-none'); // Edit button
-    document.getElementById('saveButton').classList.remove('d-none');     // Save button
-}
-        document.addEventListener('DOMContentLoaded', function () {
-    const setupToggle = (editBtnId, formId) => {
-        const editButton = document.getElementById(editBtnId);
-        const form = document.getElementById(formId);
-        if (editButton && form) {
-            editButton.addEventListener('click', function () {
-                form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
-            });
+            // Show Save button, hide Edit button
+            document.querySelector('button.btn-warning').classList.add('d-none'); // Edit button
+            document.getElementById('saveButton').classList.remove('d-none');     // Save button
         }
-    };
+        document.addEventListener('DOMContentLoaded', function () {
+            const setupToggle = (editBtnId, formId) => {
+                const editButton = document.getElementById(editBtnId);
+                const form = document.getElementById(formId);
+                if (editButton && form) {
+                    editButton.addEventListener('click', function () {
+                        form.style.display = (form.style.display === 'none' || form.style.display === '') ? 'block' : 'none';
+                    });
+                }
+            };
 
-    // Apply toggle setup for each section
-    setupToggle('genre-edit', 'genre-form');
-    setupToggle('tag-edit', 'tag-form');
-    setupToggle('platform-edit', 'platform-form');
-    setupToggle('developer-edit', 'developer-form');
-});
+            // Apply toggle setup for each section
+            setupToggle('genre-edit', 'genre-form');
+            setupToggle('tag-edit', 'tag-form');
+            setupToggle('platform-edit', 'platform-form');
+            setupToggle('developer-edit', 'developer-form');
+        });
 
-        </script>
+    </script>
         
 
     
