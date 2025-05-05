@@ -333,6 +333,128 @@ class GamesModel
             echo json_encode(["error" => "An error occurred: " . $e->getMessage()]);
         }
     }
+    public function updateGenres($gameId, $selectedGenres)
+    {
+        try {
+            // Delete existing genres for the game
+            $stmt = $this->connect->prepare("DELETE FROM game_genres WHERE game_id = ?");
+            if (!$stmt) {
+                throw new Exception("Error preparing delete statement: " . $this->connect->error);
+            }
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert the selected genres using INSERT IGNORE to prevent duplicates
+            foreach ($selectedGenres as $genreId) {
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_genres (game_id, genre_id) VALUES (?, ?)");
+                if (!$stmt) {
+                    throw new Exception("Error preparing insert statement: " . $this->connect->error);
+                }
+                $stmt->bind_param("ii", $gameId, $genreId);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+            return json_encode(["success" => true, "message" => "Genres updated successfully"]);
+        } catch (Exception $e) {
+            return json_encode(["error" => $e->getMessage()]);
+        }
+    }
+
+
+    // Update tags function
+    public function updateTags($gameId, $selectedTags)
+    {
+        try {
+            // Delete existing tags for the game
+            $stmt = $this->connect->prepare("DELETE FROM game_tags WHERE game_id = ?");
+            if (!$stmt) {
+                throw new Exception("Error preparing delete statement: " . $this->connect->error);
+            }
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert the selected tags with INSERT IGNORE
+            foreach ($selectedTags as $tagId) {
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_tags (game_id, tag_id) VALUES (?, ?)");
+                if (!$stmt) {
+                    throw new Exception("Error preparing insert statement: " . $this->connect->error);
+                }
+                $stmt->bind_param("ii", $gameId, $tagId);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+            return json_encode(["success" => true, "message" => "Tags updated successfully"]);
+        } catch (Exception $e) {
+            return json_encode(["error" => $e->getMessage()]);
+        }
+    }
+
+
+    // Update platforms function
+    public function updatePlatforms($gameId, $selectedPlatforms)
+    {
+        try {
+            // Delete existing platforms for the game
+            $stmt = $this->connect->prepare("DELETE FROM game_platforms WHERE game_id = ?");
+            if (!$stmt) {
+                throw new Exception("Error preparing delete statement: " . $this->connect->error);
+            }
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert the selected platforms with INSERT IGNORE
+            foreach ($selectedPlatforms as $platformId) {
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_platforms (game_id, platform_id) VALUES (?, ?)");
+                if (!$stmt) {
+                    throw new Exception("Error preparing insert statement: " . $this->connect->error);
+                }
+                $stmt->bind_param("ii", $gameId, $platformId);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+            return json_encode(["success" => true, "message" => "Platforms updated successfully"]);
+        } catch (Exception $e) {
+            return json_encode(["error" => $e->getMessage()]);
+        }
+    }
+
+
+    // Update developers function
+    public function updateDevelopers($gameId, $selectedDevelopers)
+    {
+        try {
+            // Delete existing developers for the game
+            $stmt = $this->connect->prepare("DELETE FROM game_developers WHERE game_id = ?");
+            if (!$stmt) {
+                throw new Exception("Error preparing delete statement: " . $this->connect->error);
+            }
+            $stmt->bind_param("i", $gameId);
+            $stmt->execute();
+            $stmt->close();
+
+            // Insert the selected developers with INSERT IGNORE
+            foreach ($selectedDevelopers as $developerId) {
+                $stmt = $this->connect->prepare("INSERT IGNORE INTO game_developers (game_id, developer_id) VALUES (?, ?)");
+                if (!$stmt) {
+                    throw new Exception("Error preparing insert statement: " . $this->connect->error);
+                }
+                $stmt->bind_param("ii", $gameId, $developerId);
+                $stmt->execute();
+                $stmt->close();
+            }
+
+            return json_encode(["success" => true, "message" => "Developers updated successfully"]);
+        } catch (Exception $e) {
+            return json_encode(["error" => $e->getMessage()]);
+        }
+    }
+
 
 }
 
