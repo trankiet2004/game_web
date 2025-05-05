@@ -131,6 +131,9 @@ if (!is_array($articles)) {
                     <div class="card">
                         <div class="card-header" style="display: flex; flex-flow: row wrap; justify-content: space-between;">
                             <h5 class="card-title">Quản Lý Các Bài Viết</h5>
+                            <a href="../../index.php?page=create_article" class="btn btn-success">
+                                <i class="fas fa-plus-circle"></i> Tạo bài viết mới
+                            </a>
                             <a id="deleteSelected" class="btn btn-danger disabled">
                                 Xóa Toàn Bộ Các Bài Viết Được Chọn
                             </a>

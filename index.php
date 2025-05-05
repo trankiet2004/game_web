@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 } else if($action === 'game' && $id !== null){
     $gamecontroller->get_game_by_id($id);
 } else if($action === 'game'){
-    $gamecontroller->userindex();
+    $gamecontroller->index();
 } else if($action === 'platform' && $id !== null){
     $platformcontroller->get_platform_by_id($id);
 } else if($action === 'platform'){
@@ -95,7 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/admin/user-management.php');
 } else if($page == 'create_article' ){
     include('./View/admin/user-management.php');
-} else {
+} else if($page == 'create_article' ){
+    include('./View/admin/user-management.php');
+}else {
     // Default to the index (product list)
     include('./View/thinh/index.php');
 }
