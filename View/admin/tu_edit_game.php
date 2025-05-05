@@ -30,8 +30,8 @@ if ($role !== 'admin') {
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="../../node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../../node_modules/sweetalert2/dist/sweetalert2.min.css">
 
     <style>
         body {
@@ -140,7 +140,7 @@ if ($role !== 'admin') {
             fetch(file).then(response => response.text())
                 .then(data => {
                     document.getElementById(id).innerHTML = data;
-                    $("li:has(i.bi.bi-globe)").addClass("active");
+                    $("li:has(i.fas.fa-gamepad)").addClass("active");
                     const toggler = document.getElementById("toggle-dark");
                     if (!toggler) return;
                     const theme = localStorage.getItem("theme");
@@ -210,7 +210,7 @@ if ($role !== 'admin') {
                                 <?php if (!empty($game['background_image'])): ?>
                                     <div class="position-relative mb-4" style="z-index: 1;">
                                         <div class="position-absolute top-0 start-0 w-100 h-100"
-                                            style="background: url('/game_web/View/data/<?= htmlspecialchars($game['background_image']) ?>') center/cover no-repeat; opacity: 0.2; z-index: 0;">
+                                            style="background: url('../data/<?= htmlspecialchars($game['background_image']) ?>') center/cover no-repeat; opacity: 0.2; z-index: 0;">
                                         </div>
 
                                         <div style="position: relative; z-index: 1;">
@@ -340,7 +340,7 @@ if ($role !== 'admin') {
                                 <p><strong>Ảnh chụp màn hình:</strong></p>
                                 <div class="d-flex flex-wrap gap-2" id="game-screenshots">
                                     <?php foreach ($game['screenshots'] as $shot): ?>
-                                        <img src="/game_web/View/data/<?= htmlspecialchars($shot['img_path']) ?>"
+                                        <img src="../data/<?= htmlspecialchars($shot['img_path']) ?>"
                                             alt="Screenshot" style="width: 150px; height: auto;">
                                     <?php endforeach; ?>
                                 </div>
