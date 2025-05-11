@@ -125,6 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     include('./View/admin/user-management.php');
 } else if ($page == 'create_article') {
     include('./View/admin/create_article.php');
+} else if ($page == 'edit_article') {
+    include('./View/admin/edit_article.php');
 } else {
     // Default to the index (product list)
     include('./View/thinh/index.php');

@@ -14,10 +14,13 @@ if ($role !== 'admin') {
     exit('Bạn không có quyền truy cập trang này.');
 }
 
-$basePath = dirname($_SERVER['SCRIPT_NAME']);
-$basePath = rtrim($basePath, '/');
-$apiUrl = 'http://' . $_SERVER['HTTP_HOST'] . $basePath . '/Controller/ArticlesController.php';
-echo $apiUrl;
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https' : 'http';
+$apiUrl = sprintf(
+    '%s://%s/Controller/ArticlesController.php',
+    $scheme,
+    $_SERVER['HTTP_HOST']
+);
+// echo $apiUrl;
 $jsonData = file_get_contents($apiUrl);
 $articles = json_decode($jsonData, true);
 
@@ -159,10 +162,10 @@ if (!is_array($articles)) {
                                                     </a>
                                                 </td>
                                                 <td>
-                                                    <a href="edit_article.php?id=<?php echo $article['id']; ?>" class="btn btn-primary">
+                                                    <a href="../../index.php?page=edit_article&&id=<?php echo $article['id']; ?>" class="btn btn-primary">
                                                         Chỉnh Sửa
                                                     </a>
-                                                    <a href="delete_article.php?id=<?php echo $article['id']; ?>" class="btn btn-danger">
+                                                    <a href="delete_article.php?id=<?php echo $article['id']; ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa bài viết này không?');">
                                                         Xóa Bài Viết
                                                     </a>
                                                 </td>
