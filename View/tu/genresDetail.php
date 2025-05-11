@@ -107,7 +107,7 @@
     <div class="genre-detail-container">
         <a class="back-link" href="../../index.php?action=genres">&larr; Back to Genre List</a>
 
-        <h1><?= htmlspecialchars($genres['name']) ?></h1>
+        <h1 style="text-align: center;"><?= htmlspecialchars($genres['name']) ?></h1>
         <img src="../../View/data/<?= htmlspecialchars($genres['background_image']) ?>" alt="<?= htmlspecialchars($genres['name']) ?>" class="genre-img">
         <p><strong>Game Count:</strong> <?= $genres['game_count'] ?></p>
         <p><strong>Description:</strong> <?= htmlspecialchars($genres['description']) ?></p>
@@ -132,42 +132,44 @@
     </div>
 
     <footer id="footer" class="cyber-footer py-5"></footer>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById("loadMoreBtn")?.addEventListener("click", function () {
+        document.getElementById("loadMoreBtn")?.addEventListener("click", function() {
             const button = this;
             const page = parseInt(button.dataset.page) + 1;
             const id = button.dataset.id;
 
             fetch("../../index.php?action=load_more_games_in_genres", {
-                method: "POST",
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `action=load_more_games&id=${id}&page=${page}`
-            })
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `action=load_more_games&id=${id}&page=${page}`
+                })
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === "success") {
                         const container = document.getElementById("game-list");
                         data.games.forEach(game => {
-                            const div = document.createElement("div");
-                            div.classList.add("game-card");
-                            div.innerHTML = `
-                                <img src="../../View/data/${game.background_image}" alt="${game.name}">
+                            const html = `
+                        <a href="../../index.php?action=game&id=${game.id}" class="game-card-link">
+                            <div class="game-card">
                                 <h3>${game.name}</h3>
+                                <img src="../../View/data/${game.background_image}" alt="${game.name}">
                                 <p>Released: ${game.released}</p>
-                                <p>Price: $${parseFloat(game.price).toFixed(2)}</p>
+                                <p>Price: ${game.price}</p>
                                 <p>Rating: ${game.rating}</p>
-                            `;
-                            container.appendChild(div);
+                            </div>
+                        </a>`;
+                            container.insertAdjacentHTML('beforeend', html);
                         });
-
                         button.dataset.page = page;
                         if (page * 12 >= data.total) button.remove();
                     }
                 });
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             fetch('../component/header.php')
                 .then(r => r.text())
                 .then(html => {

@@ -95,7 +95,7 @@ class GenresController
 
     public function load_more_games()
 {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'load_more_games_in_genres') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'load_more_games') {
         $id = (int) $_POST['id'];
         $page = (int) $_POST['page'];
         $limit = 5;

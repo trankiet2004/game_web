@@ -81,7 +81,8 @@
             padding-left: 1.5rem;
         }
 
-        #header, #footer {
+        #header,
+        #footer {
             margin-bottom: 20px;
         }
     </style>
@@ -129,7 +130,9 @@
 
             <p><strong>Developers:</strong>
                 <?php foreach ($game['developers'] as $index => $dev): ?>
-                    <?= htmlspecialchars($dev['name']) ?><?= $index < count($game['developers']) - 1 ? ', ' : '' ?>
+                    <a href="../../index.php?action=developer&id=<?= $dev['id'] ?>">
+                        <?= htmlspecialchars($dev['name']) ?>
+                    </a><?= $index < count($game['developers']) - 1 ? ', ' : '' ?>
                 <?php endforeach; ?>
             </p>
 
@@ -158,7 +161,7 @@
     <footer id="footer" class="cyber-footer py-5"></footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             fetch('../component/header.php')
                 .then(r => r.text())
                 .then(html => {
